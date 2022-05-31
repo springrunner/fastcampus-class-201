@@ -1,0 +1,23 @@
+site:
+  author-name: Honeymon
+  author-email: ihoneymon@gmail.com
+  
+---
+spring:
+  config:
+    activate:
+      on-profile: "site-local"
+      
+site:
+  author-name: Honeymon-local
+  author-email: ihoneymon.local@gmail.com
+  
+---
+spring:
+  config:
+    activate:
+      on-profile: "site-dev"
+      
+site:
+  author-name: Honeymon-dev
+  author-email: ihoneymon.dev@gmail.com
