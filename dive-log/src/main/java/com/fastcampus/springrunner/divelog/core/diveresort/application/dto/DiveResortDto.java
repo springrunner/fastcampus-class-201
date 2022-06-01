@@ -3,6 +3,7 @@ package com.fastcampus.springrunner.divelog.core.diveresort.application.dto;
 import java.time.LocalDateTime;
 
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResort;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 
@@ -14,7 +15,9 @@ public class DiveResortDto {
     private String ownerName;
     private String contactNumber;
     private String description;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdDateTime;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime lastModifiedDateTime;
 
     public static DiveResortDto ofEntity(DiveResort diveResort) {
