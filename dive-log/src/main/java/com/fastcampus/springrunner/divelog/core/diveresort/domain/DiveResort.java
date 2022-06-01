@@ -1,8 +1,12 @@
 package com.fastcampus.springrunner.divelog.core.diveresort.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.springframework.util.Assert;
 
@@ -14,48 +18,72 @@ public class DiveResort {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column 
-    private String name; // String type 컬럼의 크기를 별도로 설정하지 않는다면 varchar(255)로 설정된다.
-    @Column
-    private String location;
-    @Column
-    private String ownerName;
-    @Column
-    private String contactNumber;
-    
-//    @OneToMany(mappedBy = "diveResort", fetch = FetchType.LAZY)
-//    private List<DivePoint> divePoints = new ArrayList<>();
+    private String name; // 리조트
+    private String ownerName; // 리조트사장님이
+    private String contactNumber; // 리조트연락처
+    private String address; // 리조트 주소
+    private String description; // 리조트 설명
+    private LocalDateTime createdDateTime; // 생성일시
+    private LocalDateTime lastModifiedDateTime; // 최근변경일시
 
-    private LocalDateTime createdDateTime;
-    private LocalDateTime lastModifiedDateTime;
-
-    private static void validateInputSource(String name, String location, String ownerName, String contactNumber) {
-        Assert.hasText(name, "name 은 필수입력값입니다.");
-        Assert.hasText(location, "location 은 필수입력값입니다.");
-        Assert.hasText(ownerName, "ownerNumber 은 필수입력값입니다.");
-        Assert.hasText(contactNumber, "contactNUmber 은 필수입력값입니다.");
+    @Override
+    public int hashCode() {
+        return Objects.hash(contactNumber, id, name);
     }
 
-    public static DiveResort create(String name, String location, String ownerName, String contactNumber) {
-        validateInputSource(name, location, ownerName, contactNumber);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DiveResort other = (DiveResort) obj;
+        return Objects.equals(contactNumber, other.contactNumber) && Objects.equals(id, other.id)
+                && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public String toString() {
+        return "DiveResort [id=" + id + ", name=" + name + ", ownerName=" + ownerName + ", contactNumber="
+                + contactNumber + ", address=" + address + ", description=" + description + ", createdDateTime="
+                + createdDateTime + ", lastModifiedDateTime=" + lastModifiedDateTime + "]";
+    }
+
+    private static void validateDiveResortArguments(String name, String ownerName, String contactNumber,
+            String address, String description) {
+        Assert.hasText(name, "name 은 필수입력값입니다.");
+        Assert.hasText(ownerName, "ownerName 은 필수입력값입니다.");
+        Assert.hasText(contactNumber, "contactNumber 은 필수입력값입니다.");
+        Assert.hasText(address, "address 은 필수입력값입니다.");
+        Assert.hasText(description, "description 은 필수입력값입니다.");
+    }
+
+    public static DiveResort create(String name, String ownerName, String contactNumber, String address,
+            String description) {
+        validateDiveResortArguments(name, ownerName, contactNumber, address, description);
 
         DiveResort diveResort = new DiveResort();
         diveResort.name = name;
-        diveResort.location = location;
         diveResort.ownerName = ownerName;
         diveResort.contactNumber = contactNumber;
+        diveResort.address = address;
+        diveResort.description = description;
         diveResort.createdDateTime = LocalDateTime.now();
-        diveResort.lastModifiedDateTime = diveResort.createdDateTime;
+        diveResort.lastModifiedDateTime = diveResort.getCreatedDateTime();
+
         return diveResort;
     }
 
-    public void update(String name, String location, String ownerName, String contactNumber) {
-        validateInputSource(name, location, ownerName, contactNumber);
-
+    public void update(String name, String ownerName, String contactNumber, String address, String description) {
+        validateDiveResortArguments(name, ownerName, contactNumber, address, description);
+        
         this.name = name;
-        this.location = location;
         this.ownerName = ownerName;
         this.contactNumber = contactNumber;
+        this.address = address;
+        this.description = description;
         this.lastModifiedDateTime = LocalDateTime.now();
     }
 }

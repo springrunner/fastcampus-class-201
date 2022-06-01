@@ -2,17 +2,14 @@ package com.fastcampus.springrunner.divelog.web.diveresort;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fastcampus.springrunner.divelog.core.diveresort.application.DivePointEditor;
-import com.fastcampus.springrunner.divelog.core.diveresort.application.DivePointFinder;
-
 @RestController
 public class DivePointRestController {
-    private final DivePointFinder divePointFinder;
-    private final DivePointEditor divePointEditor;
+    //TODO DivePointFinder, DivePointEditor constructor injection
 
-    public DivePointRestController(DivePointFinder divePointFinder, DivePointEditor divePointEditor) {
-        this.divePointFinder = divePointFinder;
-        this.divePointEditor = divePointEditor;
-    }
 
+    // TODO GET /dive-point
+    // TODO POST /dive-point
+    // TODO GET /dive-point/{divePointId}
+    // TODO PUT /dive-point/{divePointId}
+    // TODO DELETE /dive-point/{divePointId}
 }

@@ -9,8 +9,6 @@ spring:
     - db
     - site
     - my-service
-  main:
-    banner-mode: off
   banner:
     image:
       bitdepth: 8

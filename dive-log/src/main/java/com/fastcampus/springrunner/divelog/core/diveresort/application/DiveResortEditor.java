@@ -16,11 +16,12 @@ public interface DiveResortEditor {
 
     /**
      * 다이브리조트 변경
-     * 
+     *
+     * @param diveResortId
      * @param updateCommand
      * @return 변경된 DiveResortDto 개체
      */
-    DiveResortDto update(DiveResortUpdateCommand updateCommand);
+    DiveResortDto update(Long diveResortId, DiveResortUpdateCommand updateCommand);
 
     /**
      * 다이브로지트 삭제

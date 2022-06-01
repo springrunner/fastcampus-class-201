@@ -14,11 +14,12 @@ import lombok.Getter;
 public class DiveResortUpdateRequest {
     //TODO validation 
     private String name;
-    private String location;
     private String ownerName;
     private String contactNumber;
+    private String address;
+    private String description;
     
     public DiveResortUpdateCommand convertToUpdateCommand() {
-        return DiveResortUpdateCommand.create(getName(), getLocation(), getOwnerName(), getContactNumber());
+        return DiveResortUpdateCommand.create(getName(), getOwnerName(), getContactNumber(), getAddress(), getDescription());
     }
 }

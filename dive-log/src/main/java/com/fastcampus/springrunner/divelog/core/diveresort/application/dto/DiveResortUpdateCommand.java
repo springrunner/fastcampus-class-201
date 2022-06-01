@@ -7,26 +7,29 @@ import lombok.Getter;
 @Getter
 public class DiveResortUpdateCommand {
     private String name;
-    private String location;
     private String ownerName;
     private String contactNumber;
+    private String address;
+    private String description;
     
     public static DiveResortUpdateCommand create(
             String name,
-            String location,
             String ownerName,
-            String contactNumber) {
+            String contactNumber,
+            String address,
+            String description) {
         
         DiveResortUpdateCommand updateCommand = new DiveResortUpdateCommand();
         updateCommand.name = name;
-        updateCommand.location = location;
         updateCommand.ownerName = ownerName;
         updateCommand.contactNumber = contactNumber;
+        updateCommand.address = address;
+        updateCommand.description = description;
         return updateCommand;
     }
     
     public DiveResort update(DiveResort diveResort) {
-        diveResort.update(getName(), getLocation(), getOwnerName(), getContactNumber());
+        diveResort.update(getName(), getOwnerName(), getContactNumber(), getAddress(), getDescription());
         return diveResort;
     }
 }

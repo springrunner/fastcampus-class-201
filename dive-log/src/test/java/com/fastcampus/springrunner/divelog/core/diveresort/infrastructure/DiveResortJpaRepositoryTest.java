@@ -11,17 +11,17 @@ import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortRepo
 
 //@DataJpaTest
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@InMemoryDataJpaTest
+//@InMemoryDataJpaTest
 class DiveResortJpaRepositoryTest {
     @Autowired
     DiveResortRepository diveResortRepository;
 
     @Test
     void test() {
-        DiveResort diveResort = DiveResort.create("Test", "강원도 동해시", "Tester", "82-010-0000-0000");
-        
-        diveResortRepository.save(diveResort);
-        
-        assertThat(diveResort.getId()).isNotNull();
+//        DiveResort diveResort = DiveResort.create("Test", "강원도 동해시", "Tester", "82-010-0000-0000");
+//        
+//        diveResortRepository.save(diveResort);
+//        
+//        assertThat(diveResort.getId()).isNotNull();
     }
 }

@@ -12,13 +12,14 @@ import lombok.Getter;
  */
 @Getter
 public class DiveResortRegisterRequest {
-    //TODO validation 
     private String name;
-    private String location;
     private String ownerName;
     private String contactNumber;
+    private String address;
+    private String description;
 
     public DiveResortRegisterCommand convertToRegisterCommand() {
-        return DiveResortRegisterCommand.create(getName(), getLocation(), getOwnerName(), getContactNumber());
+        return DiveResortRegisterCommand.create(getName(), getOwnerName(), getContactNumber(), getAddress(),
+                getDescription());
     }
 }
