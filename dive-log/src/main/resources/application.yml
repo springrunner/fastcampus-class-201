@@ -14,3 +14,6 @@ spring:
       bitdepth: 8
       width: 100
       height: 15
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: "false"

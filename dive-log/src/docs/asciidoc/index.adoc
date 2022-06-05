@@ -1,0 +1,66 @@
+= 다이브로그(DiveLog) 애플리케이션
+스프링러너, <springrunner.kr@gmail.com>
+v0.0.1, 2022-06-01
+// documentation setup
+:author: 김지헌(스프링러너)
+:email: springrunner.kr@gmail.com
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:toc: left
+:toc-title: 목차
+:toclevels: 3
+:sectlinks:
+:sectnums:
+//placeholder
+
+== 공통
+DiveLog 애플리케이션 API 문서입니다.
+
+|====
+|담당 |이름 |이메일
+
+|개발 |김지헌 |ihoneymon@gmail.com
+|====
+
+
+[[dive-resor]]
+== 다이브리조트(DiveReso)
+
+[[dive-resort-get-all]]
+=== 다이브리조트 조회
+include::{snippets}/dive-resorts-get-list/curl-request.adoc[]
+
+=== 다이브리조트 등록
+
+=== 다이브리조트 상세조회
+
+=== 다이브리조트 변경
+
+=== 다이브리조트 삭제
+
+[[dive-point]]
+== 다이브포인트(DivePoint)
+
+=== 다이브포인트 조회
+
+=== 다이브포인트 등록
+
+=== 다이브포인트 상세조회
+
+=== 다이브포인트 변경
+
+=== 다이브포인트 삭제 
+
+[[dive-log]]
+== 다이브로그(DiveLog)
+
+=== 다이브로그 조회
+
+=== 다이브로그 등록
+
+=== 다이브로그 상세조회
+
+=== 다이브로그 변경
+
+=== 다이브로그 삭제

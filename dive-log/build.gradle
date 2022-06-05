@@ -1,7 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2' //https://docs.spring.io/spring-restdocs/docs/current/reference/html5/#getting-started-build-configuration
 	id 'java' //https://docs.gradle.org/current/userguide/java_plugin.html#java_plugin
 }
 
@@ -13,6 +13,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	asciidoctorEx
 }
 
 repositories {
@@ -36,6 +37,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	asciidoctorEx 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 tasks.named('test') {
@@ -45,5 +47,6 @@ tasks.named('test') {
 
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
+	configurations 'asciidoctorEx'
 	dependsOn test
 }
