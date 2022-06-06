@@ -73,4 +73,9 @@ public interface DiveLogRepository {
      * @param diveLog 삭제대상 다이브로그
      */
     void delete(DiveLog diveLog);
+    
+    /**
+     * 전체 다이브로그 삭제
+     */
+    void deleteAll();
 }

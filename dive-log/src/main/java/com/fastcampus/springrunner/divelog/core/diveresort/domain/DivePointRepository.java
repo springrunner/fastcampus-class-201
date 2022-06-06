@@ -59,4 +59,9 @@ public interface DivePointRepository {
      * @param divePoint 삭제할 다이브포인트 개체
      */
     void delete(DivePoint divePoint);
+    
+    /**
+     * 전체 다이브포인트 삭제 
+     */
+    void deleteAll();
 }
