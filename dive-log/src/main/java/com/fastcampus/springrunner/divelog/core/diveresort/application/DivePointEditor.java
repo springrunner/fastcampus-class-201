@@ -14,7 +14,7 @@ public interface DivePointEditor {
     /**
      * 다이브포인트 생성
      * 
-     * @param registerCommand
+     * @param registerCommand 등록명령
      * @return DivePointDto 개체
      */
     DivePointDto save(DivePointRegisterCommand registerCommand);
@@ -22,10 +22,11 @@ public interface DivePointEditor {
     /**
      * 다이브포인트 갱신
      * 
-     * @param registerCommand
+     * @param divePointId   다이브포인트ID
+     * @param updateCommand 갱신 명령
      * @return DivePointDto 개체
      */
-    DivePointDto update(DivePointUpdateCommand updateCommand);
+    DivePointDto update(Long divePointId, DivePointUpdateCommand updateCommand);
 
     /**
      * 다이브포인트 삭제

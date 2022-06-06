@@ -1,18 +1,19 @@
 package com.fastcampus.springrunner.divelog.web.diveresort;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortEditor;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortFinder;
@@ -37,8 +38,14 @@ public class DiveResortRestController {
     }
 
     @PostMapping("/dive-resorts")
-    public ResponseEntity<DiveResortDto> create(HttpServletRequest servletRequest,@RequestBody @Validated DiveResortRegisterRequest request,
+    public ResponseEntity<?> create(HttpServletRequest servletRequest,@RequestBody @Validated DiveResortRegisterRequest request,
             BindingResult bindingResult) {
+        
+        if(bindingResult.hasErrors()) {
+            Map<String, String> errorMaps = bindingResult.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            return ResponseEntity.badRequest().body(errorMaps);
+        }
         
         DiveResortDto result = editor.save(request.convertToRegisterCommand());
         //@see https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servleturicomponentsbuilder
@@ -59,13 +66,18 @@ public class DiveResortRestController {
     }
 
     @PutMapping("/dive-resorts/{diveResortId}")
-    public ResponseEntity<DiveResortDto> update(@PathVariable("diveResortId") Long diveResortId,
+    public ResponseEntity<?> update(@PathVariable("diveResortId") Long diveResortId,
             @RequestBody @Validated DiveResortUpdateRequest request, BindingResult bindingResult) {
+        
+        if(bindingResult.hasErrors()) {
+            Map<String, String> errorMaps = bindingResult.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            return ResponseEntity.badRequest().body(errorMaps);
+        }
         
         return ResponseEntity.ok(editor.update(diveResortId, request.convertToUpdateCommand()));
     }
     
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/dive-resorts/{diveResortId}")
     public ResponseEntity<Void> delete(@PathVariable("diveResortId") Long diveResortId) {
         editor.delete(diveResortId);
