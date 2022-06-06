@@ -3,9 +3,6 @@ package com.fastcampus.springrunner.divelog.core.divelog.application.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import com.fastcampus.springrunner.divelog.core.divelog.domain.DiveLog;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DivePoint;
 
@@ -32,11 +29,9 @@ public class DiveLogRegisterCommand {
      * @param comment
      * @return
      */
-    public static DiveLogRegisterCommand create(
-            @NotNull Long divePointId, @NotNull LocalDate diveDate,
-            @NotNull LocalTime entryTime, @NotNull LocalTime exitTime, @NotEmpty String weather,
-            @NotEmpty String buddyName, @NotEmpty String comment) {
-        
+    public static DiveLogRegisterCommand create(Long divePointId, LocalDate diveDate, LocalTime entryTime,
+            LocalTime exitTime, String weather, String buddyName, String comment) {
+
         DiveLogRegisterCommand registerCommand = new DiveLogRegisterCommand();
         registerCommand.divePointId = divePointId;
         registerCommand.diveDate = diveDate;
