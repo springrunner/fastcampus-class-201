@@ -87,12 +87,4 @@ public class DiveResortRestController {
         
         return ResponseEntity.noContent().build();
     }
-    
-    @ExceptionHandler(DiveResortNotFoundException.class)
-    public ResponseEntity<?> handleDiveResortNotFoundException(DiveResortNotFoundException drne) {
-        Map<String, Object> errorMap = new HashMap<>();
-        errorMap.put("timeStampe", LocalDateTime.now());
-        errorMap.put("message", drne.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
-    }
 }

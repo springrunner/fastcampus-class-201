@@ -17,7 +17,8 @@ spring:
   jpa:
     hibernate:
       use-new-id-generator-mappings: "false"
-  #mvc.static-path-pattern: /resources/**
+  mvc:
+    static-path-pattern: /resources/** # 기본설정: /**
 logging:
   level:
     '[org.springframework.web]': DEBUG

@@ -15,11 +15,13 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import com.fastcampus.springrunner.divelog.IntegrationTest;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DivePoint;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DivePointRepository;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResort;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortRepository;
 
+@IntegrationTest
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class DiveLogRepositoryTest {

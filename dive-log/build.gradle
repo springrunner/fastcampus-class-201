@@ -62,7 +62,6 @@ tasks.named('asciidoctor') {
 
 bootJar {
 	dependsOn asciidoctor
-	print "Asciidoctor OutputDir: ${asciidoctor.outputDir}"
 	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는
 		into 'static/docs'
 	}

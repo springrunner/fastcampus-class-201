@@ -22,13 +22,15 @@ class DivePointTest {
     
     @Test
     void testCreate() {
-        
+        //given
         String pointName = "허니몬즈우드";
         String pointDepth = "15~18미터";
         String pointDescription = "모래밭위에 직육면체형 어초를 쌓아 만든 포인트로 봄에는...";
         
+        //when
         DivePoint divePoint = DivePoint.create(diveResort, pointName, pointDepth, pointDescription);
         
+        //then
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(divePoint.getDiveResort()).isEqualTo(diveResort);
             softly.assertThat(divePoint.getName()).isEqualTo(pointName);
