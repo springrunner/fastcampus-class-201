@@ -5,6 +5,7 @@ import javax.validation.constraints.NotEmpty;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortRegisterCommand;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 다이브리조트 등록요청
@@ -13,6 +14,7 @@ import lombok.Getter;
  *
  */
 @Getter
+@Setter
 public class DiveResortRegisterRequest {
     @NotEmpty
     private String name;

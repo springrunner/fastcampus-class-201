@@ -4,7 +4,7 @@ spring:
     - local
     group:
       local: "site-local,db-local,my-service"
-      dev: "site-dev"
+      dev: "site-dev,db-dev,my-service"
     include:
     - db
     - site
