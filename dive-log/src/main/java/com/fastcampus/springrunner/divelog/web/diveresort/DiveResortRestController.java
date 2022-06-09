@@ -1,5 +1,7 @@
 package com.fastcampus.springrunner.divelog.web.diveresort;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortEditor;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortFinder;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortDto;
+import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortNotFoundException;
 import com.fastcampus.springrunner.divelog.web.diveresort.dto.DiveResortRegisterRequest;
 import com.fastcampus.springrunner.divelog.web.diveresort.dto.DiveResortUpdateRequest;
 
@@ -85,4 +88,11 @@ public class DiveResortRestController {
         return ResponseEntity.noContent().build();
     }
     
+    @ExceptionHandler(DiveResortNotFoundException.class)
+    public ResponseEntity<?> handleDiveResortNotFoundException(DiveResortNotFoundException drne) {
+        Map<String, Object> errorMap = new HashMap<>();
+        errorMap.put("timeStampe", LocalDateTime.now());
+        errorMap.put("message", drne.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
+    }
 }

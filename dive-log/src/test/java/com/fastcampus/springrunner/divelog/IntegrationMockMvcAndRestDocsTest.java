@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@IntegrationTest
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs // RestDocs 문서생성을 위해 필요함

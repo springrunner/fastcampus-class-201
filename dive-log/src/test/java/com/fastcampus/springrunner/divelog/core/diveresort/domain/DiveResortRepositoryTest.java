@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.fastcampus.springrunner.divelog.InMemoryDataJpaTest;
+import com.fastcampus.springrunner.divelog.IntegrationTest;
 
 /**
  * h2database 1.4.200 에서 DATABASE_TO_UPPER=true 기본설정되어있고, @DataJpaTest 는 해당 옵션을
@@ -20,8 +21,7 @@ import com.fastcampus.springrunner.divelog.InMemoryDataJpaTest;
  * @author springrunner.kr@gmail.com
  *
  */
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@InMemoryDataJpaTest
 class DiveResortRepositoryTest {
     @Autowired
     DiveResortRepository repository;

@@ -1,6 +1,5 @@
 package com.fastcampus.springrunner.divelog.web.diveresort;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -13,9 +12,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +28,6 @@ import com.fastcampus.springrunner.divelog.IntegrationMockMvcAndRestDocsTest;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResort;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @IntegrationMockMvcAndRestDocsTest
 class DiveResortRestControllerRestDocsTest {
@@ -41,26 +36,27 @@ class DiveResortRestControllerRestDocsTest {
     @Autowired
     private DiveResortRepository diveResortRepository;
 
-    List<DiveResort> diveResorts = new ArrayList<>();
     private DiveResort diveResort;
 
     @BeforeEach
     void setUp() {
         diveResort = DiveResort.create("동해라이프2", "허니몬", "033-0000-0000", "동해시 어딘가", "독거남이 운영하는...");
         diveResortRepository.save(diveResort);
-        diveResorts.add(diveResort);
     }
 
     @AfterEach
     void tearDown() {
-        diveResorts.forEach(diveResortRepository::delete);
+        diveResortRepository.deleteAll();
     }
 
     @Test
     void testGetDiverResorts() throws Exception {
-        mockMvc.perform(get("/dive-resorts/").contentType(MediaType.APPLICATION_JSON)).andDo(print())
+        mockMvc.perform(get("/dive-resorts/")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("dive-resorts-get-list", Preprocessors.preprocessRequest(prettyPrint()),
+                .andDo(document("dive-resorts-get-list",
+                        Preprocessors.preprocessRequest(prettyPrint()),
                         Preprocessors.preprocessResponse(prettyPrint()),
                         responseFields(fieldWithPath("[].id").description("DiveResortId"),
                                 fieldWithPath("[].name").description("리조트 이름"),
@@ -79,11 +75,11 @@ class DiveResortRestControllerRestDocsTest {
 
 
         mockMvc.perform(post("/dive-resorts")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestContent))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestContent))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andDo(document("dive-resorts-register", 
+                .andDo(document("dive-resorts-register",
                         Preprocessors.preprocessRequest(prettyPrint()),
                         Preprocessors.preprocessResponse(prettyPrint()),
                         requestFields(
@@ -101,29 +97,29 @@ class DiveResortRestControllerRestDocsTest {
                                 fieldWithPath("createdDateTime").description("생성일시"),
                                 fieldWithPath("lastModifiedDateTime").description("최근변경일시"))));
     }
-    
+
     @Test
     void testFindById() throws Exception {
         mockMvc.perform(get("/dive-resorts/{diveResortId}", diveResort.getId())
-                .contentType(MediaType.APPLICATION_JSON))
-        .andDo(print())
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andDo(document("dive-resorts-find-by-id", 
-                Preprocessors.preprocessRequest(prettyPrint()),
-                Preprocessors.preprocessResponse(prettyPrint()),
-                RequestDocumentation.pathParameters(
-                        parameterWithName("diveResortId").description("DiveResort ID")),
-                PayloadDocumentation.responseFields(
-                        fieldWithPath("id").description("DiveResortId"),
-                        fieldWithPath("name").description("리조트 이름"),
-                        fieldWithPath("address").description("리조트 주소"),
-                        fieldWithPath("ownerName").description("리조트소유주이름"),
-                        fieldWithPath("contactNumber").description("리조트 연락처"),
-                        fieldWithPath("description").description("리조트 설명"),
-                        fieldWithPath("createdDateTime").description("생성일시"),
-                        fieldWithPath("lastModifiedDateTime").description("최근변경일시"))));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(document("dive-resorts-find-by-id",
+                        Preprocessors.preprocessRequest(prettyPrint()),
+                        Preprocessors.preprocessResponse(prettyPrint()),
+                        RequestDocumentation.pathParameters(
+                                parameterWithName("diveResortId").description("DiveResort ID")),
+                        PayloadDocumentation.responseFields(
+                                fieldWithPath("id").description("DiveResortId"),
+                                fieldWithPath("name").description("리조트 이름"),
+                                fieldWithPath("address").description("리조트 주소"),
+                                fieldWithPath("ownerName").description("리조트소유주이름"),
+                                fieldWithPath("contactNumber").description("리조트 연락처"),
+                                fieldWithPath("description").description("리조트 설명"),
+                                fieldWithPath("createdDateTime").description("생성일시"),
+                                fieldWithPath("lastModifiedDateTime").description("최근변경일시"))));
     }
-   
+
     @Test
     void testUpdate() throws JsonProcessingException, Exception {
         String requestContent = "{\"name\": \"동해다이브리조2\", \"address\":\"강원도 동해시2\",\"ownerName\":\"김지헌2\","
@@ -131,14 +127,15 @@ class DiveResortRestControllerRestDocsTest {
 
 
         mockMvc.perform(put("/dive-resorts/{diveResortId}", diveResort.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestContent))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestContent))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(document("dive-resorts-update", 
+                .andDo(document("dive-resorts-update",
                         Preprocessors.preprocessRequest(prettyPrint()),
                         Preprocessors.preprocessResponse(prettyPrint()),
-                        pathParameters(parameterWithName("diveResortId").description("변경하려는 DiveResort ID")),
+                        pathParameters(
+                                parameterWithName("diveResortId").description("변경하려는 DiveResort ID")),
                         requestFields(
                                 fieldWithPath("name").description("리조트 이름"),
                                 fieldWithPath("address").description("리조트 주소"),
@@ -154,17 +151,18 @@ class DiveResortRestControllerRestDocsTest {
                                 fieldWithPath("createdDateTime").description("생성일시"),
                                 fieldWithPath("lastModifiedDateTime").description("최근변경일시"))));
     }
-    
+
     @Test
     void testDelete() throws JsonProcessingException, Exception {
         mockMvc.perform(delete("/dive-resorts/{diveResortId}", diveResort.getId())
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent())
-                .andDo(document("dive-resorts-delete", 
+                .andDo(document("dive-resorts-delete",
                         Preprocessors.preprocessRequest(prettyPrint()),
                         Preprocessors.preprocessResponse(prettyPrint()),
-                        pathParameters(parameterWithName("diveResortId").description("변경하려는 DiveResort ID"))
+                        pathParameters(
+                                parameterWithName("diveResortId").description("변경하려는 DiveResort ID"))
                 ));
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@IntegrationTest
 @SpringBootTest
 @AutoConfigureMockMvc
 public @interface IntegrationMockMvcTest {
