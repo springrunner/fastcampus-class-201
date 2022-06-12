@@ -23,12 +23,4 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         errorMap.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
     }
-    
-    @ExceptionHandler(DiveResortNotFoundException.class)
-    public ResponseEntity<?> handlerDiveResortNotFoundException(DiveResortNotFoundException ex, WebRequest webRequest) {
-        Map<String, Object> errorMap = new HashMap<>();
-        errorMap.put("timeStampe", LocalDateTime.now());
-        errorMap.put("message", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMap);
-    }
 }

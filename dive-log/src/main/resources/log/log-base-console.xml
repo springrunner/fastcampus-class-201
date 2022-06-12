@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+	<include resource="log/appender-console.xml"/>
+
+    <logger level="DEBUG" name="com.fastcampus.springrunner.divelog"/>
+    <logger level="DEBUG" name="org.springframework.spring.web"/>
+    <logger level="TRACE" name="org.hibernate.SQL"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</included>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <include resource="log/appender-app.xml"/>
+
+	<logger level="DEBUG" name="com.fastcampus.springrunner.divelog"/>
+    <logger level="DEBUG" name="org.springframework.web"/>
+    
+    <root level="INFO">
+        <appender-ref ref="APPLICATION"/>
+    </root>
+</included>

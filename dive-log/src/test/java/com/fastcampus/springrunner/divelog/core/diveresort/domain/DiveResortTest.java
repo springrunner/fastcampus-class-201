@@ -34,8 +34,12 @@ class DiveResortTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = { ",허니몬,033-0000-0000,동해시,동해어느구석", "동해다이브리조트,,033-0000-0000,동해시,동해어느구석",
-            "동해다이브리조트,허니몬,,동해시,동해어느구석", "동해다이브리조트,허니몬,033-0000-0000,,동해어느구석", "동해다이브리조트,허니몬,033-0000-0000,동해시," })
+    @CsvSource(value = { 
+            ",허니몬,033-0000-0000,동해시,동해어느구석", 
+            "동해다이브리조트,,033-0000-0000,동해시,동해어느구석",
+            "동해다이브리조트,허니몬,,동해시,동해어느구석", 
+            "동해다이브리조트,허니몬,033-0000-0000,,동해어느구석", 
+            "동해다이브리조트,허니몬,033-0000-0000,동해시," })
     void testValidateArgs(String name, String ownerName, String contactNumber, String address, String description)
             throws Exception {
         Assertions.assertThatThrownBy(() -> DiveResort.create(name, ownerName, contactNumber, address, description))

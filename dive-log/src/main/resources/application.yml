@@ -3,12 +3,11 @@ spring:
     active:
     - local
     group:
-      local: "site-local,db-local,my-service"
-      dev: "site-dev,db-dev,my-service"
+      local: "site-local,db-local"
+      dev: "site-dev,db-dev"
     include:
     - db
     - site
-    - my-service
   banner:
     image:
       bitdepth: 8
@@ -18,7 +17,11 @@ spring:
     hibernate:
       use-new-id-generator-mappings: "false"
   mvc:
-    static-path-pattern: /resources/** # 기본설정: /**
-logging:
-  level:
-    '[org.springframework.web]': DEBUG
+    static-path-pattern: /resources/** # 기본설정:/**
+  messages:
+    basename: classpath:/messages
+#logging:
+#  file:
+#    path: logs
+#  level:
+#    '[org.springframework.web]': DEBUG

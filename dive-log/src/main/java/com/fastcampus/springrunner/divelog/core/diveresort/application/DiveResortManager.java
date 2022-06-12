@@ -33,7 +33,8 @@ public class DiveResortManager implements DiveResortEditor, DiveResortFinder {
     @Transactional(readOnly = true)
     @Override
     public Optional<DiveResortDto> findByDiveResortId(Long diveResortId) {
-        return repository.findById(diveResortId).map(DiveResortDto::ofEntity);
+        throw new DiveResortNotFoundException(diveResortId);
+//        return repository.findById(diveResortId).map(DiveResortDto::ofEntity);
     }
 
     @Transactional
