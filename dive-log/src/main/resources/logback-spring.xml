@@ -13,7 +13,7 @@
         <include resource="log/log-base-file.xml"/>
     </springProfile>
 
-    <springProfile name="major">
+    <springProfile name="prod">
         <include resource="log/log-base-file.xml"/>
         
         <logger level="INFO" name="com.fastcampus.springrunner.divelog"/>

@@ -12,16 +12,17 @@ import org.springframework.util.StringUtils;
 
 @Configuration
 @EnableConfigurationProperties
-public class ExtendMessageSourceConfiguration {    
+public class CustomMessageSourceConfiguration {
+
     @Bean
     @ConfigurationProperties(prefix = "spring.messages")
     public MessageSourceProperties properties() {
         return new MessageSourceProperties();
     }
-    
+
     @Bean
     public MessageSource messageSource(MessageSourceProperties properties) {
-        ExtendReloadableResourceBundleMessageSource messageSource = new ExtendReloadableResourceBundleMessageSource();
+        CustomReloadableResourceBundleMessageSource messageSource = new CustomReloadableResourceBundleMessageSource();
         if (StringUtils.hasText(properties.getBasename())) {
             messageSource.setBasenames(StringUtils
                     .commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(properties.getBasename())));
@@ -38,5 +39,4 @@ public class ExtendMessageSourceConfiguration {
         messageSource.setUseCodeAsDefaultMessage(properties.isUseCodeAsDefaultMessage());
         return messageSource;
     }
-
 }

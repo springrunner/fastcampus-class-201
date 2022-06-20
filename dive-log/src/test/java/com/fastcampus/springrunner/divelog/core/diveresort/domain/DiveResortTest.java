@@ -1,5 +1,7 @@
 package com.fastcampus.springrunner.divelog.core.diveresort.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -32,10 +34,32 @@ class DiveResortTest {
             softly.assertThat(diveResort.getLastModifiedDateTime()).isEqualTo(diveResort.getCreatedDateTime());
         });
     }
+    
+    @Test
+    void testOldCreate() {
+        // given: 준비
+        String name = "동해다이브리조트";
+        String ownerName = "허니몬";
+        String contactNumber = "033-0000-0000";
+        String address = "강원도 동해시 감추...";
+        String description = "동해 어느구석";
+        
+        // when: 실행
+        DiveResort diveResort = DiveResort.create(name, ownerName, contactNumber, address, description);
+        
+        // then: 검증
+        assertThat(diveResort.getName()).isEqualTo(name);
+        assertThat(diveResort.getOwnerName()).isEqualTo(ownerName);
+        assertThat(diveResort.getContactNumber()).isEqualTo(contactNumber);
+        assertThat(diveResort.getAddress()).isEqualTo(address);
+        assertThat(diveResort.getDescription()).isEqualTo(description);
+        assertThat(diveResort.getCreatedDateTime()).isNotNull();
+        assertThat(diveResort.getLastModifiedDateTime()).isNotNull();
+        assertThat(diveResort.getLastModifiedDateTime()).isEqualTo(diveResort.getCreatedDateTime());
+    }
 
     @ParameterizedTest
-    @CsvSource(value = { 
-            ",허니몬,033-0000-0000,동해시,동해어느구석", 
+    @CsvSource(value = { ",허니몬,033-0000-0000,동해시,동해어느구석", 
             "동해다이브리조트,,033-0000-0000,동해시,동해어느구석",
             "동해다이브리조트,허니몬,,동해시,동해어느구석", 
             "동해다이브리조트,허니몬,033-0000-0000,,동해어느구석", 
