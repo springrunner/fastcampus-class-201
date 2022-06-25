@@ -1,0 +1,3 @@
+app-profile:
+  profile: production
+  site-url: "http://honeymon.io"

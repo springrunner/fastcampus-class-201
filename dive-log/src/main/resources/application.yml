@@ -5,9 +5,11 @@ spring:
     group:
       local: "site-local,db-local"
       dev: "site-dev,db-dev"
-    include:
-    - db
-    - site
+      beta: "site-beta,db-beta"
+      prod: "site-prod,db-prod"
+#    include:
+#    - db
+#    - site
   banner:
     image:
       bitdepth: 8
@@ -25,3 +27,6 @@ spring:
 #    path: logs
 #  level:
 #    '[org.springframework.web]': DEBUG
+app-profile:
+  profile: default
+  site-url: "http://honeymon.io"

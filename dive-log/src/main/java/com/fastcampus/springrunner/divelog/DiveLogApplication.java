@@ -14,5 +14,4 @@ public class DiveLogApplication {
         log.info("Info level logging.");
         SpringApplication.run(DiveLogApplication.class, args);
     }
-
 }
