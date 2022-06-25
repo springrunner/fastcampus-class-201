@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	// 추후 ELK를 사용한다면 ElasticSearch 데이터 기본저장구조인 JSON 형태로 변경하기 위해 필요함
 	implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
 	
@@ -67,4 +68,8 @@ bootJar {
 	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는
 		into 'static/docs'
 	}
+}
+
+springBoot {
+	buildInfo()
 }

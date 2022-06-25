@@ -1,3 +1,10 @@
+info:
+  app:
+    encoding: "UTF-8"
+    java:
+      source: "11"
+      target: "11"
+
 spring:
   profiles:
     active:
@@ -7,9 +14,9 @@ spring:
       dev: "site-dev,db-dev"
       beta: "site-beta,db-beta"
       prod: "site-prod,db-prod"
-#    include:
-#    - db
-#    - site
+    include:
+    - db
+    - site
   banner:
     image:
       bitdepth: 8
@@ -22,6 +29,16 @@ spring:
     static-path-pattern: /resources/** # 기본설정:/**
   messages:
     basename: classpath:/messages
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      discovery:
+        enabled: true
+  endpoint:
+    info:
+      enabled: true
 #logging:
 #  file:
 #    path: logs
