@@ -12,12 +12,11 @@ import lombok.ToString;
 public class SiteProperties {
     private final String authorName;
     private final String authorEmail;
-    
+
     @ConstructorBinding
     public SiteProperties(String authorName, String authorEmail) {
         this.authorName = authorName;
         this.authorEmail = authorEmail;
     }
-    
-    
+
 }

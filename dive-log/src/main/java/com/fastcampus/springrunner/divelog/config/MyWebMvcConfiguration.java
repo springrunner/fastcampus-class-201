@@ -1,7 +1,5 @@
 package com.fastcampus.springrunner.divelog.config;
 
-import java.time.Duration;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,5 @@
 package com.fastcampus.springrunner.divelog.web.diveresort;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,9 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortEditor;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortFinder;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortDto;
-import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortNotFoundException;
 import com.fastcampus.springrunner.divelog.web.diveresort.dto.DiveResortRegisterRequest;
 import com.fastcampus.springrunner.divelog.web.diveresort.dto.DiveResortUpdateRequest;
+import com.fastcampus.springrunner.divelog.web.log.WebTraceLog;
 
 @RestController
 public class DiveResortRestController {
@@ -34,12 +32,14 @@ public class DiveResortRestController {
         this.editor = editor;
     }
 
+    @WebTraceLog(apiName="다이브리조트 조회")
     @GetMapping("/dive-resorts")
     public ResponseEntity<List<DiveResortDto>> getDiveResorts() {
         
         return ResponseEntity.ok(finder.findAll());
     }
 
+    @WebTraceLog(apiName="다이브리조트 등록", enableRequestBody = true)
     @PostMapping("/dive-resorts")
     public ResponseEntity<?> create(HttpServletRequest servletRequest,@RequestBody @Validated DiveResortRegisterRequest request,
             BindingResult bindingResult) {
@@ -62,12 +62,14 @@ public class DiveResortRestController {
                 .body(result);
     }
 
+    @WebTraceLog(apiName="다이브리조트 상세조회")
     @GetMapping("/dive-resorts/{diveResortId}")
     public ResponseEntity<DiveResortDto> findById(@PathVariable("diveResortId") Long diveResortId) {
         
         return ResponseEntity.of(finder.findByDiveResortId(diveResortId));
     }
 
+    @WebTraceLog(apiName="다이브리조트 변경", enableRequestBody = true)
     @PutMapping("/dive-resorts/{diveResortId}")
     public ResponseEntity<?> update(@PathVariable("diveResortId") Long diveResortId,
             @RequestBody @Validated DiveResortUpdateRequest request, BindingResult bindingResult) {
@@ -81,6 +83,7 @@ public class DiveResortRestController {
         return ResponseEntity.ok(editor.update(diveResortId, request.convertToUpdateCommand()));
     }
     
+    @WebTraceLog(apiName="다이브리조트 삭제")
     @DeleteMapping("/dive-resorts/{diveResortId}")
     public ResponseEntity<Void> delete(@PathVariable("diveResortId") Long diveResortId) {
         editor.delete(diveResortId);

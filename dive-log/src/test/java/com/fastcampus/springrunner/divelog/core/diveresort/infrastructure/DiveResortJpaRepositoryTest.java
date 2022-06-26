@@ -1,12 +1,8 @@
 package com.fastcampus.springrunner.divelog.core.diveresort.infrastructure;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fastcampus.springrunner.divelog.InMemoryDataJpaTest;
-import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResort;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortRepository;
 
 //@DataJpaTest

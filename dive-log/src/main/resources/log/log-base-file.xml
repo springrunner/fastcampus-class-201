@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <included>
-    <include resource="log/appender-app.xml"/>
+	<include resource="log/appender-app.xml" />
+	<include resource="log/appender-transaction.xml" />
 
-	<logger level="DEBUG" name="com.fastcampus.springrunner.divelog"/>
-    <logger level="DEBUG" name="org.springframework.web"/>
-    
-    <root level="INFO">
-        <appender-ref ref="APPLICATION"/>
-    </root>
+	<logger level="DEBUG" name="org.springframework.web" />
+	<logger level="DEBUG" name="com.fastcampus.springrunner.divelog" />
+	
+	<logger level="INFO" name="TRANSACTION" additivity="false">
+		<appender-ref ref="TRANSACTION" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="APPLICATION" />
+	</root>
 </included>
