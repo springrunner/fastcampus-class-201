@@ -70,11 +70,28 @@ tasks.named('asciidoctor') {
 	dependsOn integrationTest
 }
 
+
 bootJar {
 	dependsOn asciidoctor
 	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는
 		into 'static/docs'
 	}
+}
+
+/**
+ * 생성된 스크립트는 build/distribution 폴더에 생성됩니다.
+ */
+task awsZip(type: Zip) {
+    description "elasticbeanstalk 용 배포 zip"
+    from bootJar
+    from file("Procfile")
+    into(".ebextensions") {
+        from file("ebextensions")
+    }
+    into(".platform") {
+        from file("platform")
+    }
+    archiveFileName = "${project.name}-${project.version}.zip"
 }
 
 springBoot {
