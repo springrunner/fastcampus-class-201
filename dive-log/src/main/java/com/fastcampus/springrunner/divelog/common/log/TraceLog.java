@@ -1,12 +1,24 @@
 package com.fastcampus.springrunner.divelog.common.log;
 
-import java.lang.annotation.*;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface TraceLog {
-    boolean enableTraceLog() default true;
-    boolean enableArguments() default true;
-    boolean enableReturnValue() default true;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class TraceLog {
+    private static final DateTimeFormatter TIMESTAMP_FORMAT = ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+    private String traceId;
+    private LocalDateTime requestDateTime;
+    private LocalDateTime responseDateTime;
+    private int responseTime;
+
+    public String getTimestamp() {
+        return LocalDateTime.now().format(TIMESTAMP_FORMAT);
+    }
 }

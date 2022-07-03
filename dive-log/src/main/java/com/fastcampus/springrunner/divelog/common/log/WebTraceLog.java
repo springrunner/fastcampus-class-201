@@ -1,15 +1,15 @@
-package com.fastcampus.springrunner.divelog.web.log;
+package com.fastcampus.springrunner.divelog.common.log;
 
 import java.util.Objects;
 
-import com.fastcampus.springrunner.divelog.common.log.TransactionLog;
+import com.fastcampus.springrunner.divelog.common.log.TraceLog;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class WebTransactionLog extends TransactionLog {
+public class WebTraceLog extends TraceLog {
     private String remoteAddress;
     private String forwarded;
     private String httpMethod;
@@ -27,7 +27,7 @@ public class WebTransactionLog extends TransactionLog {
         if (Objects.isNull(queryString) || "".equals(queryString)) {
             return requestUrl;
         } else {
-            return requestUrl + "&" + queryString;
+            return requestUrl + "?" + queryString;
         }
     }
 

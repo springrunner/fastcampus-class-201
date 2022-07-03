@@ -5,20 +5,20 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fastcampus.springrunner.divelog.common.log.loader.TraceLogLoader;
-import com.fastcampus.springrunner.divelog.common.log.writer.TraceLogMessageGenerator;
+import com.fastcampus.springrunner.divelog.common.log.invoker.TraceMethodInvoker;
+import com.fastcampus.springrunner.divelog.common.log.writer.TraceLogMessageWriter;
 
-public class TraceLogMethodInterceptor<T extends TransactionLog> implements MethodInterceptor {
+public class TraceLogMethodInterceptor<T extends TraceLog> implements MethodInterceptor {
     private static final String LOGGER_NAME_PREFIX = "TRACE.";
 
     private final TraceInfoManager<T> traceInfoManager;
-    private final TraceLogLoader traceLogLoader;
-    private final TraceLogMessageGenerator logMessageGenerator;
+    private final TraceMethodInvoker traceLogLoader;
+    private final TraceLogMessageWriter logMessageGenerator;
 
     public TraceLogMethodInterceptor(
             TraceInfoManager<T> traceInfoManager, 
-            TraceLogLoader traceLogLoader,
-            TraceLogMessageGenerator logMessageGenerator) {
+            TraceMethodInvoker traceLogLoader,
+            TraceLogMessageWriter logMessageGenerator) {
         
         this.traceInfoManager = traceInfoManager;
         this.traceLogLoader = traceLogLoader;
@@ -28,7 +28,7 @@ public class TraceLogMethodInterceptor<T extends TransactionLog> implements Meth
     @SuppressWarnings("rawtypes")
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        TraceLog traceLog = traceLogLoader.getTraceLog(invocation.getMethod());
+        Trace traceLog = traceLogLoader.getTraceLog(invocation.getMethod());
         MethodInvocationExecutor executor = invocation::proceed;
         if (traceLog.enableTraceLog()) {
             String loggerName = LOGGER_NAME_PREFIX + invocation.getMethod().getDeclaringClass().getName();
@@ -40,7 +40,7 @@ public class TraceLogMethodInterceptor<T extends TransactionLog> implements Meth
         return executor.execute();
     }
 
-    private Object invokeAndLogging(TraceLog traceLog, Logger logger, MethodInvocation invocation) throws Throwable {
+    private Object invokeAndLogging(Trace traceLog, Logger logger, MethodInvocation invocation) throws Throwable {
         TraceInfo<T> traceInfo = traceInfoManager.startLog();
         String commonMessage = logMessageGenerator.generateInvocationCommonMessage(invocation,
                 traceLog.enableArguments());

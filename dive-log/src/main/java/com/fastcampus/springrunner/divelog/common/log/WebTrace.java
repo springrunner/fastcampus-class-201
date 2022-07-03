@@ -1,14 +1,14 @@
 
-package com.fastcampus.springrunner.divelog.web.log;
+package com.fastcampus.springrunner.divelog.common.log;
 
 import java.lang.annotation.*;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface WebTraceLog {
+public @interface WebTrace {
 
-    boolean enableTraceWebLog() default true;
+    boolean enableWebTraceLog() default true;
     boolean enableRequestBody() default false;
     boolean enableResponseBody() default false;
 

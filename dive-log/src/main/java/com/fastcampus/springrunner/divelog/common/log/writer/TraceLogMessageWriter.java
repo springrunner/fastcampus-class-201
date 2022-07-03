@@ -2,7 +2,7 @@ package com.fastcampus.springrunner.divelog.common.log.writer;
 
 import org.aopalliance.intercept.MethodInvocation;
 
-public interface TraceLogMessageGenerator {
+public interface TraceLogMessageWriter {
 
     String generateInvocationCommonMessage(MethodInvocation methodInvocation, boolean enableDetailLog);
 

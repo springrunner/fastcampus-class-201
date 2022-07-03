@@ -1,7 +1,8 @@
-package com.fastcampus.springrunner.divelog.web.log.loader;
+package com.fastcampus.springrunner.divelog.common.log.invoker;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,33 +12,33 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.util.ServletRequestPathUtils;
 
 import com.fastcampus.springrunner.divelog.common.log.parser.AnnotationParser;
-import com.fastcampus.springrunner.divelog.web.log.WebTraceLog;
+import com.fastcampus.springrunner.divelog.common.log.WebTrace;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class SimpleWebTraceLogLoader implements WebTraceLogLoader {
-    private static final WebTraceLog DEFAULT_TRACE_WEB_LOG = new WebTraceLog() {
+public class DefaultWebTraceMethodInvoker implements WebTraceMethodInvoker {
+    private static final WebTrace DEFAULT_TRACE_WEB_LOG = new WebTrace() {
         @Override
         public Class<? extends Annotation> annotationType() {
-            return WebTraceLog.class;
+            return WebTrace.class;
         }
 
         @Override
-        public boolean enableTraceWebLog() {
+        public boolean enableWebTraceLog() {
             return true;
         }
 
         @Override
         public boolean enableRequestBody() {
-            return true;
+            return false;
         }
 
         @Override
         public boolean enableResponseBody() {
-            return true;
+            return false;
         }
 
         @Override
@@ -70,14 +71,16 @@ public class SimpleWebTraceLogLoader implements WebTraceLogLoader {
     }
 
     @Override
-    public WebTraceLog getWebTraceLog(Method apiMethod) {
-        if (apiMethod == null) {
+    public WebTrace getWebTrace(Method apiMethod) {
+        if (Objects.isNull(apiMethod)) {
             return DEFAULT_TRACE_WEB_LOG;
         }
-        WebTraceLog webTraceLog = AnnotationParser.parseAnnotation(apiMethod, WebTraceLog.class);
-        if (webTraceLog == null) {
+        
+        WebTrace webTraceLog = AnnotationParser.parseAnnotation(apiMethod, WebTrace.class);
+        if (Objects.isNull(webTraceLog)) {
             return DEFAULT_TRACE_WEB_LOG;
         }
+        
         return webTraceLog;
     }
 }

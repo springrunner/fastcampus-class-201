@@ -1,13 +1,13 @@
-package com.fastcampus.springrunner.divelog.web.log.message;
+package com.fastcampus.springrunner.divelog.common.log.writer;
 
 import java.util.Objects;
 
-import com.fastcampus.springrunner.divelog.web.log.WebTransactionLog;
+import com.fastcampus.springrunner.divelog.common.log.WebTraceLog;
 
-public class SimpleWebTraceLogMessageGenerator implements WebTraceLogMessageGenerator {
+public class DefaultWebTraceLogMessageWriter implements WebTraceLogMessageWriter {
 
     @Override
-    public String generateRequestLog(WebTransactionLog transactionLog) {
+    public String generateRequestLog(WebTraceLog transactionLog) {
         String message = String.format("[REQ] host=%s, method=%s, url=%s", 
                 transactionLog.getRemoteAddress(),
                 transactionLog.getHttpMethod(), 
@@ -21,7 +21,7 @@ public class SimpleWebTraceLogMessageGenerator implements WebTraceLogMessageGene
     }
 
     @Override
-    public String generateResponseLog(WebTransactionLog transactionLog) {
+    public String generateResponseLog(WebTraceLog transactionLog) {
         String message = String.format("[RES] host=%s, method=%s, url=%s, status=%s", 
                 transactionLog.getRemoteAddress(),
                 transactionLog.getHttpMethod(), 

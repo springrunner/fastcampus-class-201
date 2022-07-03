@@ -1,21 +1,21 @@
-package com.fastcampus.springrunner.divelog.web.log.filter;
+package com.fastcampus.springrunner.divelog.common.log.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.core.Ordered;
 import org.springframework.util.Assert;
 
 import com.fastcampus.springrunner.divelog.common.log.TraceInfoManager;
-import com.fastcampus.springrunner.divelog.web.log.WebTransactionLog;
-import com.fastcampus.springrunner.divelog.web.log.loader.WebTraceLogLoader;
-import com.fastcampus.springrunner.divelog.web.log.message.SimpleWebTraceLogMessageGenerator;
-import com.fastcampus.springrunner.divelog.web.log.message.WebTraceLogMessageGenerator;
+import com.fastcampus.springrunner.divelog.common.log.WebTraceLog;
+import com.fastcampus.springrunner.divelog.common.log.invoker.WebTraceMethodInvoker;
+import com.fastcampus.springrunner.divelog.common.log.writer.DefaultWebTraceLogMessageWriter;
+import com.fastcampus.springrunner.divelog.common.log.writer.WebTraceLogMessageWriter;
 
-public class WebTraceLogFilterBeanBuilder<T extends WebTransactionLog> {
+public class WebTraceLogFilterBeanBuilder<T extends WebTraceLog> {
 
     private String[] urlPatterns;
     private TraceInfoManager<T> traceInfoManager;
-    private WebTraceLogLoader webTraceLogLoader;
-    private WebTraceLogMessageGenerator webTraceLogMessageGenerator;
+    private WebTraceMethodInvoker webTraceMethodInvoker;
+    private WebTraceLogMessageWriter webTraceLogMessageGenerator;
     private Integer applyOrder;
     
 
@@ -27,12 +27,12 @@ public class WebTraceLogFilterBeanBuilder<T extends WebTransactionLog> {
         this.traceInfoManager = traceInfoManager;
         return this;
     }
-    public WebTraceLogFilterBeanBuilder<T> webTraceLogLoader(WebTraceLogLoader webTraceLogLoader) {
-        this.webTraceLogLoader = webTraceLogLoader;
+    public WebTraceLogFilterBeanBuilder<T> webTraceLogLoader(WebTraceMethodInvoker webTraceLogLoader) {
+        this.webTraceMethodInvoker = webTraceLogLoader;
         return this;
     }
-    public WebTraceLogFilterBeanBuilder<T> webTraceLogMessageGenerator(WebTraceLogMessageGenerator webTraceLogMessageGenerator) {
-        this.webTraceLogMessageGenerator = webTraceLogMessageGenerator;
+    public WebTraceLogFilterBeanBuilder<T> webTraceLogMessageGenerator(WebTraceLogMessageWriter webTraceLogMessageWriter) {
+        this.webTraceLogMessageGenerator = webTraceLogMessageWriter;
         return this;
     }
     public WebTraceLogFilterBeanBuilder<T> applyOrder(int applyOrder) {
@@ -43,17 +43,17 @@ public class WebTraceLogFilterBeanBuilder<T extends WebTransactionLog> {
     public FilterRegistrationBean<WebTraceLogFilter<T>> build() {
         Assert.notNull(urlPatterns, "urlPatterns required.");
         Assert.notNull(traceInfoManager, "traceInfoManager required.");
-        Assert.notNull(webTraceLogLoader, "webTraceLogLoader required.");
+        Assert.notNull(webTraceMethodInvoker, "webTraceLogLoader required.");
         
         if (webTraceLogMessageGenerator == null) {
-            webTraceLogMessageGenerator = new SimpleWebTraceLogMessageGenerator();
+            webTraceLogMessageGenerator = new DefaultWebTraceLogMessageWriter();
         }
         if (applyOrder == null) {
             applyOrder = Ordered.HIGHEST_PRECEDENCE;
         }
 
         WebTraceLogFilter<T> webTraceLogFilter = new WebTraceLogFilter<>(
-            traceInfoManager, webTraceLogLoader, webTraceLogMessageGenerator);
+            traceInfoManager, webTraceMethodInvoker, webTraceLogMessageGenerator);
         
         FilterRegistrationBean<WebTraceLogFilter<T>> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(webTraceLogFilter);

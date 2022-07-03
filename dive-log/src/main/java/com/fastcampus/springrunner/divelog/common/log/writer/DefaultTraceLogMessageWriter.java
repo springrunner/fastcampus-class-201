@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
 
-public class GeneralTraceLogMessageGenerator implements TraceLogMessageGenerator {
+public class DefaultTraceLogMessageWriter implements TraceLogMessageWriter {
 
     @Override
     public String generateInvocationCommonMessage(MethodInvocation invocation, boolean enableDetailLog) {
@@ -46,10 +46,10 @@ public class GeneralTraceLogMessageGenerator implements TraceLogMessageGenerator
 
     protected StringBuilder generateLogBuilder(int logDepth, String prefixLog, String suffixLog) {
         StringBuilder logMessage = new StringBuilder();
-        if (logDepth == 0) {
+        if (logDepth == 1) {
             logMessage.append(prefixLog);
         } else {
-            for (int i = 1; i < logDepth; i++) {
+            for (int i = 2; i < logDepth; i++) {
                 logMessage.append("|   ");
             }
             logMessage.append(suffixLog);

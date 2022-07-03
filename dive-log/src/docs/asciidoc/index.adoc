@@ -23,6 +23,7 @@ DiveLog 애플리케이션 API 문서입니다.
 |개발 |김지헌 |ihoneymon@gmail.com
 |====
 
+include::sample.adoc[]
 
 [[dive-resor]]
 == 다이브리조트(DiveReso)

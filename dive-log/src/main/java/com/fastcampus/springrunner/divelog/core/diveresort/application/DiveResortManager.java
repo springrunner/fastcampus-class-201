@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fastcampus.springrunner.divelog.common.log.TraceLog;
+import com.fastcampus.springrunner.divelog.common.log.Trace;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortDto;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortRegisterCommand;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortUpdateCommand;
@@ -15,7 +17,10 @@ import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResort;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortNotFoundException;
 import com.fastcampus.springrunner.divelog.core.diveresort.domain.DiveResortRepository;
 
-@TraceLog
+import lombok.extern.slf4j.Slf4j;
+
+@Trace
+@Slf4j
 @Service
 public class DiveResortManager implements DiveResortEditor, DiveResortFinder {
     private final DiveResortRepository repository;
@@ -27,6 +32,8 @@ public class DiveResortManager implements DiveResortEditor, DiveResortFinder {
     @Transactional(readOnly = true)
     @Override
     public List<DiveResortDto> findAll() {
+        log.debug("DiveResort findAll.");
+        
         return repository.findAll().stream()
                 .map(DiveResortDto::ofEntity)
                 .collect(Collectors.toList());

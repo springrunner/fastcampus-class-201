@@ -1,27 +1,30 @@
 package com.fastcampus.springrunner.divelog.common.log;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.slf4j.MDC;
 
-public class TraceInfoManager<T extends TransactionLog> {
+import static java.util.Objects.nonNull;
+
+public class TraceInfoManager<T extends TraceLog> {
     private static final String MDC_TRACE_ID = "TID";
 
     private final ThreadLocal<TraceInfo<T>> traceInfoStore = new ThreadLocal<>();
     private final ThreadLocal<Runnable> paddingTraceJobStore = new ThreadLocal<>();
 
-    private final Supplier<T> transactionLogMaker;
+    private final Supplier<T> traceLogMaker;
 
-    public TraceInfoManager(Supplier<T> transactionLogMaker) {
-        this.transactionLogMaker = transactionLogMaker;
+    public TraceInfoManager(Supplier<T> traceLogMaker) {
+        this.traceLogMaker = traceLogMaker;
     }
 
     public TraceInfo<T> startLog() {
         TraceInfo<T> traceInfo = traceInfoStore.get();
-        if (traceInfo == null) {
-            T transactionLog = transactionLogMaker.get();
+        if (Objects.isNull(traceInfo)) {
+            T transactionLog = traceLogMaker.get();
             traceInfo = new TraceInfo<>(transactionLog);
             if (MDC.get(MDC_TRACE_ID) == null) {
                 MDC.put(MDC_TRACE_ID, traceInfo.getTraceId());
@@ -40,7 +43,7 @@ public class TraceInfoManager<T extends TransactionLog> {
         executePaddingTraceJob();
         TraceInfo<T> traceInfo = traceInfoStore.get();
         if (traceInfo.isRootLogDepth()) {
-            TransactionLog transactionLog = traceInfo.getTransactionLog();
+            TraceLog transactionLog = traceInfo.getTraceLog();
             transactionLog.setResponseDateTime(LocalDateTime.now());
             transactionLog.setResponseTime(traceInfo.getTraceDuration());
             traceInfoStore.remove();
@@ -51,11 +54,11 @@ public class TraceInfoManager<T extends TransactionLog> {
         return traceInfo;
     }
 
-    public Optional<T> transactionLog() {
+    public Optional<T> traceLog() {
         TraceInfo<T> traceInfo = traceInfoStore.get();
 
-        if (traceInfo != null) {
-            return Optional.ofNullable(traceInfo.getTransactionLog());
+        if (nonNull(traceInfo)) {
+            return Optional.ofNullable(traceInfo.getTraceLog());
         }
 
         return Optional.empty();
@@ -67,10 +70,9 @@ public class TraceInfoManager<T extends TransactionLog> {
 
     public void executePaddingTraceJob() {
         Runnable paddingTraceJob = paddingTraceJobStore.get();
-        if (paddingTraceJob != null) {
+        if (nonNull(paddingTraceJob)) {
             paddingTraceJob.run();
             paddingTraceJobStore.remove();
         }
     }
-
 }

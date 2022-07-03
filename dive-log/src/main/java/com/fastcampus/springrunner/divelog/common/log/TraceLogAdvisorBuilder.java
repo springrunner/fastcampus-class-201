@@ -1,5 +1,7 @@
 package com.fastcampus.springrunner.divelog.common.log;
 
+import static java.util.Objects.nonNull;
+
 import org.springframework.aop.Advisor;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -9,17 +11,17 @@ import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.core.Ordered;
 import org.springframework.util.Assert;
 
-import com.fastcampus.springrunner.divelog.common.log.loader.SimpleTraceLogLoader;
-import com.fastcampus.springrunner.divelog.common.log.loader.TraceLogLoader;
-import com.fastcampus.springrunner.divelog.common.log.writer.GeneralTraceLogMessageGenerator;
-import com.fastcampus.springrunner.divelog.common.log.writer.TraceLogMessageGenerator;
+import com.fastcampus.springrunner.divelog.common.log.invoker.DefaultTraceMethodInvoker;
+import com.fastcampus.springrunner.divelog.common.log.invoker.TraceMethodInvoker;
+import com.fastcampus.springrunner.divelog.common.log.writer.DefaultTraceLogMessageWriter;
+import com.fastcampus.springrunner.divelog.common.log.writer.TraceLogMessageWriter;
 
-public class TraceLogAdvisorBuilder<T extends TransactionLog> {
+public class TraceLogAdvisorBuilder<T extends TraceLog> {
 
     private String traceLogPointcutExpression;
     private TraceInfoManager<T> traceInfoManager;
-    private TraceLogLoader traceLogLoader;
-    private TraceLogMessageGenerator traceLogMessageGenerator;
+    private TraceMethodInvoker traceMethodInvoker;
+    private TraceLogMessageWriter traceLogMessageWriter;
     private Integer applyOrder;
 
     public TraceLogAdvisorBuilder<T> traceLogPointcutExpression(String traceLogPointcutExpression) {
@@ -32,13 +34,13 @@ public class TraceLogAdvisorBuilder<T extends TransactionLog> {
         return this;
     }
 
-    public TraceLogAdvisorBuilder<T> traceLogLoader(TraceLogLoader traceLogLoader) {
-        this.traceLogLoader = traceLogLoader;
+    public TraceLogAdvisorBuilder<T> traceLogLoader(TraceMethodInvoker traceLogLoader) {
+        this.traceMethodInvoker = traceLogLoader;
         return this;
     }
 
-    public TraceLogAdvisorBuilder<T> traceLogMessageGenerator(TraceLogMessageGenerator traceLogMessageGenerator) {
-        this.traceLogMessageGenerator = traceLogMessageGenerator;
+    public TraceLogAdvisorBuilder<T> traceLogMessageGenerator(TraceLogMessageWriter traceLogMessageWriter) {
+        this.traceLogMessageWriter = traceLogMessageWriter;
         return this;
     }
 
@@ -48,33 +50,33 @@ public class TraceLogAdvisorBuilder<T extends TransactionLog> {
     }
 
     public Advisor build() {
-        Assert.notNull(traceLogPointcutExpression, "traceLogPointcutExpression required.");
         Assert.notNull(traceInfoManager, "traceInfoManager required.");
-        if (traceLogLoader == null) {
-            traceLogLoader = new SimpleTraceLogLoader();
+        if (traceMethodInvoker == null) {
+            traceMethodInvoker = new DefaultTraceMethodInvoker();
         }
-        if (traceLogMessageGenerator == null) {
-            traceLogMessageGenerator = new GeneralTraceLogMessageGenerator();
+        if (traceLogMessageWriter == null) {
+            traceLogMessageWriter = new DefaultTraceLogMessageWriter();
         }
         if (applyOrder == null) {
             applyOrder = Ordered.HIGHEST_PRECEDENCE + 1;
         }
 
-        ComposablePointcut pointcut = new ComposablePointcut(new AnnotationMatchingPointcut(TraceLog.class));
-        pointcut.union(new AnnotationMatchingPointcut(null, TraceLog.class));
+        ComposablePointcut pointcut = new ComposablePointcut(new AnnotationMatchingPointcut(Trace.class));
+        pointcut.union(new AnnotationMatchingPointcut(null, Trace.class));
 
-        AspectJExpressionPointcut expressionPointcut = new AspectJExpressionPointcut();
-        expressionPointcut.setExpression(traceLogPointcutExpression);
-        pointcut.union((Pointcut) expressionPointcut);
-
+        if(nonNull(traceLogMessageWriter)) {
+            AspectJExpressionPointcut expressionPointcut = new AspectJExpressionPointcut();
+            expressionPointcut.setExpression(traceLogPointcutExpression);
+            pointcut.union((Pointcut) expressionPointcut);    
+        }
+        
         TraceLogMethodInterceptor<T> methodInterceptor = new TraceLogMethodInterceptor<>(
                 traceInfoManager,
-                traceLogLoader, 
-                traceLogMessageGenerator);
+                traceMethodInvoker,
+                traceLogMessageWriter);
 
         DefaultPointcutAdvisor pointcutAdvisor = new DefaultPointcutAdvisor(pointcut, methodInterceptor);
         pointcutAdvisor.setOrder(applyOrder);
         return pointcutAdvisor;
     }
-
 }

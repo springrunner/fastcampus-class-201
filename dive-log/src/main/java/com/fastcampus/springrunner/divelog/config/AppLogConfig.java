@@ -9,21 +9,21 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.fastcampus.springrunner.divelog.common.log.TraceInfoManager;
 import com.fastcampus.springrunner.divelog.common.log.TraceLogAdvisorBuilder;
-import com.fastcampus.springrunner.divelog.web.log.WebTransactionLog;
-import com.fastcampus.springrunner.divelog.web.log.filter.WebTraceLogFilter;
-import com.fastcampus.springrunner.divelog.web.log.filter.WebTraceLogFilterBeanBuilder;
-import com.fastcampus.springrunner.divelog.web.log.loader.SimpleWebTraceLogLoader;
+import com.fastcampus.springrunner.divelog.common.log.WebTraceLog;
+import com.fastcampus.springrunner.divelog.common.log.filter.WebTraceLogFilter;
+import com.fastcampus.springrunner.divelog.common.log.filter.WebTraceLogFilterBeanBuilder;
+import com.fastcampus.springrunner.divelog.common.log.invoker.DefaultWebTraceMethodInvoker;
 
 @Configuration
 public class AppLogConfig {
     @Bean
-    public TraceInfoManager<WebTransactionLog> traceInfoManager() {
-        return new TraceInfoManager<>(WebTransactionLog::new);
+    public TraceInfoManager<WebTraceLog> traceInfoManager() {
+        return new TraceInfoManager<>(WebTraceLog::new);
     }
 
     @Bean
     public Advisor traceLogAdvisor() {
-        return new TraceLogAdvisorBuilder<WebTransactionLog>()
+        return new TraceLogAdvisorBuilder<WebTraceLog>()
                 .traceInfoManager(traceInfoManager())
                 .traceLogPointcutExpression(
                         "execution(* com.fastcampus.springrunner.divelog..*Controller.*(..)) "
@@ -32,14 +32,12 @@ public class AppLogConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<WebTraceLogFilter<WebTransactionLog>> webTransactionLogFilter(
+    public FilterRegistrationBean<WebTraceLogFilter<WebTraceLog>> webTransactionLogFilter(
             RequestMappingHandlerMapping requestMappingHandlerMapping) {
-        
-        return new WebTraceLogFilterBeanBuilder<WebTransactionLog>()
-                .traceInfoManager(traceInfoManager())
+
+        return new WebTraceLogFilterBeanBuilder<WebTraceLog>().traceInfoManager(traceInfoManager())
                 .urlPatterns("/dive-resorts/*", "/dive-points/*", "/dive-logs/*")
-                .webTraceLogLoader(new SimpleWebTraceLogLoader(requestMappingHandlerMapping))
-                .applyOrder(Ordered.HIGHEST_PRECEDENCE)
-                .build();
+                .webTraceLogLoader(new DefaultWebTraceMethodInvoker(requestMappingHandlerMapping))
+                .applyOrder(Ordered.HIGHEST_PRECEDENCE).build();
     }
 }
