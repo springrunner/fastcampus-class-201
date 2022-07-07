@@ -70,5 +70,8 @@ public interface DiveResortRepository {
      */
     void delete(DiveResort diveResort);
 
+    /**
+     * 전체 다이브리조트 삭제
+     */
     void deleteAll();
 }

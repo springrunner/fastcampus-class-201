@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @deprecated -->
+<included>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%-5p][%20.20t][%-40.40logger{39}][%4L][%20X{TID}] : %m%n</pattern>
+        </encoder>
+    </appender>
+</included>
+

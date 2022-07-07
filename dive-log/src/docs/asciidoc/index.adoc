@@ -1,0 +1,121 @@
+= 다이브로그(DiveLog) 애플리케이션
+스프링러너, <springrunner.kr@gmail.com>
+v0.0.1, 2022-06-01
+// documentation setup
+:author: 김지헌(스프링러너)
+:email: springrunner.kr@gmail.com
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:toc: left
+:toc-title: 목차
+:toclevels: 3
+:sectlinks:
+:sectnums:
+//placeholder
+
+== 공통
+DiveLog 애플리케이션 API 문서입니다.
+
+|====
+|담당 |이름 |이메일
+
+|개발 |김지헌 |ihoneymon@gmail.com
+|====
+
+include::sample.adoc[]
+
+[[dive-resor]]
+== 다이브리조트(DiveReso)
+
+[[dive-resorts-get-all]]
+=== 다이브리조트 조회
+
+[discrete]
+==== 다이브리조트 조회요청
+include::{snippets}/dive-resorts-get-list/http-request.adoc[] 
+include::{snippets}/dive-resorts-get-list/curl-request.adoc[]
+
+[discrete]
+==== 다이브리조트 조회응답
+include::{snippets}/dive-resorts-get-list/http-response.adoc[]
+include::{snippets}/dive-resorts-get-list/response-fields.adoc[] 
+
+[[dive-resorts-register]]
+=== 다이브리조트 등록
+[discrete]
+==== 다이브리조트 조회요청
+include::{snippets}/dive-resorts-register/http-request.adoc[] 
+include::{snippets}/dive-resorts-register/curl-request.adoc[]
+include::{snippets}/dive-resorts-register/request-fields.adoc[]
+
+[discrete]
+==== 다이브리조트 조회응답
+include::{snippets}/dive-resorts-register/http-response.adoc[]
+include::{snippets}/dive-resorts-register/response-fields.adoc[]
+
+[[dive-resorts-find-by-id]]
+=== 다이브리조트 상세조회
+[discrete]
+==== 다이브리조트 상세조회요청
+include::{snippets}/dive-resorts-find-by-id/http-request.adoc[] 
+include::{snippets}/dive-resorts-find-by-id/curl-request.adoc[]
+include::{snippets}/dive-resorts-find-by-id/path-parameters.adoc[]
+
+[discrete]
+==== 다이브리조트 상세조회응답
+include::{snippets}/dive-resorts-find-by-id/http-response.adoc[]
+include::{snippets}/dive-resorts-find-by-id/response-fields.adoc[]
+
+[[dive-resorts-update]]
+=== 다이브리조트 변경
+[discrete]
+==== 다이브리조트 변경요청
+include::{snippets}/dive-resorts-update/http-request.adoc[] 
+include::{snippets}/dive-resorts-update/curl-request.adoc[]
+include::{snippets}/dive-resorts-update/path-parameters.adoc[]
+include::{snippets}/dive-resorts-update/request-fields.adoc[]
+
+[discrete]
+==== 다이브리조트 변경응답
+include::{snippets}/dive-resorts-update/http-response.adoc[]
+include::{snippets}/dive-resorts-update/response-fields.adoc[]
+
+[[dive-resorts-delete]]
+=== 다이브리조트 삭제
+[discrete]
+==== 다이브리조트 삭제요청
+include::{snippets}/dive-resorts-delete/http-request.adoc[] 
+include::{snippets}/dive-resorts-delete/curl-request.adoc[]
+include::{snippets}/dive-resorts-delete/path-parameters.adoc[]
+
+[discrete]
+==== 다이브리조트 삭제응답
+include::{snippets}/dive-resorts-delete/http-response.adoc[]
+
+
+[[dive-point]]
+== 다이브포인트(DivePoint)
+
+=== 다이브포인트 조회
+
+=== 다이브포인트 등록
+
+=== 다이브포인트 상세조회
+
+=== 다이브포인트 변경
+
+=== 다이브포인트 삭제 
+
+[[dive-log]]
+== 다이브로그(DiveLog)
+
+=== 다이브로그 조회
+
+=== 다이브로그 등록
+
+=== 다이브로그 상세조회
+
+=== 다이브로그 변경
+
+=== 다이브로그 삭제

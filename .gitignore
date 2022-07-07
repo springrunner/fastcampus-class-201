@@ -3,7 +3,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,idea,intellij,eclipse
 ## Etc
 .DS_Store
-
+#intellij
+.idea
 ### Eclipse ###
 .metadata
 bin/

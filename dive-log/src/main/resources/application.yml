@@ -1,18 +1,52 @@
+info:
+  app:
+    encoding: "UTF-8"
+    java:
+      source: "11"
+      target: "11"
+
 spring:
   profiles:
     active:
     - local
     group:
-      local: "site-local,db-local,my-service"
-      dev: "site-dev"
+      local: "site-local,db-local"
+      dev: "site-dev,db-local"
+      beta: "site-beta,db-beta"
+      prod: "site-prod,db-prod"
     include:
     - db
     - site
-    - my-service
-  main:
-    banner-mode: off
   banner:
     image:
       bitdepth: 8
       width: 100
       height: 15
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: "false"
+  mvc:
+    static-path-pattern: /resources/** # 기본설정:/**
+  messages:
+    basename: classpath:/messages
+#AWS Beanstalk 는 5000번 포트를 사용함    
+server.port: ${port:5000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      discovery:
+        enabled: true
+  endpoint:
+    info:
+      enabled: true
+#logging:
+#  file:
+#    path: logs
+#  level:
+#    '[org.springframework.web]': DEBUG
+app-profile:
+  profile: default
+  site-url: "http://honeymon.io"

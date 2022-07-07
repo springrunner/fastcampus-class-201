@@ -10,5 +10,4 @@ public class DiveLogApplication {
     public static void main(String[] args) {
         SpringApplication.run(DiveLogApplication.class, args);
     }
-
 }
