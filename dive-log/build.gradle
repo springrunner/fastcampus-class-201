@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.fastcampus.springrunner'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
@@ -36,6 +36,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	//implementation 'io.micrometer:micrometer-registry-prometheus'
 	//implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	// 추후 ELK를 사용한다면 ElasticSearch 데이터 기본저장구조인 JSON 형태로 변경하기 위해 필요함
 	implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
@@ -72,27 +73,11 @@ tasks.named('asciidoctor') {
 
 
 bootJar {
-	dependsOn asciidoctor
-	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는
+	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는 asciidoctor 태스크를 빼고
 		into 'static/docs'
 	}
 }
 
-/**
- * 생성된 스크립트는 build/distribution 폴더에 생성됩니다.
- */
-task awsZip(type: Zip) {
-    description "elasticbeanstalk 용 배포 zip"
-    from bootJar
-    from file("Procfile")
-    into(".ebextensions") {
-        from file("ebextensions")
-    }
-    into(".platform") {
-        from file("platform")
-    }
-    archiveFileName = "${project.name}-${project.version}.zip"
-}
 
 springBoot {
 	buildInfo()

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 @Profile("prod")
 @Configuration
 @EnableConfigurationProperties({AppProfileProperties.class})
-//@ConfigurationPropertiesScan
 public class ProductionConfiguration {
     private final AppProfileProperties appProfileProperties;
 

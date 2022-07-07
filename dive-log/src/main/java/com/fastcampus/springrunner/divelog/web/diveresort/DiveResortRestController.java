@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.fastcampus.springrunner.divelog.common.log.WebTrace;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fastcampus.springrunner.divelog.common.log.WebTrace;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortEditor;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.DiveResortFinder;
 import com.fastcampus.springrunner.divelog.core.diveresort.application.dto.DiveResortDto;
@@ -32,14 +32,11 @@ public class DiveResortRestController {
         this.editor = editor;
     }
 
-    @WebTrace(apiName="다이브리조트 조회")
     @GetMapping("/dive-resorts")
     public ResponseEntity<List<DiveResortDto>> getDiveResorts() {
-        
         return ResponseEntity.ok(finder.findAll());
     }
 
-    @WebTrace(apiName="다이브리조트 등록", enableRequestBody = true)
     @PostMapping("/dive-resorts")
     public ResponseEntity<?> create(HttpServletRequest servletRequest,@RequestBody @Validated DiveResortRegisterRequest request,
             BindingResult bindingResult) {
