@@ -1,0 +1,43 @@
+#@see https://github.com/marketplace/actions/beanstalk-deploy
+name: dive-log-develop-deploy
+
+on:
+  push:
+    branches: [deploy, deploy-aws-beanstalk] # 해당 브랜치에 푸시가 일어나면 github action 수행
+  # workflow_dispatch: # 수동 실행
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK #@see https://github.com/actions/setup-java
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        shell: bash
+
+      - name: Build with Gradle
+        run: ./gradlew clean awsZip # beanstalk 배포본 빌드
+        shell: bash
+        
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Deploy to AWS Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: dive-log
+          environment_name: dive-log-develop
+          version_label: dive-log-${{github.SHA}}
+          region: ap-northeast-2
+          deployment_package: build/distribution/dive-log.zip
