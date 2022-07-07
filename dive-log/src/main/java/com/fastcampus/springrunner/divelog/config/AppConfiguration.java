@@ -19,6 +19,7 @@ public class AppConfiguration {
 
     @PostConstruct
     public void setUp() {
-        log.debug("SiteProperties(authorName: {}, authorEmail: {})", siteProperties.getAuthorName(), siteProperties.getAuthorEmail());
+        log.debug("SiteProperties(authorName: {}, authorEmail: {})", 
+                siteProperties.getAuthorName(), siteProperties.getAuthorEmail());
     }
 }

@@ -11,7 +11,7 @@ spring:
     - local
     group:
       local: "site-local,db-local"
-      dev: "site-dev,db-dev"
+      dev: "site-dev,db-local"
       beta: "site-beta,db-beta"
       prod: "site-prod,db-prod"
     include:
@@ -29,6 +29,9 @@ spring:
     static-path-pattern: /resources/** # 기본설정:/**
   messages:
     basename: classpath:/messages
+#AWS Beanstalk 는 5000번 포트를 사용함    
+server.port: ${port:5000}
+
 management:
   endpoints:
     web:

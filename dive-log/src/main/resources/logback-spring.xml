@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <springProfile name="local, test">
-        <include resource="log/log-base-console.xml"/>
-        <!-- <include resource="log/log-base-file.xml"/> -->
-        <logger level="INFO" name="org.springframework.transaction"/>
-    </springProfile>
+	<springProfile name="local, test">
+		<include resource="log/log-base-console.xml"/>
+	</springProfile>
 
-    <springProfile name="dev">
-        <include resource="log/log-base-file.xml"/>
-        
-        <logger level="INFO" name="org.springframework.spring"/>
-    </springProfile>
+	<springProfile name="dev">
+		<include resource="log/log-base-file.xml" />
 
-    <springProfile name="beta,stage,stress">
-        <include resource="log/log-base-file.xml"/>
-        
-        <logger level="INFO" name="org.springframework.spring"/>
-    </springProfile>
+		<logger level="INFO" name="org.springframework.spring" />
+	</springProfile>
 
-    <springProfile name="prod">
-        <include resource="log/log-base-file.xml"/>
-        
-        <logger level="INFO" name="com.fastcampus.springrunner.divelog"/>
-    	<logger level="INFO" name="org.springframework.spring"/>
-    </springProfile>
+	<springProfile name="beta,stage,stress">
+		<include resource="log/log-base-file.xml" />
+
+		<logger level="INFO" name="org.springframework.spring" />
+	</springProfile>
+
+	<springProfile name="prod">
+		<include resource="log/log-base-file.xml" />
+
+		<logger level="INFO" name="com.fastcampus.springrunner.divelog" />
+		<logger level="INFO" name="org.springframework.spring" />
+	</springProfile>
 
 </configuration>
