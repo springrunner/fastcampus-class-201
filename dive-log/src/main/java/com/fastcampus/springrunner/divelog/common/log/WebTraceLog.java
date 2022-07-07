@@ -2,8 +2,6 @@ package com.fastcampus.springrunner.divelog.common.log;
 
 import java.util.Objects;
 
-import com.fastcampus.springrunner.divelog.common.log.TraceLog;
-
 import lombok.Getter;
 import lombok.Setter;
 
