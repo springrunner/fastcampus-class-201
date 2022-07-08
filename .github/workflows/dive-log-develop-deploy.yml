@@ -3,7 +3,7 @@ name: dive-log-develop-deploy
 
 on:
   push:
-    branches: [deploy, deploy-aws-beanstalk] # 해당 브랜치에 푸시가 일어나면 github action 수행
+    branches: [main, deploy-aws-beanstalk] # 해당 브랜치에 푸시가 일어나면 github action 수행
   # workflow_dispatch: # 수동 실행
 
 jobs:
