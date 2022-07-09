@@ -21,6 +21,8 @@ jobs:
         run: |
           pwd
           cd dive-log
+          pwd
+          ls -la
           chmod +x .gradlew
         shell: bash
 
