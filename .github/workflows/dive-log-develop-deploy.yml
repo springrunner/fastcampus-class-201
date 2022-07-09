@@ -19,17 +19,12 @@ jobs:
 
       - name: 3. Grant execute permission for gradlew
         run: |
-          pwd
-          cd dive-log
-          pwd
-          ls -la
-          chmod +x .gradlew
+          chmod +x ./dive-log/gradlew
         shell: bash
 
       - name: 4. Build project
         run: |
-          cd dive-log
-          .gradlew clean awsZip # beanstalk 배포본 빌드
+          ./gradlew clean awsZip # beanstalk 배포본 빌드
         shell: bash
 
       - name: 5. Get current date
