@@ -24,7 +24,7 @@ jobs:
 
       - name: 4. Build project
         run: |
-          ./gradlew clean awsZip # beanstalk 배포본 빌드
+          ./dive-log/gradlew clean awsZip # beanstalk 배포본 빌드
         shell: bash
 
       - name: 5. Get current date
