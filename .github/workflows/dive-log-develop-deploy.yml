@@ -20,11 +20,15 @@ jobs:
           java-version: 11
 
       - name: Grant execute permission for gradlew
-        run: chmod +x dive-log/.gradlew
+        run: |
+		  cd dive-log
+		  chmod .gradlew
         shell: bash
 
       - name: Build with Gradle
-        run: dive-log/.gradlew clean awsZip # beanstalk 배포본 빌드
+        run: |
+		  cd dive-log
+		  .gradlew clean awsZip # beanstalk 배포본 빌드
         shell: bash
         
       - name: Get current date
