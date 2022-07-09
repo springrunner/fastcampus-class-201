@@ -39,7 +39,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: dive-log
-          environment_name: dive-log-develop
+          environment_name: dive-log-dev
           version_label: dive-log-${{github.SHA}}
           region: ap-northeast-2
           deployment_package: dive-log/build/distributions/dive-log.zip
