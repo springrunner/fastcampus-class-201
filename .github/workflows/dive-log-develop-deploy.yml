@@ -3,7 +3,7 @@ name: dive-log-develop-deploy
 
 on:
   push:
-    branches: [main, deploy-aws-beanstalk] # 해당 브랜치에 푸시가 일어나면 github action 수행
+    branches: [ main, deploy-aws-beanstalk ] # 해당 브랜치에 푸시가 일어나면 github action 수행
   # workflow_dispatch: # 수동 실행
 
 jobs:
@@ -21,27 +21,27 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: |
-		  cd dive-log
-		  chmod .gradlew
+          cd dive-log
+          chmod +x .gradlew
         shell: bash
 
-      - name: Build with Gradle
-        run: |
-		  cd dive-log
-		  .gradlew clean awsZip # beanstalk 배포본 빌드
-        shell: bash
-        
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+  - name: Build with Gradle
+    run: |
+      cd dive-log
+      .gradlew clean awsZip # beanstalk 배포본 빌드
+    shell: bash
 
-      - name: Deploy to AWS Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: dive-log
-          environment_name: dive-log-develop
-          version_label: dive-log-${{github.SHA}}
-          region: ap-northeast-2
-          deployment_package: dive-log/build/distribution/dive-log.zip
+  - name: Get current date
+    id: date
+    run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+  - name: Deploy to AWS Beanstalk
+    uses: einaregilsson/beanstalk-deploy@v20
+    with:
+      aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      application_name: dive-log
+      environment_name: dive-log-develop
+      version_label: dive-log-${{github.SHA}}
+      region: ap-northeast-2
+      deployment_package: dive-log/build/distribution/dive-log.zip
