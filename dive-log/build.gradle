@@ -71,13 +71,28 @@ tasks.named('asciidoctor') {
 	dependsOn integrationTest
 }
 
+jar {
+	enabled = false
+}
 
 bootJar {
 	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는 asciidoctor 태스크를 빼고
 		into 'static/docs'
 	}
+	archiveFileName="dive-log.jar"
 }
 
+task awsZip(type: Zip) {
+	from bootJar 
+	from file("Procfile")
+	into(".ebextensions") {
+		from("ebextensions")
+	}
+	into(".platform") {
+		from("platform")
+	}
+	archiveFileName="dive-log.zip"
+}
 
 springBoot {
 	buildInfo()
