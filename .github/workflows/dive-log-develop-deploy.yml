@@ -42,4 +42,4 @@ jobs:
           environment_name: dive-log-develop
           version_label: dive-log-${{github.SHA}}
           region: ap-northeast-2
-          deployment_package: dive-log/build/distribution/dive-log.zip
+          deployment_package: dive-log/build/distributions/dive-log.zip
