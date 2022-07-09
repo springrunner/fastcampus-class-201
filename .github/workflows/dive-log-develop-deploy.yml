@@ -19,6 +19,7 @@ jobs:
 
       - name: 3. Grant execute permission for gradlew
         run: |
+          pwd
           cd dive-log
           chmod +x .gradlew
         shell: bash
