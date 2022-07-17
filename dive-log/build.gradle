@@ -71,18 +71,13 @@ tasks.named('asciidoctor') {
 	dependsOn integrationTest
 }
 
-
 bootJar {
-	dependsOn asciidoctor
-	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는
+	from ("${asciidoctor.outputDir}") { // 패키징!! +_+) 운영환경 배포시에는 asciidoctor 태스크를 빼고
 		into 'static/docs'
 	}
-	archiveFileName = "dive-log.jar"
+	archiveFileName="dive-log.jar"
 }
 
-/**
- * 생성된 스크립트는 build/distribution 폴더에 생성됩니다.
- */
 task awsZip(type: Zip) {
     description "elasticbeanstalk 용 배포 zip"
     from bootJar
