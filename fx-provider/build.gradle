@@ -1,0 +1,104 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.9.2' apply false
+    id 'jacoco'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+import groovy.io.FileType
+
+task jacocoRootReport(type: JacocoReport) {
+    def sourceDirs = []
+    def dir = new File("./")
+    dir.eachFileRecurse(FileType.DIRECTORIES) {
+        if (file ==~ '.*/src/main/java') {
+            sourceDirs << file
+        }
+    }
+
+    sourceDirectories.setFrom(files(sourceDirs))
+    classDirectories.setFrom(fileTree(dir: './', include: '**/classes'))
+    additionalClassDirs.setFrom(fileTree(
+            dir: './',
+            include: '**/build/classes/java/main/**/**.class',
+            exclude: ['**/config/**/**.class']
+    ))
+    executionData.setFrom(fileTree(dir: './', include: '**/jacoco*.exec'))
+    onlyIf = { true }
+
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+def javaProjects = [
+	project(":fx-common"), 
+	project(":fx-core"), 
+	project(":fx-admin:fx-admin-server"), 
+	project(":fx-api"), 
+	project(":fx-collector"), 
+	project(":fx-worker"),
+    project("clients:feign-common"),
+    project("clients:currency-layer"),
+]
+configure(javaProjects) {
+    apply plugin: "java"
+    apply plugin: "jacoco"
+    apply plugin: "eclipse"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    group = "${projectGroup}"
+    version = "${projectVersion}-${new Date().format('yyyyMMddHHmmss')}"
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
+            mavenBom("com.amazonaws:aws-java-sdk-bom:1.12.262")
+            mavenBom("org.testcontainers:testcontainers-bom:1.17.3")
+        }
+    }
+
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-logging")
+
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+    }
+
+    jacoco {
+        toolVersion = "0.8.6"
+    }
+
+    test {
+        reports {
+            junitXml.enabled = true
+            html.enabled = true
+        }
+        jacoco {
+            enabled = true
+            destinationFile = file("${buildDir}/jacoco/jacoco.exec")
+        }
+        finalizedBy jacocoTestReport
+
+        useJUnitPlatform() //jUnit5 수행
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+            html.setDestination(file("${buildDir}/reports/jacoco/html"))
+        }
+        getExecutionData().setFrom(files("${buildDir}/jacoco/jacoco.exec"))
+    }
+}

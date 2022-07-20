@@ -1,0 +1,8 @@
+description("fx-worker module")
+
+dependencies {
+    implementation(project(":fx-core"))
+    implementation(project(":fx-common"))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+}

@@ -1,0 +1,17 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
+dependencies {
+    implementation(project(":fx-common"))
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-okhttp")
+}

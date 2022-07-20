@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: currency-layer-dev
+
+clients:
+  #https://apilayer.com/marketplace/currency_data-api#details-tab
+  currency-layer:
+    mode: feign
+    root-uri: "https://api.apilayer.com" # 노출되지 않도록 주의하세요.
+    authentication-key: "${auth-key: yzstZhaLqHYOw2Wv0vQHXch9crRnqjoy}"
+    max-requests: 50
+    max-requests-per-host: 5
+    max-idle-connections: 15
+    connect-timeout: 5s
+    read-timeout: 10s
+    keep-alive-duration: 5s
+
+---
+spring:
+  config:
+    activate:
+      on-profile: currency-layer-beta

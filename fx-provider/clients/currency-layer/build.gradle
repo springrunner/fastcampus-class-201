@@ -1,0 +1,23 @@
+description("clients:currencty-layer module")
+
+bootJar {enabled = false}
+jar {enabled = true}
+
+dependencies {
+    implementation(project(":fx-common"))
+    implementation(project(":clients:feign-common"))
+    implementation("org.springframework.boot:spring-boot-starter")
+
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    implementation("org.springframework:spring-web")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-okhttp")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}

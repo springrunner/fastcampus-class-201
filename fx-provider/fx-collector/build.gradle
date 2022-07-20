@@ -1,0 +1,9 @@
+description("fx-admin-server module")
+
+dependencies {
+    implementation(project(":fx-core"))
+    implementation(project(":fx-common"))
+    implementation(project(":clients:currency-layer"))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+}

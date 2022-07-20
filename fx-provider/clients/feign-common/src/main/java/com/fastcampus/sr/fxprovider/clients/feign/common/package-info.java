@@ -1,0 +1,1 @@
+package com.fastcampus.sr.fxprovider.clients.feign.common;
