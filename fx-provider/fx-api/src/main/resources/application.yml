@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: fx-api
+  profiles:
+    include:
+      - db
+    group:
+      local: db-local
+      test: db-test
+      dev: db-dev
+      beta: db-beta
+      stage: db-stage
+      prod: db-prod
+    active: local

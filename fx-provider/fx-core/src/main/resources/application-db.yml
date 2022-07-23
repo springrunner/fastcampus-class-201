@@ -1,0 +1,47 @@
+#공통
+spring:
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+        dialect: org.hibernate.dialect.MySQL57Dialect
+        default_batch_fetch_size: ${chunkSize:100}
+        jdbc:
+          batch_size: ${chunkSize:100}
+        order_inserts: true
+        order_updates: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: db-local,db-test
+  datasource:
+    url: jdbc:h2:mem:fx-provider;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: db-dev
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mysql://{database-url}:{port}/{database_name}?useSSL=false
+    username: service-name
+    password: service-password

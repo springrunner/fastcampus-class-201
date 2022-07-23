@@ -1,10 +1,28 @@
 package com.fastcampus.sr.fxprovider.common.exception;
 
 public abstract class ApplicationException extends RuntimeException {
-    protected ApplicationException() {}
-    protected ApplicationException(String message) {super(message);}
-    protected ApplicationException(String message, Throwable throwable) {super(message,throwable);}
-    protected ApplicationException(Throwable throwable) {super(throwable);}
+    private String code;
 
-    public abstract String getCode();
+    protected ApplicationException() {
+    }
+
+    protected ApplicationException(String code, String message) {
+        super(message);
+        this.code = code;
+    }
+
+    protected ApplicationException(String code, String message, Throwable throwable) {
+        super(message, throwable);
+        this.code = code;
+    }
+
+    protected ApplicationException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public abstract ApplicationErrorCode getErrorCode();
+
+    public String getCode() {
+        return code;
+    }
 }

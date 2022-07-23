@@ -19,6 +19,7 @@ public class CurrencyLayerStubClient implements CurrencyLayerClient {
         currencyLayerResponse.setQuotes(Map.of(
                 "USDEUR", 0.987085,
                 "USDJPY", 138.346008,
+                "USDCNY", 6.751304,
                 "USDKRW", 1316.309794));
 
         return currencyLayerResponse;

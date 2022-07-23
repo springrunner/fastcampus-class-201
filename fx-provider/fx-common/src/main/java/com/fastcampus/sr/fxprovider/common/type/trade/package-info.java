@@ -1,0 +1,1 @@
+package com.fastcampus.sr.fxprovider.common.type.trade;

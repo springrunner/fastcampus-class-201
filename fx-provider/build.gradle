@@ -1,41 +1,15 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.4'
+    id 'org.springframework.boot' version '2.7.1' apply false
+    id 'java'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.9.2' apply false
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
+    id "com.epages.restdocs-api-spec" version "0.16.2"
     id 'jacoco'
 }
 
 allprojects {
     repositories {
         mavenCentral()
-    }
-}
-
-import groovy.io.FileType
-
-task jacocoRootReport(type: JacocoReport) {
-    def sourceDirs = []
-    def dir = new File("./")
-    dir.eachFileRecurse(FileType.DIRECTORIES) {
-        if (file ==~ '.*/src/main/java') {
-            sourceDirs << file
-        }
-    }
-
-    sourceDirectories.setFrom(files(sourceDirs))
-    classDirectories.setFrom(fileTree(dir: './', include: '**/classes'))
-    additionalClassDirs.setFrom(fileTree(
-            dir: './',
-            include: '**/build/classes/java/main/**/**.class',
-            exclude: ['**/config/**/**.class']
-    ))
-    executionData.setFrom(fileTree(dir: './', include: '**/jacoco*.exec'))
-    onlyIf = { true }
-
-    reports {
-        xml.enabled true
-        csv.enabled false
-        html.enabled true
     }
 }
 
@@ -71,6 +45,10 @@ configure(javaProjects) {
     }
 
     dependencies {
+        compileOnly("com.google.code.findbugs:jsr305:3.0.2")
+        compileOnly("org.projectlombok:lombok")
+        annotationProcessor("org.projectlombok:lombok")
+
         implementation("org.springframework.boot:spring-boot-starter-logging")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -91,7 +69,16 @@ configure(javaProjects) {
         }
         finalizedBy jacocoTestReport
 
-        useJUnitPlatform() //jUnit5 수행
+        useJUnitPlatform { //jUnit5 수행
+            excludeTags("integrationTest")
+        }
+    }
+
+    tasks.register("integrationTest", Test) {
+        useJUnitPlatform {
+            includeTags("integration")
+        }
+        finalizedBy "jacocoTestReport"
     }
 
     jacocoTestReport {
@@ -100,5 +87,90 @@ configure(javaProjects) {
             html.setDestination(file("${buildDir}/reports/jacoco/html"))
         }
         getExecutionData().setFrom(files("${buildDir}/jacoco/jacoco.exec"))
+    }
+}
+
+def querydslProjects = [
+        project(":fx-core"),
+        project(":fx-api"),
+        project(":fx-worker"),
+        project(":fx-collector")
+]
+configure(querydslProjects) {
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("com.querydsl:querydsl-core")
+        implementation("com.querydsl:querydsl-jpa")
+
+        annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa")
+        annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+        annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+    }
+}
+
+def requiredRestDocsProject = [
+        project(":fx-api")
+]
+configure(requiredRestDocsProject) {
+    apply plugin: "org.asciidoctor.jvm.convert"
+    apply plugin: "com.epages.restdocs-api-spec"
+
+    configurations {
+        asciidoctorEx
+    }
+
+    ext {
+        set("snippetsDir", file("build/generated-snippets"))
+    }
+
+    dependencies {
+        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+        testImplementation("com.epages:restdocs-api-spec:0.16.2")
+        testImplementation("com.epages:restdocs-api-spec-mockmvc:0.16.2")
+
+        asciidoctorEx("org.springframework.restdocs:spring-restdocs-asciidoctor")
+    }
+
+    tasks.register("docsTest", Test) {
+        outputs.dir snippetsDir
+        useJUnitPlatform {
+            includeTags("docsTest")
+        }
+        finalizedBy "jacocoTestReport"
+    }
+
+    /**
+     * 개발환경에서만 API를 제공하고자 한다면 빌드태스크에 asciidoctor 를 추가합니다.
+     * asciidoctor 가 수행될 때 통합테스트 실행태스크 integrationTest 를 수행하기에
+     * 별도로 integrationTest 를 수행하지 않아도 됩니다.
+     *
+     * ex) <code>./gradlew clean asciidoctor build</code>
+     */
+    tasks.named("asciidoctor") {
+        inputs.dir snippetsDir
+        configurations "asciidoctorEx"
+        dependsOn docsTest
+        baseDirFollowsSourceDir() // 원본파일 .adoc 디렉터리 기준
+    }
+
+    openapi3 {
+        servers = [
+                {url = "http://localhost:8080"}
+        ]
+        title = "fx-api OpenApi Specification"
+        version = "${projectVersion}"
+        format = "yaml"
+    }
+
+    bootJar {
+        from("${asciidoctor.outputDir}") {
+            into "BOOT-INF/classes/static/docs"
+        }
+        from("swagger-ui") {
+            into "BOOT-INF/classes/static/swagger-ui"
+        }
+        from("build/api-spec") {
+            into "BOOT-INF/classes/static/swagger-ui"
+        }
     }
 }

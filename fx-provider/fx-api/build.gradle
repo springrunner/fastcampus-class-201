@@ -5,4 +5,8 @@ dependencies {
     implementation(project(":fx-common"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    testImplementation(testFixtures(project(":fx-core")))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

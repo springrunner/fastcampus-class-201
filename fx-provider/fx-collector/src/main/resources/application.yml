@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: fx-api
+  profiles:
+    include:
+      - db
+      - currency-layer
+    group:
+      local: db-local,currency-layer-dev
+      test: db-test,currency-layer-dev
+      dev: db-dev,currency-layer-dev
+      beta: db-beta,currency-layer-dev
+      stage: db-stage,currency-layer-dev
+      prod: db-prod,currency-layer-prod

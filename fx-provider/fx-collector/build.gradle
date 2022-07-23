@@ -6,4 +6,6 @@ dependencies {
     implementation(project(":clients:currency-layer"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

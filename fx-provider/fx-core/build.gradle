@@ -1,8 +1,29 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'java'
+    id 'java-test-fixtures'
+}
+
 description("fx-core module")
 
-bootJar {enabled = false}
-jar {enabled = true}
+bootJar { enabled = false }
+jar { enabled = true }
 
 dependencies {
+    implementation(project(":fx-common"))
+
+    implementation("org.hibernate:hibernate-envers")
+
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+    runtimeOnly("com.h2database:h2")
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
+    testFixturesImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }

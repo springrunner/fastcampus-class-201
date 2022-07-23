@@ -4,6 +4,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 .DS_Store
 .envrc
+gradle
+generated
 
 ### STS ###
 .apt_generated

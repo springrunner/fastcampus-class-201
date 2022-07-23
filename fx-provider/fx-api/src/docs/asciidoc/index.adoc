@@ -1,0 +1,29 @@
+= fx-api
+honeymon, <ihoneymon@gmail.com>
+v0.0.1, 2022-07-24
+//문서설정
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:toc: left
+:toc-title: 목차
+:toclevels: 3
+:sectlinks:
+:secnums:
+
+== 설명
+fx-api 애플리케이션입니다.
+
+fx-api는 다음과 같은 봉투패턴(envelop-pattern)으로 데이터를 제공합니다.
+`CustomApiResponseAdvisor` 를 이용해서 구현되었습니다.
+
+[source,json]
+----
+{
+  "code": "0000",
+  "message": "OK",
+  "data": {
+    //
+  }
+}
+----

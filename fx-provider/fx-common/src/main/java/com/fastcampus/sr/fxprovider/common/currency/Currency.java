@@ -1,5 +1,7 @@
 package com.fastcampus.sr.fxprovider.common.currency;
 
+import lombok.Getter;
+
 /**
  * @see <a href="https://ko.wikipedia.org/wiki/ISO_4217">통화코드(ISO 4217)</a>
  */
@@ -24,5 +26,9 @@ public enum Currency {
         }
 
         throw new IllegalArgumentException(String.format("지원하지 않는 통화(%s)입니다.", currency));
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
