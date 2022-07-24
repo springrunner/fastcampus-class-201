@@ -1,11 +1,11 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
 import com.fastcampus.sr.fxprovider.core.trade.TradeHistoryCreator;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +17,7 @@ public class FxTradeSendCommand {
     @NotEmpty
     private String senderName;
     @NotEmpty
+    @Email
     private String senderEmail;
     @NotEmpty
     private String senderContactNumber;
@@ -34,6 +35,7 @@ public class FxTradeSendCommand {
     @NotEmpty
     private String receiverName;
     @NotEmpty
+    @Email
     private String receiverEmail;
     @NotEmpty
     private String receiverContactNumber;
@@ -47,21 +49,22 @@ public class FxTradeSendCommand {
     private Currency receiveCurrency;
 
     @Builder
-    public FxTradeSendCommand(String senderName,
-                              String senderEmail,
-                              String senderContactNumber,
-                              String senderAddress1,
-                              String senderAddress2,
-                              String senderIdentifyNumber,
-                              Currency sendCurrency,
-                              Double sendMoney,
-                              String receiverName,
-                              String receiverEmail,
-                              String receiverContactNumber,
-                              String receiverAddress1,
-                              String receiverAddress2,
-                              String receiverIdentifyNumber,
-                              Currency receiveCurrency) {
+    public FxTradeSendCommand(
+            String senderName,
+            String senderEmail,
+            String senderContactNumber,
+            String senderAddress1,
+            String senderAddress2,
+            String senderIdentifyNumber,
+            Currency sendCurrency,
+            Double sendMoney,
+            String receiverName,
+            String receiverEmail,
+            String receiverContactNumber,
+            String receiverAddress1,
+            String receiverAddress2,
+            String receiverIdentifyNumber,
+            Currency receiveCurrency) {
         this.senderName = senderName;
         this.senderEmail = senderEmail;
         this.senderContactNumber = senderContactNumber;
@@ -79,8 +82,9 @@ public class FxTradeSendCommand {
         this.receiveCurrency = receiveCurrency;
     }
 
-    public TradeHistoryCreator createCreator() {
+    public TradeHistoryCreator createCreator(String memberNumber) {
         return TradeHistoryCreator.builder()
+                .memberNumber(memberNumber)
                 .senderName(getSenderName())
                 .senderEmail(getSenderEmail())
                 .senderContactNumber(getSenderContactNumber())

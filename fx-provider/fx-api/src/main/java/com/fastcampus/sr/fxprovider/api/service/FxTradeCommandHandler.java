@@ -1,7 +1,6 @@
 package com.fastcampus.sr.fxprovider.api.service;
 
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendResponse;
 import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
 import com.fastcampus.sr.fxprovider.core.currency.FxCurrencyRepository;
 import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
@@ -23,12 +22,10 @@ public class FxTradeCommandHandler {
         this.tradeHistoryRepository = tradeHistoryRepository;
     }
 
-    public FxTradeSendResponse sendMoney(FxTradeSendCommand command) {
+    public TradeHistory sendMoney(String memberNumber, FxTradeSendCommand command) {
         List<FxCurrency> fxCurrencies = fxCurrencyRepository.findAll();
 
-        TradeHistoryCreator tradeHistoryCreator = command.createCreator();
-        TradeHistory tradeHistory = tradeHistoryRepository.save(tradeHistoryCreator.create(fxCurrencies));
-
-        return FxTradeSendResponse.of(tradeHistory);
+        TradeHistoryCreator tradeHistoryCreator = command.createCreator(memberNumber);
+        return tradeHistoryRepository.save(tradeHistoryCreator.create(fxCurrencies));
     }
 }

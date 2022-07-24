@@ -1,0 +1,25 @@
+== 송금
+
+=== 송금요청
+
+[discrete]
+==== 요청
+include::{snippets}/post-v1-trade-send/http-request.adoc[]
+include::{snippets}/post-v1-trade-send/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/post-v1-trade-send/http-response.adoc[]
+include::{snippets}/post-v1-trade-send/http-response.adoc[]
+
+=== 송금내역 조회
+
+[discrete]
+==== 요청
+include::{snippets}/get-v1-trade-history/http-request.adoc[]
+include::{snippets}/get-v1-trade-history/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/get-v1-trade-history/http-response.adoc[]
+include::{snippets}/get-v1-trade-history/http-response.adoc[]

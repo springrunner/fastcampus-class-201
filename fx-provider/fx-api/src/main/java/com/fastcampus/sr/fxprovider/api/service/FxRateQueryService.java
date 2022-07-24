@@ -43,7 +43,7 @@ public class FxRateQueryService {
                 .collect(Collectors.toList());
     }
 
-    public FxRateCalculatedResponse calculate(FxRateCalculateRequest request) {
+    public FxTrade calculateFx(FxRateCalculateRequest request) {
         List<FxCurrency> fxCurrencies = fxCurrencyRepository.findAll();
 
         FxTrade result = FxRateCalculator.calculate(fxCurrencies,
@@ -51,6 +51,6 @@ public class FxRateQueryService {
                 request.getSendMoney(),
                 request.getReceiveCurrency());
 
-        return FxRateCalculatedResponse.of(result);
+        return result;
     }
 }

@@ -28,6 +28,7 @@ public class FxRateCalculatedResponse {
     public static FxRateCalculatedResponse of(FxTrade fxTrade) {
         FxRateCalculatedResponse response = new FxRateCalculatedResponse();
         response.sendCurrency = fxTrade.getSendCurrency();
+        response.sendMoney = fxTrade.getSendMoney();
         response.receiveCurrency = fxTrade.getReceiveCurrency();
         response.expectReceiveMoney = fxTrade.getReceiveMoney().doubleValue();
         return response;

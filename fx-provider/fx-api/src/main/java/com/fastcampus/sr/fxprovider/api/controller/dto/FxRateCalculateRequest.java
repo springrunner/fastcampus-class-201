@@ -3,6 +3,7 @@ package com.fastcampus.sr.fxprovider.api.controller.dto;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.sun.istack.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public class FxRateCalculateRequest {
     @NotNull
     private Currency receiveCurrency;
 
-
+    @Builder
     public FxRateCalculateRequest(Currency sendCurrency, Double sendMoney, Currency receiveCurrency) {
         this.sendCurrency = sendCurrency;
         this.sendMoney = sendMoney;

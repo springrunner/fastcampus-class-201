@@ -4,11 +4,14 @@ spring:
   profiles:
     include:
       - db
+      - actuator
+      - authentication
+      - logging
     group:
-      local: db-local
-      test: db-test
-      dev: db-dev
-      beta: db-beta
-      stage: db-stage
-      prod: db-prod
+      local: db-local,logging-local,authentication-dev
+      test: db-test,logging-test,authentication-test
+      dev: db-dev,logging-dev,authentication-dev
+      beta: db-beta,logging-beta,authentication-beta
+      stage: db-stage,logging-stage,authentication-stage
+      prod: db-prod,logging-prod,authentication-prod
     active: local

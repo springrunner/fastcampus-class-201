@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 @Slf4j
-@RestControllerAdvice(basePackages = {"com.fastcampus.sr.fxprovider"})
+@RestControllerAdvice(basePackages = {"com.fastcampus.sr.fxprovider.api.controller"})
 public class CustomApiResponseAdvisor implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

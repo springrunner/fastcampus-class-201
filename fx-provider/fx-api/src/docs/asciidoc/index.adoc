@@ -27,3 +27,9 @@ fx-api는 다음과 같은 봉투패턴(envelop-pattern)으로 데이터를 제�
   }
 }
 ----
+
+//환율
+include::fx-rate.adoc[]
+
+//송금
+include::trade.adoc[]

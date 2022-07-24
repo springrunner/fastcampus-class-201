@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +31,13 @@ public class GlobalRestControllerAdvice {
     protected ApiResponse<Void> handle(Throwable throwable) {
         log.error("[UnknownException] Occur exception.", throwable);
         return ApiResponseGenerator.FAILURE;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MissingRequestHeaderException.class})
+    protected ApiResponse<Void> handle(MissingRequestHeaderException cause) {
+        log.error("[MissingRequestHeaderException] Occur exception.", cause);
+        return ApiResponseGenerator.of("C400", "요청헤더값이 누락되었습니다.");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

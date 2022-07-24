@@ -1,0 +1,28 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: authentication-test
+authentication:
+  enable: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: authentication-local
+authentication:
+  enable: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: authentication-dev
+authentication:
+  enable: true
+  paths:
+    - '/api/v1/trade/**'
+  auth-keys:
+    "service-a": "Bearer 288b5c8c-4e95-4fac-af7a-da0be1c583b3"
+    "service-b": "Bearer 63c4a998-a95e-451f-bad5-dd22fdfc9e27"

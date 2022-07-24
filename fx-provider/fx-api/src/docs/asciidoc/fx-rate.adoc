@@ -1,0 +1,26 @@
+== 환율
+fx-provider 에서 제공하는 환율정보를 조회할 수 있습니다.
+
+=== 환율목록 조회
+
+[discrete]
+==== 요청
+include::{snippets}/get-v1-fx-rates/http-request.adoc[]
+include::{snippets}/get-v1-fx-rates/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/get-v1-fx-rates/http-response.adoc[]
+include::{snippets}/get-v1-fx-rates/http-response.adoc[]
+
+=== 예상송금액 조회
+
+[discrete]
+==== 요청
+include::{snippets}/post-v1-fx-calculate/http-request.adoc[]
+include::{snippets}/post-v1-fx-calculate/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/post-v1-fx-calculate/http-response.adoc[]
+include::{snippets}/post-v1-fx-calculate/http-response.adoc[]

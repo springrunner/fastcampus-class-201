@@ -4,12 +4,17 @@ import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fastcampus.sr.fx.provider.core.annotation.RestDocsTest;
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxCurrencyDto;
+import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculateRequest;
 import com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator;
 import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
 import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
 import com.fastcampus.sr.fxprovider.api.service.FxRateQueryService;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
 import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.trade.FxRateCalculator;
+import com.fastcampus.sr.fxprovider.core.trade.FxTrade;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,8 +32,8 @@ import java.util.Arrays;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.JsonFieldType.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
 @RestDocsTest
 class FxRateRestControllerDocsTest {
@@ -58,12 +63,12 @@ class FxRateRestControllerDocsTest {
                                 RequestDocumentation.parameterWithName("targetCurrency").attributes(DocumentFormatGenerator.generatedEnumAttrs(Currency.class, Currency::getDescription)).description("대상통화").optional()
                         ),
                         responseFields(
-                                fieldWithPath("code").type(JsonFieldType.STRING).description("응답코드(정상: 0000)"),
-                                fieldWithPath("message").type(JsonFieldType.STRING).description("응답메시지(정상: OK)"),
-                                fieldWithPath("data").type(JsonFieldType.OBJECT).description("응답데이터"),
+                                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                                fieldWithPath("data").type(OBJECT).description("응답데이터"),
                                 fieldWithPath("data.fxCurrencies[]").type(JsonFieldType.ARRAY).description("환율"),
-                                fieldWithPath("data.fxCurrencies[].currency").type(JsonFieldType.STRING).description("통화"),
-                                fieldWithPath("data.fxCurrencies[].rate").type(JsonFieldType.NUMBER).description("환율")
+                                fieldWithPath("data.fxCurrencies[].currency").type(STRING).description("통화"),
+                                fieldWithPath("data.fxCurrencies[].rate").type(NUMBER).description("환율")
 
                         )))
                 .andDo(MockMvcRestDocumentationWrapper.document("get-v1-fx-rates",
@@ -75,18 +80,87 @@ class FxRateRestControllerDocsTest {
                                                         RequestDocumentation.parameterWithName("targetCurrency").attributes(DocumentFormatGenerator.generatedEnumAttrs(Currency.class, Currency::getDescription)).description("대상통화").optional()
                                                 )
                                                 .responseFields(
-                                                        fieldWithPath("code").type(JsonFieldType.STRING).description("응답코드(정상: 0000)"),
-                                                        fieldWithPath("message").type(JsonFieldType.STRING).description("응답메시지(정상: OK)"),
-                                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("응답데이터"),
+                                                        fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                                                        fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                                                        fieldWithPath("data").type(OBJECT).description("응답데이터"),
                                                         fieldWithPath("data.fxCurrencies[]").type(JsonFieldType.ARRAY).description("환율"),
-                                                        fieldWithPath("data.fxCurrencies[].currency").type(JsonFieldType.STRING).description("통화"),
-                                                        fieldWithPath("data.fxCurrencies[].rate").type(JsonFieldType.NUMBER).description("환율")
+                                                        fieldWithPath("data.fxCurrencies[].currency").type(STRING).description("통화"),
+                                                        fieldWithPath("data.fxCurrencies[].rate").type(NUMBER).description("환율")
 
                                                 )
                                                 .build()
                                 )
                         )
+                );
+    }
 
+    @Test
+    @DisplayName("환율계산")
+    void testCalculateFx(RestDocumentationContextProvider contextProvider) throws Exception {
+        var fxCurrencies = Arrays.asList(
+                FxCurrency.create(Currency.KRW, 1321.55d),
+                FxCurrency.create(Currency.JPY, 132.15d)
+        );
+
+
+        Mockito.when(fxRateQueryService.calculateFx(any()))
+                .thenReturn(
+                        FxRateCalculator.calculate(fxCurrencies, Currency.KRW, 1_000_000d, Currency.JPY)
+                );
+
+        FxRateCalculateRequest calculateRequest = FxRateCalculateRequest.builder()
+                .sendCurrency(Currency.KRW)
+                .sendMoney(1_000_000d)
+                .receiveCurrency(Currency.JPY)
+                .build();
+        String request = ObjectMapperUtils.toPrettyJson(calculateRequest);
+
+        MockMvcFactory.getRestDocsMockMvc(contextProvider, fxRateRestController)
+                .perform(RestDocumentationRequestBuilders.post("/api/v1/fx-calculate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcRestDocumentation.document("post-v1-fx-calculate",
+                        RestDocumentationUtils.getDocumentRequest(),
+                        RestDocumentationUtils.getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("sendCurrency").description("송금통화"),
+                                fieldWithPath("sendMoney").description("송금액"),
+                                fieldWithPath("receiveCurrency").description("수취통화")
+                        ),
+                        responseFields(
+                                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                                fieldWithPath("data").type(OBJECT).description("응답데이터"),
+                                fieldWithPath("data.sendCurrency").type(STRING).description("송금통화"),
+                                fieldWithPath("data.sendMoney").type(NUMBER).description("송금액"),
+                                fieldWithPath("data.receiveCurrency").type(STRING).description("수취통화"),
+                                fieldWithPath("data.expectReceiveMoney").type(NUMBER).description("예상수취금액")
+
+                        )))
+                .andDo(MockMvcRestDocumentationWrapper.document("post-v1-fx-calculate",
+                                RestDocumentationUtils.getDocumentRequest(),
+                                RestDocumentationUtils.getDocumentResponse(),
+                                resource(
+                                        ResourceSnippetParameters.builder()
+                                                .requestFields(
+                                                        fieldWithPath("sendCurrency").description("송금통화"),
+                                                        fieldWithPath("sendMoney").description("송금액"),
+                                                        fieldWithPath("receiveCurrency").description("수취통화")
+                                                )
+                                                .responseFields(
+                                                        fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                                                        fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                                                        fieldWithPath("data").type(OBJECT).description("응답데이터"),
+                                                        fieldWithPath("data.sendCurrency").type(STRING).description("송금통화"),
+                                                        fieldWithPath("data.sendMoney").type(NUMBER).description("송금액"),
+                                                        fieldWithPath("data.receiveCurrency").type(STRING).description("수취통화"),
+                                                        fieldWithPath("data.expectReceiveMoney").type(NUMBER).description("예상수취금액")
+                                                )
+                                                .build()
+                                )
+                        )
                 );
     }
 }

@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: logging-local,logging-test
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.fastcampus.sr.fxprovider.api: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: logging-dev,logging-beta,logging-stage
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.fastcampus.sr.fxprovider.api: debug
+
+---
+---
+spring:
+  config:
+    activate:
+      on-profile: logging-prod
+
+logging:
+  level:
+    com.fastcampus.sr.fxprovider.api: info
