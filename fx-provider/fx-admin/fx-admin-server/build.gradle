@@ -3,6 +3,10 @@ description("fx-admin-server module")
 dependencies {
     implementation(project(":fx-core"))
     implementation(project(":fx-common"))
+    implementation(project(":fx-admin:fx-admin-front"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    testImplementation(testFixtures(project(":fx-core")))
 }

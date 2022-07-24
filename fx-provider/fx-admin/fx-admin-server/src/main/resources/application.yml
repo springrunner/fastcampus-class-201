@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    include:
+      - db
+      - logging
+      - static-resource
+    group:
+      test: db-test,logging-test,static-resource-local
+      local: db-local,logging-local,static-resource-local
+      dev: db-dev,logging-dev,static-resource-server
+      beta: db-beta,logging-beta,static-resource-server
+      stage: db-stage,logging-stage,static-resource-server
+      prod: db-prod,logging-prod,static-resource-server
+    active:
+      - local

@@ -1,0 +1,34 @@
+spring:
+  config:
+    activate:
+      on-profile: logging-local,logging-test
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.fastcampus.sr.fxprovider.admin: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: logging-dev,logging-beta,logging-stage
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.fastcampus.sr.fxprovider.admin: debug
+  file:
+    path: /service/fx-provider #spring.log 파일 생성됨
+
+---
+spring:
+  config:
+    activate:
+      on-profile: logging-prod
+
+logging:
+  level:
+    com.fastcampus.sr.fxprovider.admin: info
+  file:
+    path: /service/fx-provider

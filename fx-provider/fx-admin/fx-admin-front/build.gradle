@@ -1,0 +1,40 @@
+plugins {
+    id "com.github.node-gradle.node" version "3.4.0"
+    id "java"
+}
+
+/**
+ * @see <a href="https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/usage.md">gradle-node-plugin/usage</a>
+ */
+apply plugin: "com.github.node-gradle.node"
+
+node {
+    version = "16.14.0"
+    download = true
+}
+
+tasks.register("adminNpmInstall", NpmTask) {
+    println(file("${project.projectDir}"))
+    setWorkingDir(file("${project.projectDir}"))
+    args = ["install"]
+}
+
+tasks.register("webpack", NpmTask) {
+    dependsOn("adminNpmInstall")
+    args = ["run", "build"]
+}
+
+def jsBuildDir = "dist/"
+jar {
+    from(jsBuildDir)
+    eachFile { file ->
+        println(file.path)
+        if (file.path.startsWith("META-INF")) file else file.path = "static/${path}"
+    }
+    includeEmptyDirs = false
+    dependsOn("webpack")
+}
+
+tasks.named("clean") {
+    delete(jsBuildDir)
+}
