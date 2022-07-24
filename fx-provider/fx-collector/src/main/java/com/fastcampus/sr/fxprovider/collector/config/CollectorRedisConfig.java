@@ -12,10 +12,10 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @Profile("!local&&!test")
 @Configuration
 @EnableRedisRepositories
-public class RedisConfig {
+public class CollectorRedisConfig {
     private final RedisProperties redisProperties;
 
-    public RedisConfig(RedisProperties redisProperties) {
+    public CollectorRedisConfig(RedisProperties redisProperties) {
         this.redisProperties = redisProperties;
     }
 

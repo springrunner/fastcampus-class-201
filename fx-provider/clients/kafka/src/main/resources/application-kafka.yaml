@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: kafka-local,kafka-dev
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: "fx-provider"

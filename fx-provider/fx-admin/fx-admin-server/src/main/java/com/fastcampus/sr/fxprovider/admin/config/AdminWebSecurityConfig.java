@@ -9,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class AdminWebSecurityConfig {
     @Bean
     @ConditionalOnProperty(name = "admin.security.mode", havingValue = "disable", matchIfMissing = true)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {

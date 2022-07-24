@@ -5,7 +5,9 @@ build/
 .DS_Store
 .envrc
 gradle
+dist
 generated
+node_modules
 
 ### STS ###
 .apt_generated

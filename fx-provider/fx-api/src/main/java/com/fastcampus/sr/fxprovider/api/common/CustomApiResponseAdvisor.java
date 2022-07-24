@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.api.common;
 
-import com.fastcampus.sr.fxprovider.api.exception.ApiResponseJsonProcessingException;
+import com.fastcampus.sr.fxprovider.common.exception.ApiResponseJsonProcessingException;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.GenericTypeResolver;

@@ -20,7 +20,6 @@ logging:
     com.fastcampus.sr.fxprovider.api: debug
 
 ---
----
 spring:
   config:
     activate:

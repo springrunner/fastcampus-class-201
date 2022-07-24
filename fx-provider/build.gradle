@@ -10,18 +10,21 @@ plugins {
 allprojects {
     repositories {
         mavenCentral()
+        maven { url 'https://jitpack.io'}
     }
 }
 
 def javaProjects = [
 	project(":fx-common"), 
 	project(":fx-core"), 
-	project(":fx-admin:fx-admin-server"), 
+	project(":fx-admin:fx-admin-server"),
 	project(":fx-api"), 
 	project(":fx-collector"), 
 	project(":fx-worker"),
-    project("clients:feign-common"),
-    project("clients:currency-layer"),
+    project(":clients:feign-common"),
+    project(":clients:currency-layer"),
+    project(":clients:kafka"),
+    project(":clients:toast"),
 ]
 configure(javaProjects) {
     apply plugin: "java"
@@ -91,6 +94,7 @@ configure(javaProjects) {
 }
 
 def querydslProjects = [
+        project(":fx-admin:fx-admin-server"),
         project(":fx-core"),
         project(":fx-api"),
         project(":fx-worker"),

@@ -1,0 +1,24 @@
+spring:
+  config:
+    activate:
+      on-profile: toast-local, toast-test
+toast:
+  email:
+    mode: stub
+    root-uri: "https://api-mail.cloud.toast.com"
+    connect-timeout: 5s
+    read-timeout: 5s
+    auth-key: "test"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: toast-local, toast-test
+toast:
+  email:
+    mode: stub
+    root-uri: "https://api-mail.cloud.toast.com"
+    connect-timeout: 5s
+    read-timeout: 5s
+    auth-key: "{auth-key 발급}"

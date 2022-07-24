@@ -2,7 +2,6 @@ package com.fastcampus.sr.fxprovider.collector.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +21,10 @@ import java.util.Optional;
 @Slf4j
 @Profile("local|test")
 @Configuration
-public class EmbeddedRedisConfig {
+public class CollectorEmbeddedRedisConfig {
     private final RedisProperties redisProperties;
 
-    public EmbeddedRedisConfig(RedisProperties redisProperties) {
+    public CollectorEmbeddedRedisConfig(RedisProperties redisProperties) {
         this.redisProperties = redisProperties;
     }
 

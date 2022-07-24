@@ -1,7 +1,4 @@
-package com.fastcampus.sr.fxprovider.api.exception;
-
-import com.fastcampus.sr.fxprovider.common.exception.ApplicationErrorCode;
-import com.fastcampus.sr.fxprovider.common.exception.ApplicationException;
+package com.fastcampus.sr.fxprovider.common.exception;
 
 import static com.fastcampus.sr.fxprovider.common.exception.ApplicationErrorCode.FAILURE_API_RESPONSE_JSON_PROCESSING;
 

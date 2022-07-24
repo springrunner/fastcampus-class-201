@@ -32,11 +32,11 @@ public class TradeHistoryManager implements TradeHistoryFinder, TradeHistoryEdit
 
     @Transactional
     @Override
-    public TradeHistoryDto cancel(String tradeNumber) {
+    public TradeHistoryDto cancel(String tradeNumber, String cancelReason) {
         TradeHistory tradeHistory = tradeHistoryRepository.findByTradeNumber(tradeNumber)
                 .orElseThrow(() -> new NotFoundTradeHistoryException(tradeNumber));
 
-        tradeHistory.cancel();
+        tradeHistory.cancel(cancelReason);
 
         return TradeHistoryDto.of(tradeHistory);
     }

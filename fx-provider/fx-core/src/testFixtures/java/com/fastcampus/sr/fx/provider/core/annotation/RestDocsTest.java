@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fx.provider.core.annotation;
 
-import com.fastcampus.sr.fxprovider.core.Constant;
+import com.fastcampus.sr.fxprovider.common.Constant;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

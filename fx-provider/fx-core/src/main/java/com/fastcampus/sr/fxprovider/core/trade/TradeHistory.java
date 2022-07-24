@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.UUID;
 
 import static com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus.*;
 
@@ -31,8 +32,17 @@ public class TradeHistory extends BaseEntity {
     private ZonedDateTime inProgressDateTime; // 진행일시(시스템에서 수취인에게 진행알림시간)
     @Column(name = "canceled_date_time", nullable = true, columnDefinition = "TIMESTAMP COMMENT '취소일시'")
     private ZonedDateTime canceledDateTime; // 취소일시
+
+    @Column(name = "cancel_reasone", columnDefinition = "VARCHAR(100) COMMENT '취소사유'")
+    private String cancelReason; // 취소사유
     @Column(name = "completed_date_time", nullable = true, columnDefinition = "TIMESTAMP COMMENT '완료일시'")
     private ZonedDateTime completedDateTime; // 완료일시
+
+    @Column(name = "member_number", columnDefinition = "VARCHAR(100) COMMENT '회원번호'")
+    private String memberNumber;
+
+    @Column(name = "trade_number", columnDefinition = "VARCHAR(100) COMMENT '거래번호'")
+    private String tradeNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "send_currency", columnDefinition = "VARCHAR(10) COMMENT '송금통화'")
@@ -77,26 +87,30 @@ public class TradeHistory extends BaseEntity {
     private String receiverIdentifyNumber;
 
     @Builder
-    public TradeHistory(Currency sendCurrency,
-                        Double sendFxRate,
-                        Double sendMoney,
-                        String senderName,
-                        String senderEmail,
-                        String senderContactNumber,
-                        String senderAddress1,
-                        String senderAddress2,
-                        String senderIdentifyNumber,
-                        Currency receiveCurrency,
-                        Double receiveFxRate,
-                        Double receiveMoney,
-                        String receiverName,
-                        String receiverEmail,
-                        String receiverContactNumber,
-                        String receiverAddress1,
-                        String receiverAddress2,
-                        String receiverIdentifyNumber) {
+    public TradeHistory(
+            String memberNumber,
+            Currency sendCurrency,
+            Double sendFxRate,
+            Double sendMoney,
+            String senderName,
+            String senderEmail,
+            String senderContactNumber,
+            String senderAddress1,
+            String senderAddress2,
+            String senderIdentifyNumber,
+            Currency receiveCurrency,
+            Double receiveFxRate,
+            Double receiveMoney,
+            String receiverName,
+            String receiverEmail,
+            String receiverContactNumber,
+            String receiverAddress1,
+            String receiverAddress2,
+            String receiverIdentifyNumber) {
         this.tradeStatus = REQUEST;
         this.requestDateTime = ZonedDateTime.now();
+        this.memberNumber = memberNumber;
+        this.tradeNumber = UUID.randomUUID().toString();
 
         this.sendCurrency = sendCurrency;
         this.sendFxRate = sendFxRate;
@@ -127,13 +141,14 @@ public class TradeHistory extends BaseEntity {
         this.inProgressDateTime = ZonedDateTime.now();
     }
 
-    public void cancel() {
+    public void cancel(String reason) {
         Assert.isTrue(
                 Arrays.asList(REQUEST, IN_PROGRESS).contains(this.tradeStatus),
                 String.format("취소가능한 상태가 아닙니다(상태: %s).", this.tradeStatus.getDescription()));
 
         this.tradeStatus = CANCELED;
         this.canceledDateTime = ZonedDateTime.now();
+        this.cancelReason = reason;
     }
 
     public void complete() {

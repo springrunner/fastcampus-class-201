@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Import;
         CoreConfig.class,
         CurrencyLayerClientConfig.class
 })
-public class AppConfiguration {
+public class CollectorAppConfig {
 }

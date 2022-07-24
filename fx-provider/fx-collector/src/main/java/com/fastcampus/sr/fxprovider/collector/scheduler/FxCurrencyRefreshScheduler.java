@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import static com.fastcampus.sr.fxprovider.collector.config.SchedulerConfig.SHED_LOCK_DEFAULT_ZONE;
+import static com.fastcampus.sr.fxprovider.collector.config.CollectorSchedulerConfig.SHED_LOCK_DEFAULT_ZONE;
 
 @Slf4j
 @Component

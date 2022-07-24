@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fx.provider.core.annotation;
 
-import com.fastcampus.sr.fxprovider.core.Constant;
+import com.fastcampus.sr.fxprovider.common.Constant;
 import org.junit.jupiter.api.Tag;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

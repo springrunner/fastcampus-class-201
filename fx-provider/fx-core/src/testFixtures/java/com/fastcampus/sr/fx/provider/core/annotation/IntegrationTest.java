@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fx.provider.core.annotation;
 
-import com.fastcampus.sr.fxprovider.core.Constant;
+import com.fastcampus.sr.fxprovider.common.Constant;
 import org.junit.jupiter.api.Tag;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.core.env.Environment;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.lang.annotation.*;
@@ -21,6 +22,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Tag(Constant.TEST_TAG_INTEGRATION)
+@ActiveProfiles(Constant.PROFILE_TEST)
 @SpringBootTest
 public @interface IntegrationTest {
     /**

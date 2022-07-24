@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: fx-worker
+  profiles:
+    include:
+      - db
+      - actuator
+    group:
+      local: db-local
+      test: db-test
+      dev: db-dev
+      beta: db-beta
+      stage: db-stage
+      prod: db-prod
+    active: local

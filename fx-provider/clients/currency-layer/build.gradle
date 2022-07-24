@@ -6,7 +6,6 @@ jar {enabled = true}
 dependencies {
     implementation(project(":fx-common"))
     implementation(project(":clients:feign-common"))
-    implementation("org.springframework.boot:spring-boot-starter")
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-logging")

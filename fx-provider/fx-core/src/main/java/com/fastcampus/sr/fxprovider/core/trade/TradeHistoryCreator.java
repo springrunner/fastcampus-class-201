@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TradeHistoryCreator {
+    private String memberNumber;
     private String senderName;
     private String senderEmail;
     private String senderContactNumber;
@@ -31,21 +32,24 @@ public class TradeHistoryCreator {
     private Currency receiveCurrency;
 
     @Builder
-    public TradeHistoryCreator(String senderName,
-                               String senderEmail,
-                               String senderContactNumber,
-                               String senderAddress1,
-                               String senderAddress2,
-                               String senderIdentifyNumber,
-                               Currency sendCurrency,
-                               Double sendMoney,
-                               String receiverName,
-                               String receiverEmail,
-                               String receiverContactNumber,
-                               String receiverAddress1,
-                               String receiverAddress2,
-                               String receiverIdentifyNumber,
-                               Currency receiveCurrency) {
+    public TradeHistoryCreator(
+            String memberNumber,
+            String senderName,
+            String senderEmail,
+            String senderContactNumber,
+            String senderAddress1,
+            String senderAddress2,
+            String senderIdentifyNumber,
+            Currency sendCurrency,
+            Double sendMoney,
+            String receiverName,
+            String receiverEmail,
+            String receiverContactNumber,
+            String receiverAddress1,
+            String receiverAddress2,
+            String receiverIdentifyNumber,
+            Currency receiveCurrency) {
+        this.memberNumber = memberNumber;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
         this.senderContactNumber = senderContactNumber;

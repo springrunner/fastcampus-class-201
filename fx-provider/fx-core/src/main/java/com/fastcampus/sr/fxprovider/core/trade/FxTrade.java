@@ -7,20 +7,32 @@ import java.math.BigDecimal;
 public class FxTrade {
     private Currency sendCurrency;
     private Double sendRate;
+    private Double sendMoney;
     private Currency receiveCurrency;
     private Double receiveRate;
     private Double receiveMoney;
 
-    public FxTrade(Currency sendCurrency, Double sendRate, Currency receiveCurrency, Double receiveRate, Double receiveMoney) {
+    public FxTrade(Currency sendCurrency,
+                   Double sendRate,
+                   Double sendMoney,
+                   Currency receiveCurrency,
+                   Double receiveRate,
+                   Double receiveMoney) {
         this.sendCurrency = sendCurrency;
         this.sendRate = sendRate;
+        this.sendMoney = sendMoney;
         this.receiveCurrency = receiveCurrency;
         this.receiveRate = receiveRate;
         this.receiveMoney = receiveMoney;
     }
 
-    public static FxTrade of(Currency sendCurrency, Double sendRate, Currency receiveCurrency, Double receiveRate, Double receiveMoney) {
-        return new FxTrade(sendCurrency, sendRate, receiveCurrency, receiveRate, receiveMoney);
+    public static FxTrade of(Currency sendCurrency,
+                             Double sendRate,
+                             Double sendMoney,
+                             Currency receiveCurrency,
+                             Double receiveRate,
+                             Double receiveMoney) {
+        return new FxTrade(sendCurrency, sendRate, sendMoney, receiveCurrency, receiveRate, receiveMoney);
     }
 
     public Currency getSendCurrency() {
@@ -41,5 +53,9 @@ public class FxTrade {
 
     public Double getReceiveMoney() {
         return receiveMoney;
+    }
+
+    public Double getSendMoney() {
+        return sendMoney;
     }
 }

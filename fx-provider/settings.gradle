@@ -1,12 +1,14 @@
 rootProject.name="fx-provider"
 
-include 'fx-core'
-include 'fx-common'
 include 'fx-admin:fx-admin-front'
 include 'fx-admin:fx-admin-server'
+include 'fx-core'
+include 'fx-common'
 include 'fx-api'
 include 'fx-collector'
 include 'fx-worker'
 
 include 'clients:feign-common'
 include 'clients:currency-layer'
+include 'clients:kafka'
+include 'clients:toast'
