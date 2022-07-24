@@ -1,14 +1,25 @@
 spring:
   application:
-    name: fx-api
+    name: fx-collector
   profiles:
     include:
       - db
       - currency-layer
+      - redis
     group:
-      local: db-local,currency-layer-dev
-      test: db-test,currency-layer-dev
-      dev: db-dev,currency-layer-dev
-      beta: db-beta,currency-layer-dev
-      stage: db-stage,currency-layer-dev
-      prod: db-prod,currency-layer-prod
+      local: db-local,currency-layer-dev,redis-local
+      test: db-test,currency-layer-dev,redis-test
+      dev: db-dev,currency-layer-dev,redis-dev
+      beta: db-beta,currency-layer-dev,redis-beta
+      stage: db-stage,currency-layer-dev,redis-stage
+      prod: db-prod,currency-layer-prod,redis-prod
+    active: local
+
+logging:
+  level:
+    com.fastcampus.sr.fxprovider.collector: DEBUG
+
+management:
+  endpoint:
+    health:
+      enabled: false

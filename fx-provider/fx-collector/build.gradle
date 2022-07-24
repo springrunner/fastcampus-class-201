@@ -6,6 +6,17 @@ dependencies {
     implementation(project(":clients:currency-layer"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("com.github.tarossi:embedded-redis:1.5.2")
+    /**
+     * Scheduled 실행시 영속화된 Lock 을 이용하여 중복수행 방지
+     * @see <a href="https://rieckpil.de/lock-scheduled-tasks-with-shedlock-and-spring-boot/"></a>
+     * @see <a href="https://eunbc-2020.tistory.com/200"></a>
+     */
+    implementation("net.javacrumbs.shedlock:shedlock-spring:4.23.0")
+    implementation("net.javacrumbs.shedlock:shedlock-provider-redis-spring:4.23.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(testFixtures(project(":fx-core")))
 }
