@@ -42,7 +42,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 
 @RestDocsTest
-class FxTradeRestControllerDocsTest {
+class FxMoneyDtoRestControllerDocsTest {
     @Mock
     FxTradeFacade fxTradeFacade;
     @Mock

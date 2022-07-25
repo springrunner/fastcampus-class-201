@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Validated
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class FxRateCalculateRequest {
+public class FxMoneyCalculateRequest {
     @NotNull
     private Currency sendCurrency;
     @NotNull
@@ -22,7 +22,7 @@ public class FxRateCalculateRequest {
     private Currency receiveCurrency;
 
     @Builder
-    public FxRateCalculateRequest(Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
+    public FxMoneyCalculateRequest(Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
         this.sendCurrency = sendCurrency;
         this.sendMoney = sendMoney;
         this.receiveCurrency = receiveCurrency;

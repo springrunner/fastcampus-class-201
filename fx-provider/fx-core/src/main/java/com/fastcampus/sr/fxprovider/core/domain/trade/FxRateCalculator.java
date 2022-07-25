@@ -2,6 +2,7 @@ package com.fastcampus.sr.fxprovider.core.domain.trade;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import com.fastcampus.sr.fxprovider.core.exception.NotSupportCurrencyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -24,7 +25,8 @@ public class FxRateCalculator {
         throw new UnsupportedOperationException("Utility class.");
     }
 
-    public static FxTrade calculate(List<FxCurrency> fxCurrencies, Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
+    //TODO 환전마진을 적용해야 합니다.
+    public static FxMoneyDto calculate(List<FxCurrency> fxCurrencies, Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
         Assert.notEmpty(fxCurrencies, "환율정보는 필수입력값입니다.");
         Assert.notNull(sendCurrency, "송금통화는 필수입력값입니다.");
         Assert.notNull(sendMoney, "송금액은 필수입력값입니다.");
@@ -38,7 +40,7 @@ public class FxRateCalculator {
         BigDecimal sendDollarMoney = sendMoney.divide(sendRate, 2, RoundingMode.DOWN);
         log.debug("SendRate: {}, ReceiveRate: {}, sendDollarMoney: {}", sendRate, receiveRate, sendDollarMoney);
 
-        //TODO 환전에 대한 마진(Margin)을 계산하이 필요할 겁니다. ㅎㅎ.
+        //TODO 송금 마진(Margin)을 적용해야합니다. 달러기준!
 
         BigDecimal receiveMoney = sendDollarMoney
                 .multiply(receiveRate)
@@ -47,7 +49,7 @@ public class FxRateCalculator {
 
         log.debug("ReceiveMoney(SendCurrency: {}, SendMoney: {}, ReceiveCurrency: {}, ReceiveMoney: {})",
                 sendCurrency, sendMoney, receiveCurrency, receiveMoney);
-        return FxTrade.of(sendCurrency, sendRate, sendMoney, receiveCurrency, receiveRate, receiveMoney);
+        return FxMoneyDto.of(sendCurrency, sendRate, sendMoney, receiveCurrency, receiveRate, receiveMoney);
     }
 
     private static BigDecimal getFxRate(Currency sendCurrency, Map<Currency, BigDecimal> currencyMap, String format) {

@@ -1,13 +1,13 @@
 package com.fastcampus.sr.fxprovider.api.service;
 
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxCurrencyDto;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculateRequest;
+import com.fastcampus.sr.fxprovider.api.controller.dto.FxMoneyCalculateRequest;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundFxCurrencyException;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxTrade;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,10 +42,11 @@ public class FxRateQueryService {
                 .collect(Collectors.toList());
     }
 
-    public FxTrade calculateFx(FxRateCalculateRequest request) {
+    public FxMoneyDto calculateFxMoney(FxMoneyCalculateRequest request) {
         List<FxCurrency> fxCurrencies = fxCurrencyRepository.findAll();
 
-        FxTrade result = FxRateCalculator.calculate(fxCurrencies,
+        FxMoneyDto result = FxRateCalculator.calculate(
+                fxCurrencies,
                 request.getSendCurrency(),
                 request.getSendMoney(),
                 request.getReceiveCurrency());

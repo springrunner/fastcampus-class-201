@@ -1,10 +1,10 @@
-package com.fastcampus.sr.fxprovider.core.domain.trade;
+package com.fastcampus.sr.fxprovider.core.domain.trade.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 
 import java.math.BigDecimal;
 
-public class FxTrade {
+public class FxMoneyDto {
     private Currency sendCurrency;
     private BigDecimal sendRate;
     private BigDecimal sendMoney;
@@ -12,12 +12,12 @@ public class FxTrade {
     private BigDecimal receiveRate;
     private BigDecimal receiveMoney;
 
-    public FxTrade(Currency sendCurrency,
-                   BigDecimal sendRate,
-                   BigDecimal sendMoney,
-                   Currency receiveCurrency,
-                   BigDecimal receiveRate,
-                   BigDecimal receiveMoney) {
+    public FxMoneyDto(Currency sendCurrency,
+                      BigDecimal sendRate,
+                      BigDecimal sendMoney,
+                      Currency receiveCurrency,
+                      BigDecimal receiveRate,
+                      BigDecimal receiveMoney) {
         this.sendCurrency = sendCurrency;
         this.sendRate = sendRate;
         this.sendMoney = sendMoney;
@@ -26,13 +26,13 @@ public class FxTrade {
         this.receiveMoney = receiveMoney;
     }
 
-    public static FxTrade of(Currency sendCurrency,
-                             BigDecimal sendRate,
-                             BigDecimal sendMoney,
-                             Currency receiveCurrency,
-                             BigDecimal receiveRate,
-                             BigDecimal receiveMoney) {
-        return new FxTrade(sendCurrency, sendRate, sendMoney, receiveCurrency, receiveRate, receiveMoney);
+    public static FxMoneyDto of(Currency sendCurrency,
+                                BigDecimal sendRate,
+                                BigDecimal sendMoney,
+                                Currency receiveCurrency,
+                                BigDecimal receiveRate,
+                                BigDecimal receiveMoney) {
+        return new FxMoneyDto(sendCurrency, sendRate, sendMoney, receiveCurrency, receiveRate, receiveMoney);
     }
 
     public Currency getSendCurrency() {

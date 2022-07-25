@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxTrade;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +26,12 @@ public class FxRateCalculatedResponse {
         this.expectReceiveMoney = expectReceiveMoney;
     }
 
-    public static FxRateCalculatedResponse of(FxTrade fxTrade) {
+    public static FxRateCalculatedResponse of(FxMoneyDto fxMoneyDto) {
         FxRateCalculatedResponse response = new FxRateCalculatedResponse();
-        response.sendCurrency = fxTrade.getSendCurrency();
-        response.sendMoney = fxTrade.getSendMoney();
-        response.receiveCurrency = fxTrade.getReceiveCurrency();
-        response.expectReceiveMoney = fxTrade.getReceiveMoney();
+        response.sendCurrency = fxMoneyDto.getSendCurrency();
+        response.sendMoney = fxMoneyDto.getSendMoney();
+        response.receiveCurrency = fxMoneyDto.getReceiveCurrency();
+        response.expectReceiveMoney = fxMoneyDto.getReceiveMoney();
         return response;
     }
 

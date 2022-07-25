@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.api.controller;
 
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculateRequest;
+import com.fastcampus.sr.fxprovider.api.controller.dto.FxMoneyCalculateRequest;
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculatedResponse;
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateResponse;
 import com.fastcampus.sr.fxprovider.api.service.FxRateQueryService;
@@ -34,7 +34,7 @@ public class FxRateRestController {
      * @return 예상 수취금액
      */
     @PostMapping("/api/v1/fx-calculate")
-    public FxRateCalculatedResponse calculateFx(@RequestBody FxRateCalculateRequest request) {
-        return FxRateCalculatedResponse.of(fxRateQueryService.calculateFx(request));
+    public FxRateCalculatedResponse calculateFx(@RequestBody FxMoneyCalculateRequest request) {
+        return FxRateCalculatedResponse.of(fxRateQueryService.calculateFxMoney(request));
     }
 }

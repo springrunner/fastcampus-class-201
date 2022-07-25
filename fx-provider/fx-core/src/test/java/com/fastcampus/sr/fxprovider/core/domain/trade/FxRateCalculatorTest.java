@@ -2,8 +2,7 @@ package com.fastcampus.sr.fxprovider.core.domain.trade;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxTrade;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -42,7 +41,7 @@ class FxRateCalculatorTest {
     @ParameterizedTest
     @MethodSource("getSource")
     void testCalculate(Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency, BigDecimal expectedReceiveMoney) {
-        FxTrade result = FxRateCalculator.calculate(getFxCurrency(), sendCurrency, sendMoney, receiveCurrency);
+        FxMoneyDto result = FxRateCalculator.calculate(getFxCurrency(), sendCurrency, sendMoney, receiveCurrency);
 
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(result.getSendCurrency()).isEqualTo(sendCurrency);

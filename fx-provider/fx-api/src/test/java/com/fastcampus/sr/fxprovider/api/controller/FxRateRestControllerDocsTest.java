@@ -4,7 +4,7 @@ import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fastcampus.sr.fx.provider.core.annotation.RestDocsTest;
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxCurrencyDto;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculateRequest;
+import com.fastcampus.sr.fxprovider.api.controller.dto.FxMoneyCalculateRequest;
 import com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator;
 import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
 import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
@@ -103,12 +103,12 @@ class FxRateRestControllerDocsTest {
         );
 
 
-        Mockito.when(fxRateQueryService.calculateFx(any()))
+        Mockito.when(fxRateQueryService.calculateFxMoney(any()))
                 .thenReturn(
                         FxRateCalculator.calculate(fxCurrencies, Currency.KRW, BigDecimal.valueOf(1_000_000d), Currency.JPY)
                 );
 
-        FxRateCalculateRequest calculateRequest = FxRateCalculateRequest.builder()
+        FxMoneyCalculateRequest calculateRequest = FxMoneyCalculateRequest.builder()
                 .sendCurrency(Currency.KRW)
                 .sendMoney(BigDecimal.valueOf(1_000_000d))
                 .receiveCurrency(Currency.JPY)

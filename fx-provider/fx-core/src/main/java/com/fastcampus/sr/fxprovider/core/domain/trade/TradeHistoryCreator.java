@@ -2,6 +2,7 @@ package com.fastcampus.sr.fxprovider.core.domain.trade;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -67,7 +68,7 @@ public class TradeHistoryCreator {
     }
 
     public TradeHistory create(List<FxCurrency> fxCurrencies) {
-        FxTrade fxTrade = FxRateCalculator.calculate(fxCurrencies, sendCurrency, sendMoney, receiveCurrency);
+        FxMoneyDto fxMoneyDto = FxRateCalculator.calculate(fxCurrencies, sendCurrency, sendMoney, receiveCurrency);
 
         return TradeHistory.builder()
                 .senderName(getSenderName())
@@ -77,7 +78,7 @@ public class TradeHistoryCreator {
                 .senderAddress2(getSenderAddress2())
                 .senderIdentifyNumber(getSenderIdentifyNumber())
                 .sendCurrency(getSendCurrency())
-                .sendFxRate(fxTrade.getSendRate())
+                .sendFxRate(fxMoneyDto.getSendRate())
                 .sendMoney(getSendMoney())
                 .receiverName(getReceiverName())
                 .receiverEmail(getReceiverEmail())
@@ -86,8 +87,8 @@ public class TradeHistoryCreator {
                 .receiverAddress2(getReceiverAddress2())
                 .receiverIdentifyNumber(getReceiverIdentifyNumber())
                 .receiveCurrency(getReceiveCurrency())
-                .receiveFxRate(fxTrade.getReceiveRate())
-                .receiveMoney(fxTrade.getReceiveMoney())
+                .receiveFxRate(fxMoneyDto.getReceiveRate())
+                .receiveMoney(fxMoneyDto.getReceiveMoney())
                 .build();
     }
 }
