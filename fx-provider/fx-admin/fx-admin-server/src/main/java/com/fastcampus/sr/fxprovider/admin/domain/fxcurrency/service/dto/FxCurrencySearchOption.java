@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.service.dto;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

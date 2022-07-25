@@ -1,9 +1,9 @@
-package com.fastcampus.sr.fxprovider.api.controller;
+package com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller;
 
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
-import com.fastcampus.sr.fxprovider.api.controller.dto.TradeHistoryDto;
-import com.fastcampus.sr.fxprovider.api.service.FxTradeFacade;
-import com.fastcampus.sr.fxprovider.api.service.TradeHistoryQueryService;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.FxTradeSendCommand;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.TradeHistoryDto;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.FxTradeFacade;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.TradeHistoryQueryService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

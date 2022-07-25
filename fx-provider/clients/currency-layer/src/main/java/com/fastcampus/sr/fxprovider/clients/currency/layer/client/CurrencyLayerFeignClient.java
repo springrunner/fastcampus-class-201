@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.clients.currency.layer.client;
 
 import com.fastcampus.sr.fxprovider.clients.currency.layer.dto.CurrencyLayerResponse;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

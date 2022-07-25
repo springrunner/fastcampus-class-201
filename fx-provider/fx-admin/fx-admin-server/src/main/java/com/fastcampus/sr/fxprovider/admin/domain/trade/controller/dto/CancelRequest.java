@@ -1,4 +1,4 @@
-package com.fastcampus.sr.fxprovider.admin.controller.dto;
+package com.fastcampus.sr.fxprovider.admin.domain.trade.controller.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

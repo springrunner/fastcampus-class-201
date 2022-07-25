@@ -1,10 +1,10 @@
-package com.fastcampus.sr.fxprovider.api.controller;
+package com.fastcampus.sr.fxprovider.api.domain.fxrate.controller;
 
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxMoneyCalculateRequest;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculatedResponse;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateResponse;
-import com.fastcampus.sr.fxprovider.api.service.FxRateQueryService;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.api.domain.fxrate.controller.dto.FxMoneyCalculateRequest;
+import com.fastcampus.sr.fxprovider.api.domain.fxrate.controller.dto.FxRateCalculatedResponse;
+import com.fastcampus.sr.fxprovider.api.domain.fxrate.controller.dto.FxRateResponse;
+import com.fastcampus.sr.fxprovider.api.domain.fxrate.service.FxRateQueryService;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

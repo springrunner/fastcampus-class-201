@@ -1,8 +1,8 @@
-package com.fastcampus.sr.fxprovider.api.service;
+package com.fastcampus.sr.fxprovider.api.domain.fxtrade.service;
 
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.FxTradeSendCommand;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRateRepository;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryCreator;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryRepository;
@@ -14,16 +14,16 @@ import java.util.List;
 @Service
 @Transactional
 public class FxTradeCommandHandler {
-    private final FxCurrencyRepository fxCurrencyRepository;
+    private final FxCurrencyRateRepository fxCurrencyRateRepository;
     private final TradeHistoryRepository tradeHistoryRepository;
 
-    public FxTradeCommandHandler(FxCurrencyRepository fxCurrencyRepository, TradeHistoryRepository tradeHistoryRepository) {
-        this.fxCurrencyRepository = fxCurrencyRepository;
+    public FxTradeCommandHandler(FxCurrencyRateRepository fxCurrencyRateRepository, TradeHistoryRepository tradeHistoryRepository) {
+        this.fxCurrencyRateRepository = fxCurrencyRateRepository;
         this.tradeHistoryRepository = tradeHistoryRepository;
     }
 
     public TradeHistory sendMoney(String memberNumber, FxTradeSendCommand command) {
-        List<FxCurrency> fxCurrencies = fxCurrencyRepository.findAll();
+        List<FxCurrencyRate> fxCurrencies = fxCurrencyRateRepository.findAll();
 
         TradeHistoryCreator tradeHistoryCreator = command.createCreator(memberNumber);
         return tradeHistoryRepository.save(tradeHistoryCreator.create(fxCurrencies));

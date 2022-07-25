@@ -1,6 +1,6 @@
-package com.fastcampus.sr.fxprovider.api.controller.dto;
+package com.fastcampus.sr.fxprovider.api.domain.fxrate.controller.dto;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;

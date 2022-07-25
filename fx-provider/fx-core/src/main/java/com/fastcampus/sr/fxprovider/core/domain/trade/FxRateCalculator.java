@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import com.fastcampus.sr.fxprovider.core.exception.NotSupportCurrencyException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class FxRateCalculator {
     }
 
     //TODO 환전마진을 적용해야 합니다.
-    public static FxMoneyDto calculate(List<FxCurrency> fxCurrencies, Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
+    public static FxMoneyDto calculate(List<FxCurrencyRate> fxCurrencies, Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
         Assert.notEmpty(fxCurrencies, "환율정보는 필수입력값입니다.");
         Assert.notNull(sendCurrency, "송금통화는 필수입력값입니다.");
         Assert.notNull(sendMoney, "송금액은 필수입력값입니다.");
@@ -60,10 +60,10 @@ public class FxRateCalculator {
         return sendRate;
     }
 
-    private static Map<Currency, BigDecimal> getCurrencyMap(List<FxCurrency> fxCurrencies) {
+    private static Map<Currency, BigDecimal> getCurrencyMap(List<FxCurrencyRate> fxCurrencies) {
         Map<Currency, BigDecimal> currencyQuotes = new LinkedHashMap<>();
 
-        for (FxCurrency el : fxCurrencies) {
+        for (FxCurrencyRate el : fxCurrencies) {
             currencyQuotes.putIfAbsent(el.getCurrency(), el.getRate());
         }
 

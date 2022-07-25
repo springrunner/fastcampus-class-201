@@ -1,9 +1,8 @@
 package com.fastcampus.sr.fxprovider.admin.domain.trade.repository;
 
 import com.fastcampus.sr.fx.provider.core.annotation.IntegrationTest;
-import com.fastcampus.sr.fxprovider.admin.domain.trade.repository.TradeHistoryQueryRepository;
 import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.TradeHistorySearchOption;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryRepository;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.TradeHistoryDto;

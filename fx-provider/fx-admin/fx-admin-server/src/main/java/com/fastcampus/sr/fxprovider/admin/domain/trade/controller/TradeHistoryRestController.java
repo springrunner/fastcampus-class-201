@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.admin.domain.trade.controller;
 
-import com.fastcampus.sr.fxprovider.admin.controller.dto.CancelRequest;
+import com.fastcampus.sr.fxprovider.admin.domain.trade.controller.dto.CancelRequest;
 import com.fastcampus.sr.fxprovider.admin.domain.trade.service.TradeHistoryFacade;
 import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.TradeHistorySearchOption;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.TradeHistoryDto;

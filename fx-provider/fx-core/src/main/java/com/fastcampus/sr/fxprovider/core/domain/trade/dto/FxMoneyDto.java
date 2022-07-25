@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade.dto;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 
 import java.math.BigDecimal;
 

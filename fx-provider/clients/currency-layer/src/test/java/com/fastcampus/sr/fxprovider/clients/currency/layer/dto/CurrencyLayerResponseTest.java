@@ -1,20 +1,18 @@
 package com.fastcampus.sr.fxprovider.clients.currency.layer.dto;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
-import static com.fastcampus.sr.fxprovider.common.currency.Currency.*;
+import static com.fastcampus.sr.fxprovider.common.enums.Currency.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CurrencyLayerResponseTest {
 

@@ -1,6 +1,6 @@
-package com.fastcampus.sr.fxprovider.api.controller.dto;
+package com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package com.fastcampus.sr.fxprovider.api.service;
+package com.fastcampus.sr.fxprovider.api.infrastructure.message;
 
 import com.fastcampus.sr.fxprovider.api.exception.QueueMessageException;
 import lombok.extern.slf4j.Slf4j;

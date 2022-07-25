@@ -1,43 +1,42 @@
 package com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.repository;
 
 import com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.service.dto.FxCurrencySearchOption;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.QFxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxCurrencyDto;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxCurrencyRateDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
 
-import static com.fastcampus.sr.fxprovider.core.domain.currency.QFxCurrency.fxCurrency;
+import static com.fastcampus.sr.fxprovider.core.domain.currency.QFxCurrencyRate.fxCurrencyRate;
+
 
 @Repository
 public class FxCurrencyQueryRepository extends QuerydslRepositorySupport {
 
     public FxCurrencyQueryRepository() {
-        super(FxCurrency.class);
+        super(FxCurrencyRate.class);
     }
 
-    public QueryResults<FxCurrencyDto> search(FxCurrencySearchOption searchOption, Pageable pageable) {
+    public QueryResults<FxCurrencyRateDto> search(FxCurrencySearchOption searchOption, Pageable pageable) {
         return getQuerydsl().createQuery()
                 .select(
                         Projections.constructor(
-                                FxCurrencyDto.class,
-                                fxCurrency.currency,
-                                fxCurrency.rate
+                                FxCurrencyRateDto.class,
+                                fxCurrencyRate.currency,
+                                fxCurrencyRate.rate
                         )
                 )
-                .from(fxCurrency)
+                .from(fxCurrencyRate)
                 .where(hasCurrency(searchOption))
                 .fetchResults();
     }
 
     private BooleanExpression hasCurrency(FxCurrencySearchOption searchOption) {
-        return Objects.nonNull(searchOption.getCurrency()) ? fxCurrency.currency.eq(searchOption.getCurrency()) : null;
+        return Objects.nonNull(searchOption.getCurrency()) ? fxCurrencyRate.currency.eq(searchOption.getCurrency()) : null;
     }
 }

@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.exception;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.common.exception.ApplicationErrorCode;
 import com.fastcampus.sr.fxprovider.common.exception.ApplicationException;
 

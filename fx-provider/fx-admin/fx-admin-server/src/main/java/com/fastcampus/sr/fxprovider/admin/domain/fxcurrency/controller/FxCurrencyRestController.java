@@ -3,7 +3,7 @@ package com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.controller;
 import com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.service.FxCurrencyEditor;
 import com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.service.FxCurrencyFinder;
 import com.fastcampus.sr.fxprovider.admin.domain.fxcurrency.service.dto.FxCurrencySearchOption;
-import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxCurrencyDto;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxCurrencyRateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class FxCurrencyRestController {
     }
 
     @GetMapping("/api/v1/fx-currency")
-    public Page<FxCurrencyDto> search(FxCurrencySearchOption searchOption, Pageable pageable) {
+    public Page<FxCurrencyRateDto> search(FxCurrencySearchOption searchOption, Pageable pageable) {
         return finder.search(searchOption, pageable);
     }
 }

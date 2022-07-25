@@ -2,7 +2,7 @@ package com.fastcampus.sr.fxprovider.clients.currency.layer.client;
 
 import com.fastcampus.sr.fxprovider.clients.currency.layer.config.CurrencyLayerClientConfig;
 import com.fastcampus.sr.fxprovider.clients.currency.layer.dto.CurrencyLayerResponse;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

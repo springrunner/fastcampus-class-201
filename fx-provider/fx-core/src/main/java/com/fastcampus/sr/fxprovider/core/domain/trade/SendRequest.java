@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import lombok.Builder;
 import lombok.Getter;
 

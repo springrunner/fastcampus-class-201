@@ -1,8 +1,8 @@
 package com.fastcampus.sr.fxprovider.collector.service;
 
 import com.fastcampus.sr.fx.provider.core.annotation.IntegrationTest;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRateRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @IntegrationTest
 class CurrencyLayerServiceTest {
     @Autowired
-    FxCurrencyRepository fxCurrencyRepository;
+    FxCurrencyRateRepository fxCurrencyRateRepository;
     @Autowired
     CurrencyLayerService currencyLayerService;
 
@@ -25,7 +25,7 @@ class CurrencyLayerServiceTest {
         currencyLayerService.updateFxCurrencies();
 
         //expect
-        List<FxCurrency> fxCurrencies = fxCurrencyRepository.findAll();
+        List<FxCurrencyRate> fxCurrencies = fxCurrencyRateRepository.findAll();
         assertThat(fxCurrencies).hasSize(4);
     }
 }

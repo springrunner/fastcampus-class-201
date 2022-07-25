@@ -1,10 +1,8 @@
 package com.fastcampus.sr.fxprovider.core.domain.currency;
 
 import com.fastcampus.sr.fx.provider.core.annotation.InMemoryDBJpaTest;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.core.CoreTestConfiguration;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -15,28 +13,28 @@ import java.math.BigDecimal;
 
 @InMemoryDBJpaTest
 @ContextConfiguration(classes = {CoreTestConfiguration.class})
-class FxCurrencyRepositoryTest {
+class FxCurrencyRateRepositoryTest {
     @Autowired
-    private FxCurrencyRepository fxCurrencyRepository;
+    private FxCurrencyRateRepository fxCurrencyRateRepository;
 
     @AfterEach
     void tearDown() {
-        fxCurrencyRepository.deleteAll();
+        fxCurrencyRateRepository.deleteAll();
     }
 
     @Test
     void testSave() {
         //given
-        FxCurrency fxCurrency = FxCurrency.create(Currency.KRW, new BigDecimal("1300.55"));
+        FxCurrencyRate fxCurrencyRate = FxCurrencyRate.create(Currency.KRW, new BigDecimal("1300.55"));
 
         //when
-        fxCurrencyRepository.save(fxCurrency);
+        fxCurrencyRateRepository.save(fxCurrencyRate);
 
         //then
         SoftAssertions.assertSoftly(softly -> {
-            softly.assertThat(fxCurrency.getId()).isNotZero();
-            softly.assertThat(fxCurrency.getCurrency()).isEqualTo(Currency.KRW);
-            softly.assertThat(fxCurrency.getRate()).isEqualTo(new BigDecimal("1300.55"));
+            softly.assertThat(fxCurrencyRate.getId()).isNotZero();
+            softly.assertThat(fxCurrencyRate.getCurrency()).isEqualTo(Currency.KRW);
+            softly.assertThat(fxCurrencyRate.getRate()).isEqualTo(new BigDecimal("1300.55"));
         });
     }
 }

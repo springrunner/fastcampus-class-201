@@ -3,16 +3,17 @@ package com.fastcampus.sr.fxprovider.api.controller;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fastcampus.sr.fx.provider.core.annotation.RestDocsTest;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.FxTradeSendCommand;
 import com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator;
 import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
 import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
-import com.fastcampus.sr.fxprovider.api.service.FxTradeFacade;
-import com.fastcampus.sr.fxprovider.api.service.TradeHistoryQueryService;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.FxTradeRestController;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.FxTradeFacade;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.TradeHistoryQueryService;
 import com.fastcampus.sr.fxprovider.common.Constant;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,8 +76,8 @@ class FxMoneyDtoRestControllerDocsTest {
         String request = ObjectMapperUtils.toPrettyJson(sendCommand);
 
         var fxCurrencies = Arrays.asList(
-                FxCurrency.create(Currency.KRW, BigDecimal.valueOf(1321.55d)),
-                FxCurrency.create(Currency.JPY, BigDecimal.valueOf(132.15d))
+                FxCurrencyRate.create(Currency.KRW, BigDecimal.valueOf(1321.55d)),
+                FxCurrencyRate.create(Currency.JPY, BigDecimal.valueOf(132.15d))
         );
 
         TradeHistory tradeHistory = TradeHistory.builder()

@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
 import com.fastcampus.sr.fxprovider.core.BaseEntity;
 import com.mysema.commons.lang.Assert;
@@ -13,7 +13,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.UUID;
 
 import static com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus.*;

@@ -1,4 +1,4 @@
-package com.fastcampus.sr.fxprovider.api.service;
+package com.fastcampus.sr.fxprovider.api.domain.fxtrade.service;
 
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundTradeHistoryException;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;

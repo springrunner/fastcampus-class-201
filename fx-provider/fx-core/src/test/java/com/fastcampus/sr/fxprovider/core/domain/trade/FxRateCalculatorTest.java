@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,12 +17,12 @@ import java.util.stream.Stream;
 
 class FxRateCalculatorTest {
 
-    public static List<FxCurrency> getFxCurrency() {
+    public static List<FxCurrencyRate> getFxCurrency() {
         return Arrays.asList(
-                FxCurrency.create(Currency.CNY, BigDecimal.valueOf(6.751304)),
-                FxCurrency.create(Currency.EUR, BigDecimal.valueOf(0.987085)),
-                FxCurrency.create(Currency.KRW, BigDecimal.valueOf(1316.309794)),
-                FxCurrency.create(Currency.JPY, BigDecimal.valueOf(138.346008))
+                FxCurrencyRate.create(Currency.CNY, BigDecimal.valueOf(6.751304)),
+                FxCurrencyRate.create(Currency.EUR, BigDecimal.valueOf(0.987085)),
+                FxCurrencyRate.create(Currency.KRW, BigDecimal.valueOf(1316.309794)),
+                FxCurrencyRate.create(Currency.JPY, BigDecimal.valueOf(138.346008))
         );
     }
 
@@ -30,7 +30,7 @@ class FxRateCalculatorTest {
         Map<Currency, BigDecimal> currencyQuotes = new LinkedHashMap<>();
         currencyQuotes.put(Currency.USD, BigDecimal.valueOf(1.0));
 
-        for (FxCurrency el : getFxCurrency()) {
+        for (FxCurrencyRate el : getFxCurrency()) {
             currencyQuotes.putIfAbsent(el.getCurrency(), el.getRate());
         }
 

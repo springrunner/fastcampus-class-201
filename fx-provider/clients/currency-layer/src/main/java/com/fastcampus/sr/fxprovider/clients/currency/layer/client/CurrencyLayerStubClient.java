@@ -1,12 +1,9 @@
 package com.fastcampus.sr.fxprovider.clients.currency.layer.client;
 
 import com.fastcampus.sr.fxprovider.clients.currency.layer.dto.CurrencyLayerResponse;
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 

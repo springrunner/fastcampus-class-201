@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.domain.currency;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.core.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FxCurrency extends BaseEntity {
+public class FxCurrencyRate extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency", columnDefinition = "VARCHAR(5) COMMENT '통화'")
@@ -25,11 +25,11 @@ public class FxCurrency extends BaseEntity {
     @Column(name = "fx_rate", columnDefinition = "NUMERIC(10,6) COMMENT '환율'")
     private BigDecimal rate;
 
-    public static FxCurrency create(Currency currency, BigDecimal rate) {
-        FxCurrency fxCurrency = new FxCurrency();
-        fxCurrency.currency = currency;
-        fxCurrency.rate = rate;
-        return fxCurrency;
+    public static FxCurrencyRate create(Currency currency, BigDecimal rate) {
+        FxCurrencyRate fxCurrencyRate = new FxCurrencyRate();
+        fxCurrencyRate.currency = currency;
+        fxCurrencyRate.rate = rate;
+        return fxCurrencyRate;
     }
 
     public void update(BigDecimal rate) {

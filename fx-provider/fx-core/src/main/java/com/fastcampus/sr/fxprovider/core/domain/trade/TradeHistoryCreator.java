@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
-import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -67,7 +67,7 @@ public class TradeHistoryCreator {
         this.receiveCurrency = receiveCurrency;
     }
 
-    public TradeHistory create(List<FxCurrency> fxCurrencies) {
+    public TradeHistory create(List<FxCurrencyRate> fxCurrencies) {
         FxMoneyDto fxMoneyDto = FxRateCalculator.calculate(fxCurrencies, sendCurrency, sendMoney, receiveCurrency);
 
         return TradeHistory.builder()

@@ -1,6 +1,4 @@
-package com.fastcampus.sr.fxprovider.common.currency;
-
-import lombok.Getter;
+package com.fastcampus.sr.fxprovider.common.enums;
 
 /**
  * @see <a href="https://ko.wikipedia.org/wiki/ISO_4217">통화코드(ISO 4217)</a>
