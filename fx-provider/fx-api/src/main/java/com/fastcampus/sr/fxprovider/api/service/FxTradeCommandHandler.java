@@ -1,11 +1,11 @@
 package com.fastcampus.sr.fxprovider.api.service;
 
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrencyRepository;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistoryCreator;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistoryRepository;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryCreator;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

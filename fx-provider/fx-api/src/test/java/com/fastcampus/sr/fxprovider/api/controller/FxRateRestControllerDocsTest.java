@@ -11,9 +11,8 @@ import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
 import com.fastcampus.sr.fxprovider.api.service.FxRateQueryService;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.trade.FxRateCalculator;
-import com.fastcampus.sr.fxprovider.core.trade.FxTrade;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,6 +27,7 @@ import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
@@ -47,8 +47,8 @@ class FxRateRestControllerDocsTest {
     void testGetFxRates(RestDocumentationContextProvider contextProvider) throws Exception {
         Mockito.when(fxRateQueryService.getFxRate(any()))
                 .thenReturn(Arrays.asList(
-                        FxCurrencyDto.of(FxCurrency.create(Currency.KRW, 1321.55d)),
-                        FxCurrencyDto.of(FxCurrency.create(Currency.JPY, 132.15d))
+                        FxCurrencyDto.of(FxCurrency.create(Currency.KRW, BigDecimal.valueOf(1321.55d))),
+                        FxCurrencyDto.of(FxCurrency.create(Currency.JPY, BigDecimal.valueOf(132.15d)))
                 ));
 
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxRateRestController)
@@ -98,19 +98,19 @@ class FxRateRestControllerDocsTest {
     @DisplayName("환율계산")
     void testCalculateFx(RestDocumentationContextProvider contextProvider) throws Exception {
         var fxCurrencies = Arrays.asList(
-                FxCurrency.create(Currency.KRW, 1321.55d),
-                FxCurrency.create(Currency.JPY, 132.15d)
+                FxCurrency.create(Currency.KRW, BigDecimal.valueOf(1321.55d)),
+                FxCurrency.create(Currency.JPY, BigDecimal.valueOf(132.15d))
         );
 
 
         Mockito.when(fxRateQueryService.calculateFx(any()))
                 .thenReturn(
-                        FxRateCalculator.calculate(fxCurrencies, Currency.KRW, 1_000_000d, Currency.JPY)
+                        FxRateCalculator.calculate(fxCurrencies, Currency.KRW, BigDecimal.valueOf(1_000_000d), Currency.JPY)
                 );
 
         FxRateCalculateRequest calculateRequest = FxRateCalculateRequest.builder()
                 .sendCurrency(Currency.KRW)
-                .sendMoney(1_000_000d)
+                .sendMoney(BigDecimal.valueOf(1_000_000d))
                 .receiveCurrency(Currency.JPY)
                 .build();
         String request = ObjectMapperUtils.toPrettyJson(calculateRequest);

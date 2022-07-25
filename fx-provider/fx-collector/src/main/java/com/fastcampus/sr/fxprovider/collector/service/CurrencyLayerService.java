@@ -1,15 +1,15 @@
 package com.fastcampus.sr.fxprovider.collector.service;
 
 import com.fastcampus.sr.fxprovider.clients.currency.layer.client.CurrencyLayerClient;
-import com.fastcampus.sr.fxprovider.clients.currency.layer.dto.CurrencyLayerResponse;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class CurrencyLayerService {
         var currencyLayerResponse = currencyLayerClient.getLiveCurrency();
         var fxCurrencies = fxCurrencyRepository.findAll();
 
-        Map<Currency, Double> fxCurrenciesMap = fxCurrencies.stream()
+        Map<Currency, BigDecimal> fxCurrenciesMap = fxCurrencies.stream()
                 .collect(Collectors.toMap(FxCurrency::getCurrency, FxCurrency::getRate));
 
         List<FxCurrency> newFxCurrencies = new ArrayList<>();

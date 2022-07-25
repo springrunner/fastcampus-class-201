@@ -2,13 +2,12 @@ package com.fastcampus.sr.fxprovider.api.service;
 
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxCurrencyDto;
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculateRequest;
-import com.fastcampus.sr.fxprovider.api.controller.dto.FxRateCalculatedResponse;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundFxCurrencyException;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrencyRepository;
-import com.fastcampus.sr.fxprovider.core.trade.FxRateCalculator;
-import com.fastcampus.sr.fxprovider.core.trade.FxTrade;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxTrade;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,24 +1,25 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.trade.FxTrade;
-import com.sun.istack.NotNull;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxTrade;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FxRateCalculatedResponse {
     private Currency sendCurrency;
-    private Double sendMoney;
+    private BigDecimal sendMoney;
     private Currency receiveCurrency;
-    private Double expectReceiveMoney;
+    private BigDecimal expectReceiveMoney;
 
     public FxRateCalculatedResponse(Currency sendCurrency,
-                                    Double sendMoney,
+                                    BigDecimal sendMoney,
                                     Currency receiveCurrency,
-                                    Double expectReceiveMoney) {
+                                    BigDecimal expectReceiveMoney) {
         this.sendCurrency = sendCurrency;
         this.sendMoney = sendMoney;
         this.receiveCurrency = receiveCurrency;
@@ -30,7 +31,7 @@ public class FxRateCalculatedResponse {
         response.sendCurrency = fxTrade.getSendCurrency();
         response.sendMoney = fxTrade.getSendMoney();
         response.receiveCurrency = fxTrade.getReceiveCurrency();
-        response.expectReceiveMoney = fxTrade.getReceiveMoney().doubleValue();
+        response.expectReceiveMoney = fxTrade.getReceiveMoney();
         return response;
     }
 

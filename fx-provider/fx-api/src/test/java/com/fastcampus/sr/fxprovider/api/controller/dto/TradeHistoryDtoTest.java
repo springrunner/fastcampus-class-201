@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import org.junit.jupiter.api.Test;
 
 class TradeHistoryDtoTest {

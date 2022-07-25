@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
@@ -26,17 +27,17 @@ class CurrencyLayerResponseTest {
         currencyLayerResponse.setTimestamp(new Date().getTime());
         currencyLayerResponse.setSource(Currency.USD);
         currencyLayerResponse.setQuotes(Map.of(
-                "USDEUR", 0.987085,
-                "USDJPY", 138.346008,
-                "USDKRW", 138.346008));
+                "USDEUR", BigDecimal.valueOf(0.987085),
+                "USDJPY", BigDecimal.valueOf(138.346008),
+                "USDKRW", BigDecimal.valueOf(138.346008)));
     }
 
     @Test
     void testGetBase() {
         SoftAssertions.assertSoftly(softAssertions -> {
-            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(EUR)).isEqualTo(0.987085);
-            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(JPY)).isEqualTo(138.346008);
-            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(KRW)).isEqualTo(138.346008);
+            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(EUR)).isEqualTo(BigDecimal.valueOf(0.987085));
+            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(JPY)).isEqualTo(BigDecimal.valueOf(138.346008));
+            softAssertions.assertThat(currencyLayerResponse.getCurrencyQuotes().get(KRW)).isEqualTo(BigDecimal.valueOf(138.346008));
         });
     }
 
@@ -44,7 +45,7 @@ class CurrencyLayerResponseTest {
     @DisplayName("Currency 에 등록되지 않은 통화인 경우 오류 발생")
     void testNotSupportCurrencyOccurException() {
         currencyLayerResponse.setQuotes(Map.of(
-                "USD_UNKNOWN", 1316.309794));
+                "USD_UNKNOWN", BigDecimal.valueOf(1316.309794)));
 
         assertThatThrownBy(() -> currencyLayerResponse.getCurrencyQuotes())
                 .isInstanceOf(IllegalArgumentException.class)

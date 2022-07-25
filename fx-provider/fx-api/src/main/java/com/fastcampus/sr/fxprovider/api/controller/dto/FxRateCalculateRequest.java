@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
+
 @Validated
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -15,12 +17,12 @@ public class FxRateCalculateRequest {
     @NotNull
     private Currency sendCurrency;
     @NotNull
-    private Double sendMoney;
+    private BigDecimal sendMoney;
     @NotNull
     private Currency receiveCurrency;
 
     @Builder
-    public FxRateCalculateRequest(Currency sendCurrency, Double sendMoney, Currency receiveCurrency) {
+    public FxRateCalculateRequest(Currency sendCurrency, BigDecimal sendMoney, Currency receiveCurrency) {
         this.sendCurrency = sendCurrency;
         this.sendMoney = sendMoney;
         this.receiveCurrency = receiveCurrency;

@@ -1,13 +1,14 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistoryCreator;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryCreator;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Validated
 @Getter
@@ -30,7 +31,7 @@ public class FxTradeSendCommand {
     @NotNull
     private Currency sendCurrency;
     @NotNull
-    private Double sendMoney;
+    private BigDecimal sendMoney;
 
     @NotEmpty
     private String receiverName;
@@ -57,7 +58,7 @@ public class FxTradeSendCommand {
             String senderAddress2,
             String senderIdentifyNumber,
             Currency sendCurrency,
-            Double sendMoney,
+            BigDecimal sendMoney,
             String receiverName,
             String receiverEmail,
             String receiverContactNumber,

@@ -7,14 +7,13 @@ import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
 import com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator;
 import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
 import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
-import com.fastcampus.sr.fxprovider.api.service.FxTradeCommandHandler;
 import com.fastcampus.sr.fxprovider.api.service.FxTradeFacade;
 import com.fastcampus.sr.fxprovider.api.service.TradeHistoryQueryService;
 import com.fastcampus.sr.fxprovider.common.Constant;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,6 +26,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -56,7 +56,7 @@ class FxTradeRestControllerDocsTest {
 
         FxTradeSendCommand sendCommand = FxTradeSendCommand.builder()
                 .sendCurrency(Currency.KRW)
-                .sendMoney(1_000_000d)
+                .sendMoney(BigDecimal.valueOf(1_000_000d))
                 .senderName("송금자")
                 .senderEmail("sender@gmail.com")
                 .senderAddress1("강원도 동해시")
@@ -75,15 +75,15 @@ class FxTradeRestControllerDocsTest {
         String request = ObjectMapperUtils.toPrettyJson(sendCommand);
 
         var fxCurrencies = Arrays.asList(
-                FxCurrency.create(Currency.KRW, 1321.55d),
-                FxCurrency.create(Currency.JPY, 132.15d)
+                FxCurrency.create(Currency.KRW, BigDecimal.valueOf(1321.55d)),
+                FxCurrency.create(Currency.JPY, BigDecimal.valueOf(132.15d))
         );
 
         TradeHistory tradeHistory = TradeHistory.builder()
                 .memberNumber(memberNumber)
                 .sendCurrency(sendCommand.getSendCurrency())
                 .sendMoney(sendCommand.getSendMoney())
-                .sendFxRate(1321.55d)
+                .sendFxRate(BigDecimal.valueOf(1321.55d))
                 .senderName(sendCommand.getSenderName())
                 .senderEmail(sendCommand.getSenderEmail())
                 .senderAddress1(sendCommand.getSenderAddress1())
@@ -91,14 +91,14 @@ class FxTradeRestControllerDocsTest {
                 .senderContactNumber(sendCommand.getSenderContactNumber())
                 .senderIdentifyNumber(sendCommand.getSenderIdentifyNumber())
                 .receiveCurrency(sendCommand.getReceiveCurrency())
-                .receiveMoney(999_999d)
+                .receiveMoney(BigDecimal.valueOf(999_999d))
                 .receiverName(sendCommand.getReceiverName())
                 .receiverEmail(sendCommand.getReceiverEmail())
                 .receiverAddress1(sendCommand.getReceiverAddress1())
                 .receiverAddress2(sendCommand.getReceiverAddress2())
                 .receiverContactNumber(sendCommand.getReceiverContactNumber())
                 .receiverIdentifyNumber(sendCommand.getReceiverIdentifyNumber())
-                .receiveFxRate(132.15d)
+                .receiveFxRate(BigDecimal.valueOf(132.15d))
                 .build();
         Mockito.when(fxTradeFacade.sendMoney(anyString(), any()))
                 .thenReturn(tradeHistory);
@@ -235,8 +235,8 @@ class FxTradeRestControllerDocsTest {
         TradeHistory tradeHistory = TradeHistory.builder()
                 .memberNumber(memberNumber)
                 .sendCurrency(Currency.KRW)
-                .sendMoney(1_000_000d)
-                .sendFxRate(1321.55d)
+                .sendMoney(BigDecimal.valueOf(1_000_000d))
+                .sendFxRate(BigDecimal.valueOf(1321.55d))
                 .senderName("송금자")
                 .senderEmail("sender@fxprovider.com")
                 .senderAddress1("강원도 동해시")
@@ -244,14 +244,14 @@ class FxTradeRestControllerDocsTest {
                 .senderContactNumber("+82-010-0000-0000")
                 .senderIdentifyNumber("111111-1111111")
                 .receiveCurrency(Currency.JPY)
-                .receiveMoney(999_999d)
+                .receiveMoney(BigDecimal.valueOf(999_999d))
                 .receiverName("수취자")
                 .receiverEmail("receiver@fxprovider.com")
                 .receiverAddress1("오사카 어딘가")
                 .receiverAddress2("어딘가")
                 .receiverContactNumber("+81-0000-0000-0000")
                 .receiverIdentifyNumber("1234-567-8910")
-                .receiveFxRate(132.15d)
+                .receiveFxRate(BigDecimal.valueOf(132.15d))
                 .build();
 
         Mockito.when(tradeHistoryQueryService.findByMemberNumberAndTradeNumber(anyString(), anyString()))

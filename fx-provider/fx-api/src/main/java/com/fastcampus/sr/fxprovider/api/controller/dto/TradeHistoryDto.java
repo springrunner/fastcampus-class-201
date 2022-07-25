@@ -2,14 +2,12 @@ package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Getter
@@ -23,8 +21,8 @@ public class TradeHistoryDto {
     private ZonedDateTime completedDateTime; // 완료일시
     private String memberNumber;
     private Currency sendCurrency;
-    private Double sendFxRate;
-    private Double sendMoney;
+    private BigDecimal sendFxRate;
+    private BigDecimal sendMoney;
 
     private String senderName;
     private String senderEmail;
@@ -34,8 +32,8 @@ public class TradeHistoryDto {
     private String senderIdentifyNumber;
 
     private Currency receiveCurrency;
-    private Double receiveFxRate;
-    private Double receiveMoney;
+    private BigDecimal receiveFxRate;
+    private BigDecimal receiveMoney;
 
     private String receiverName;
     private String receiverEmail;

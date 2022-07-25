@@ -2,6 +2,7 @@ package com.fastcampus.sr.fxprovider.clients.currency.layer.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ public class CurrencyLayerResponse {
     private long timestamp;
     private boolean success;
     private Currency source;
-    private Map<String, Double> quotes;
+    private Map<String, BigDecimal> quotes;
 
     public long getTimestamp() {
         return timestamp;
@@ -37,18 +38,18 @@ public class CurrencyLayerResponse {
         this.source = source;
     }
 
-    public Map<String, Double> getQuotes() {
+    public Map<String, BigDecimal> getQuotes() {
         return quotes;
     }
 
-    public void setQuotes(Map<String, Double> quotes) {
+    public void setQuotes(Map<String, BigDecimal> quotes) {
         this.quotes = quotes;
     }
 
-    public Map<Currency, Double> getCurrencyQuotes() {
-        Map<Currency, Double> currencyQuotes = new LinkedHashMap<>();
+    public Map<Currency, BigDecimal> getCurrencyQuotes() {
+        Map<Currency, BigDecimal> currencyQuotes = new LinkedHashMap<>();
         for(Map.Entry entry: getQuotes().entrySet()) {
-            currencyQuotes.put(Currency.of(((String)entry.getKey()).substring(3,6)), (Double) entry.getValue());
+            currencyQuotes.put(Currency.of(((String)entry.getKey()).substring(3,6)), (BigDecimal) entry.getValue());
         }
         return currencyQuotes;
     }

@@ -1,8 +1,8 @@
 package com.fastcampus.sr.fxprovider.collector.service;
 
 import com.fastcampus.sr.fx.provider.core.annotation.IntegrationTest;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrencyRepository;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

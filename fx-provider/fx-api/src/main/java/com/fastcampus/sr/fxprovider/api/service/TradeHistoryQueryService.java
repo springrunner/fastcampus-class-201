@@ -1,9 +1,8 @@
 package com.fastcampus.sr.fxprovider.api.service;
 
-import com.fastcampus.sr.fxprovider.api.controller.dto.TradeHistoryDto;
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundTradeHistoryException;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistoryRepository;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

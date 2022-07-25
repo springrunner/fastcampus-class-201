@@ -2,7 +2,7 @@ package com.fastcampus.sr.fxprovider.api.service;
 
 import com.fastcampus.sr.fxprovider.api.controller.dto.FxTradeSendCommand;
 import com.fastcampus.sr.fxprovider.clients.aws.config.AwsSqsQueueProperties;
-import com.fastcampus.sr.fxprovider.core.trade.TradeHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistory;
 import org.springframework.stereotype.Component;
 
 @Component

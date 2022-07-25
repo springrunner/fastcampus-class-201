@@ -1,18 +1,20 @@
 package com.fastcampus.sr.fxprovider.api.controller.dto;
 
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
-import com.fastcampus.sr.fxprovider.core.currency.FxCurrency;
+import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrency;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FxCurrencyDto {
     private Currency currency;
-    private Double rate;
+    private BigDecimal rate;
 
-    public FxCurrencyDto(Currency currency, Double rate) {
+    public FxCurrencyDto(Currency currency, BigDecimal rate) {
         this.currency = currency;
         this.rate = rate;
     }
