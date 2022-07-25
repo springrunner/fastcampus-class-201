@@ -5,9 +5,11 @@ dependencies {
     implementation(project(":fx-common"))
     implementation(project(":clients:kafka"))
     implementation(project(":clients:toast"))
+    implementation(project(":clients:aws-resource"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
 
     testImplementation(testFixtures(project(":fx-core")))
     testImplementation("org.springframework.boot:spring-boot-starter-test")

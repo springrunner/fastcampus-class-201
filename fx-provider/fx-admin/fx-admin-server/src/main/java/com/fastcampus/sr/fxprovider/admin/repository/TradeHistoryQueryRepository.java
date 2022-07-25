@@ -31,6 +31,7 @@ public class TradeHistoryQueryRepository extends QuerydslRepositorySupport {
                                 tradeHistory.requestDateTime,
                                 tradeHistory.inProgressDateTime,
                                 tradeHistory.canceledDateTime,
+                                tradeHistory.cancelReason,
                                 tradeHistory.completedDateTime,
                                 tradeHistory.memberNumber,
                                 tradeHistory.sendCurrency,

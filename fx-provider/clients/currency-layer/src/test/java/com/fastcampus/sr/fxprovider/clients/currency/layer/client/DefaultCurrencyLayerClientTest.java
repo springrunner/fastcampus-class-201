@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConf
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-//@Disabled("테스트 완료")
+@Disabled("테스트 완료")
 @ActiveProfiles({"currency-layer", "currency-layer-dev"})
 @SpringBootTest(classes = {HttpMessageConvertersAutoConfiguration.class, CurrencyLayerClientConfig.class})
 class DefaultCurrencyLayerClientTest {

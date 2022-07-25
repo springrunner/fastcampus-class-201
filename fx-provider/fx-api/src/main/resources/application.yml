@@ -7,11 +7,13 @@ spring:
       - actuator
       - authentication
       - logging
+      - queue-message
+      - aws-resource
     group:
-      local: db-local,logging-local,authentication-dev
-      test: db-test,logging-test,authentication-test
-      dev: db-dev,logging-dev,authentication-dev
-      beta: db-beta,logging-beta,authentication-beta
-      stage: db-stage,logging-stage,authentication-stage
-      prod: db-prod,logging-prod,authentication-prod
+      local: db-local,logging-local,authentication-dev,queue-message-local,aws-resource-local
+      test: db-test,logging-test,authentication-test,queue-message-test,aws-resource-test
+      dev: db-dev,logging-dev,authentication-dev,queue-message-dev,aws-resource-dev
+      beta: db-beta,logging-beta,authentication-beta,queue-message-beta,aws-resource-beta
+      stage: db-stage,logging-stage,authentication-stage,queue-message-stage,aws-resource-stage
+      prod: db-prod,logging-prod,authentication-prod,queue-message-prod,aws-resource-prod
     active: local

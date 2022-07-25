@@ -1,0 +1,15 @@
+description("clients:aws-resource module")
+
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    implementation(project(":fx-common"))
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
+    implementation("org.testcontainers:localstack:1.17.3")
+    implementation("com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.3.6")
+}

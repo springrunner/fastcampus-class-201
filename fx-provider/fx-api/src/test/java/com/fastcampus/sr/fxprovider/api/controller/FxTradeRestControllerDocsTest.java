@@ -8,6 +8,7 @@ import com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator;
 import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
 import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
 import com.fastcampus.sr.fxprovider.api.service.FxTradeCommandHandler;
+import com.fastcampus.sr.fxprovider.api.service.FxTradeFacade;
 import com.fastcampus.sr.fxprovider.api.service.TradeHistoryQueryService;
 import com.fastcampus.sr.fxprovider.common.Constant;
 import com.fastcampus.sr.fxprovider.common.currency.Currency;
@@ -43,7 +44,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 @RestDocsTest
 class FxTradeRestControllerDocsTest {
     @Mock
-    FxTradeCommandHandler fxTradeCommandHandler;
+    FxTradeFacade fxTradeFacade;
     @Mock
     TradeHistoryQueryService tradeHistoryQueryService;
     @InjectMocks
@@ -99,7 +100,7 @@ class FxTradeRestControllerDocsTest {
                 .receiverIdentifyNumber(sendCommand.getReceiverIdentifyNumber())
                 .receiveFxRate(132.15d)
                 .build();
-        Mockito.when(fxTradeCommandHandler.sendMoney(anyString(), any()))
+        Mockito.when(fxTradeFacade.sendMoney(anyString(), any()))
                 .thenReturn(tradeHistory);
 
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxTradeRestController)

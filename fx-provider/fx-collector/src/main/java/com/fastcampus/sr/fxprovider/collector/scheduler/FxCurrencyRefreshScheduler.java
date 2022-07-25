@@ -16,7 +16,10 @@ public class FxCurrencyRefreshScheduler {
         this.currencyLayerService = currencyLayerService;
     }
 
-    @Scheduled(cron = "*/30 * * * * *", zone = SHED_LOCK_DEFAULT_ZONE)
+    /**
+     * 15분에 한번씩 환율정보 조회
+     */
+    @Scheduled(cron = "* */15 * * * *", zone = SHED_LOCK_DEFAULT_ZONE)
     public void updateFxCurrencies() {
         log.info("Execute updateFxCurrencies.");
         currencyLayerService.updateFxCurrencies();

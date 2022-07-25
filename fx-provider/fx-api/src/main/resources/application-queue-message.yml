@@ -1,0 +1,22 @@
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: queue-message-local
+sqs.mock.enable: false
+aws.sqs.mode: aws-sqs-local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: queue-message-test
+sqs.mock.enable: false
+aws.sqs.mode: aws-sqs-test

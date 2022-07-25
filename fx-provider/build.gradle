@@ -25,6 +25,7 @@ def javaProjects = [
     project(":clients:currency-layer"),
     project(":clients:kafka"),
     project(":clients:toast"),
+    project(":clients:aws-resource"),
 ]
 configure(javaProjects) {
     apply plugin: "java"
@@ -55,6 +56,7 @@ configure(javaProjects) {
         implementation("org.springframework.boot:spring-boot-starter-logging")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation(testFixtures(project(":fx-core")))
     }
 
     jacoco {

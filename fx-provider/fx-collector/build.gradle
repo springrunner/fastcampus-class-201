@@ -1,4 +1,4 @@
-description("fx-admin-server module")
+description("fx-collector module")
 
 dependencies {
     implementation(project(":fx-core"))
@@ -19,4 +19,8 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(testFixtures(project(":fx-core")))
+}
+
+tasks.named("bootJar") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

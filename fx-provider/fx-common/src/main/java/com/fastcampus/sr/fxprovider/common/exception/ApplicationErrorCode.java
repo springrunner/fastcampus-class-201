@@ -10,6 +10,7 @@ public enum ApplicationErrorCode {
     FAILURE_API_RESPONSE_JSON_PROCESSING("S412", "JSON 데이터 처리중 오류가 발생했습니다."),
     NOT_FOUND_TRADE_HISTORY("S413", "거래내역을 찾을 수 없습니다."),
     TOAST_EMAIL_EXCEPTION("I100", "토스트(Toast) 이메일 서비스 이용중 오류가 발생했습니다."),
+    QUEUE_MESSAGE_EXCEPTION("I200", "Queue message 전송 중 오류가 발생했습니다."),
     ;
 
     private String code;

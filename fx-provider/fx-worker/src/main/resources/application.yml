@@ -5,11 +5,13 @@ spring:
     include:
       - db
       - actuator
+      - aws-resource
+      - cloud-aws
     group:
-      local: db-local
-      test: db-test
-      dev: db-dev
-      beta: db-beta
-      stage: db-stage
-      prod: db-prod
+      local: db-local,aws-resource-local,cloud-aws-local
+      test: db-test,aws-resource-test,cloud-aws-test
+      dev: db-dev,aws-resource-dev,cloud-aws-dev
+      beta: db-beta,aws-resource-beta,cloud-aws-beta
+      stage: db-stage,aws-resource-stage,cloud-aws-stage
+      prod: db-prod,aws-resource-prod,cloud-aws-prod
     active: local

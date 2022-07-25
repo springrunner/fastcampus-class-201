@@ -1,0 +1,88 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: aws-resource-local
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+sqs:
+  mock:
+    enabled: true
+    random-port-enabled: true
+    host: localhost
+    port: 9324
+  queues:
+    -
+      name: 'fx-send-dlq'
+    -
+      name: 'fx-send'
+      default-visibility-timeout: 1
+      delay: 0
+      receive-messgae-wait: 0
+      dead-letters-queue:
+        name: 'fx-send-dlq'
+        max-receive-count: 1
+aws:
+  sns.topic:
+      fx-trade-event: 'fx-trade-event-local'
+  sqs:
+    mode: aws-resource-local
+    queue:
+      fx-send: 'fx-send-local'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: aws-resource-test
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+sqs:
+  mock:
+    enabled: true
+    random-port-enabled: true
+    host: localhost
+    port: 9324
+  queues:
+    -
+      name: 'fx-send-dlq'
+    -
+      name: 'fx-send'
+      default-visibility-timeout: 1
+      delay: 0
+      receive-messgae-wait: 0
+      dead-letters-queue:
+        name: 'fx-send-dlq'
+        max-receive-count: 1
+aws:
+  sns:
+    topic:
+      fx-trade-event: 'fx-trade-event-test'
+  sqs:
+    mode: aws-resource-test
+    queue:
+      fx-send: 'fx-send-local'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: aws-resource-dev
+sqs.mock:
+  enabled: false
+aws:
+  sns:
+    topic:
+      fx-trade-event: 'fx-trade-event-dev'
+  sqs:
+    mode: aws-resource-test
+    queue:
+      fx-send: 'fx-send-dev' # AWS SQS 는 ARN 을 이용해서 접근하시는 것이 Name 만 이용하는 것보다 탐색 시간이 빨라집니다.
