@@ -1,7 +1,9 @@
 package com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto;
 
+import com.fastcampus.sr.fxprovider.common.enums.Country;
 import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.trade.TradeHistoryCreator;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,6 +31,8 @@ public class FxTradeSendCommand {
     private String senderIdentifyNumber;
 
     @NotNull
+    private Country sendCountry;
+    @NotNull
     private Currency sendCurrency;
     @NotNull
     private BigDecimal sendMoney;
@@ -47,6 +51,8 @@ public class FxTradeSendCommand {
     private String receiverIdentifyNumber;
 
     @NotNull
+    private Country receiveCountry;
+    @NotNull
     private Currency receiveCurrency;
 
     @Builder
@@ -57,6 +63,7 @@ public class FxTradeSendCommand {
             String senderAddress1,
             String senderAddress2,
             String senderIdentifyNumber,
+            Country sendCountry,
             Currency sendCurrency,
             BigDecimal sendMoney,
             String receiverName,
@@ -65,6 +72,7 @@ public class FxTradeSendCommand {
             String receiverAddress1,
             String receiverAddress2,
             String receiverIdentifyNumber,
+            Country receiveCountry,
             Currency receiveCurrency) {
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -72,6 +80,7 @@ public class FxTradeSendCommand {
         this.senderAddress1 = senderAddress1;
         this.senderAddress2 = senderAddress2;
         this.senderIdentifyNumber = senderIdentifyNumber;
+        this.sendCountry = sendCountry;
         this.sendCurrency = sendCurrency;
         this.sendMoney = sendMoney;
         this.receiverName = receiverName;
@@ -80,10 +89,11 @@ public class FxTradeSendCommand {
         this.receiverAddress1 = receiverAddress1;
         this.receiverAddress2 = receiverAddress2;
         this.receiverIdentifyNumber = receiverIdentifyNumber;
+        this.receiveCountry = receiveCountry;
         this.receiveCurrency = receiveCurrency;
     }
 
-    public TradeHistoryCreator createCreator(String memberNumber) {
+    public TradeHistoryCreator createCreator(String memberNumber, FxMoneyDto fxMoneyDto) {
         return TradeHistoryCreator.builder()
                 .memberNumber(memberNumber)
                 .senderName(getSenderName())
@@ -92,7 +102,9 @@ public class FxTradeSendCommand {
                 .senderAddress1(getSenderAddress1())
                 .senderAddress2(getSenderAddress2())
                 .senderIdentifyNumber(getSenderIdentifyNumber())
+                .sendCountry(getSendCountry())
                 .sendCurrency(getSendCurrency())
+                .sendRate(fxMoneyDto.getSendRate())
                 .sendMoney(getSendMoney())
                 .receiverName(getReceiverName())
                 .receiverEmail(getReceiverEmail())
@@ -100,7 +112,10 @@ public class FxTradeSendCommand {
                 .receiverAddress1(getReceiverAddress1())
                 .receiverAddress2(getReceiverAddress2())
                 .receiverIdentifyNumber(getReceiverIdentifyNumber())
+                .receiveCountry(getReceiveCountry())
                 .receiveCurrency(getReceiveCurrency())
+                .receiveRate(fxMoneyDto.getReceiveRate())
+                .receiveMoney(fxMoneyDto.getReceiveMoney())
                 .build();
     }
 }

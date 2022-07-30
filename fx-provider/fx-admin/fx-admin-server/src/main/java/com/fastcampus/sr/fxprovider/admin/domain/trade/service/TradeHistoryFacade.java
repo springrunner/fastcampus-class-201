@@ -1,7 +1,7 @@
 package com.fastcampus.sr.fxprovider.admin.domain.trade.service;
 
-import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.TradeHistorySearchOption;
-import com.fastcampus.sr.fxprovider.core.domain.trade.dto.TradeHistoryDto;
+import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.FxTransferHistorySearchOption;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -19,11 +19,11 @@ public class TradeHistoryFacade {
         this.editor = editor;
     }
 
-    public Page<TradeHistoryDto> search(TradeHistorySearchOption searchOption, Pageable pageable) {
+    public Page<FxTransferHistoryDto> search(FxTransferHistorySearchOption searchOption, Pageable pageable) {
         return finder.search(searchOption, pageable);
     }
 
-    public TradeHistoryDto cancel(String tradeNumber, String cancelReason) {
+    public FxTransferHistoryDto cancel(String tradeNumber, String cancelReason) {
         //TODO 송금자와 수취인에게 송금취소처리 사유를 전송해야함
         return editor.cancel(tradeNumber, cancelReason);
     }

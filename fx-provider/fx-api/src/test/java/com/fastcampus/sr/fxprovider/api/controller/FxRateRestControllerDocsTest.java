@@ -11,9 +11,11 @@ import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
 import com.fastcampus.sr.fxprovider.api.domain.fxrate.controller.FxRateRestController;
 import com.fastcampus.sr.fxprovider.api.domain.fxrate.service.FxRateQueryService;
 import com.fastcampus.sr.fxprovider.common.enums.Currency;
+import com.fastcampus.sr.fxprovider.common.enums.MarginType;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
+import com.fastcampus.sr.fxprovider.core.domain.margin.FxMargin;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxMoneyCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -103,10 +105,14 @@ class FxRateRestControllerDocsTest {
                 FxCurrencyRate.create(Currency.JPY, BigDecimal.valueOf(132.15d))
         );
 
+        var fxMargins = Arrays.asList(
+                new FxMargin(BigDecimal.valueOf(100), BigDecimal.valueOf(200), MarginType.FIX, BigDecimal.valueOf(10))
+        );
+
 
         Mockito.when(fxRateQueryService.calculateFxMoney(any()))
                 .thenReturn(
-                        FxRateCalculator.calculate(fxCurrencies, Currency.KRW, BigDecimal.valueOf(1_000_000d), Currency.JPY)
+                        FxMoneyCalculator.calculate(fxCurrencies, fxMargins, Currency.KRW, BigDecimal.valueOf(1_000_000d), Currency.JPY)
                 );
 
         FxMoneyCalculateRequest calculateRequest = FxMoneyCalculateRequest.builder()

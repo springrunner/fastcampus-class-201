@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto;
 
-import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
+import com.fastcampus.sr.fxprovider.common.type.trade.TransferStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TradeHistorySearchOption {
+public class FxTransferHistorySearchOption {
     private String tradeNumber;
     private String memberNumber;
-    private TradeStatus tradeStatus;
+    private TransferStatus transferStatus;
 
 
     @Builder
-    public TradeHistorySearchOption(String tradeNumber, String memberNumber, TradeStatus tradeStatus) {
+    public FxTransferHistorySearchOption(String tradeNumber, String memberNumber, TransferStatus transferStatus) {
         this.tradeNumber = tradeNumber;
         this.memberNumber = memberNumber;
-        this.tradeStatus = tradeStatus;
+        this.transferStatus = transferStatus;
     }
 }

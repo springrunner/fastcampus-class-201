@@ -1,7 +1,8 @@
 package com.fastcampus.sr.fxprovider.core.domain.trade;
 
+import com.fastcampus.sr.fxprovider.common.enums.Country;
 import com.fastcampus.sr.fxprovider.common.enums.Currency;
-import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
+import com.fastcampus.sr.fxprovider.common.type.trade.TransferStatus;
 import com.fastcampus.sr.fxprovider.core.BaseEntity;
 import com.mysema.commons.lang.Assert;
 import lombok.AccessLevel;
@@ -15,15 +16,15 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
-import static com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus.*;
+import static com.fastcampus.sr.fxprovider.common.type.trade.TransferStatus.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TradeHistory extends BaseEntity {
+public class FxTransferHistory extends BaseEntity {
     @Enumerated
-    @Column(name = "trade_status", columnDefinition = "VARCHAR(50) COMMENT '거래상태'")
-    private TradeStatus tradeStatus;
+    @Column(name = "transfer_status", columnDefinition = "VARCHAR(50) COMMENT '송금상태'")
+    private TransferStatus transferStatus;
 
     @Column(name = "request_date_time", columnDefinition = "TIMESTAMP COMMENT '요청일시'")
     private ZonedDateTime requestDateTime; // 거래일시
@@ -43,6 +44,9 @@ public class TradeHistory extends BaseEntity {
     @Column(name = "trade_number", columnDefinition = "VARCHAR(100) COMMENT '거래번호'")
     private String tradeNumber;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "send_country", columnDefinition = "VARCHAR(10) COMMENT '송금국가'")
+    private Country sendCountry;
     @Enumerated(EnumType.STRING)
     @Column(name = "send_currency", columnDefinition = "VARCHAR(10) COMMENT '송금통화'")
     private Currency sendCurrency;
@@ -65,6 +69,9 @@ public class TradeHistory extends BaseEntity {
     private String senderIdentifyNumber;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "receive_country", columnDefinition = "VARCHAR(10) COMMENT '수취국가'")
+    private Country receiveCountry;
+    @Enumerated(EnumType.STRING)
     @Column(name = "receive_currency", columnDefinition = "VARCHAR(10) COMMENT '수취통화'")
     private Currency receiveCurrency;
     @Column(name = "receive_fx_rate", columnDefinition = "NUMERIC(10,6) COMMENT '수취환율'")
@@ -86,8 +93,9 @@ public class TradeHistory extends BaseEntity {
     private String receiverIdentifyNumber;
 
     @Builder
-    public TradeHistory(
+    public FxTransferHistory(
             String memberNumber,
+            Country sendCountry,
             Currency sendCurrency,
             BigDecimal sendFxRate,
             BigDecimal sendMoney,
@@ -97,6 +105,7 @@ public class TradeHistory extends BaseEntity {
             String senderAddress1,
             String senderAddress2,
             String senderIdentifyNumber,
+            Country receiveCountry,
             Currency receiveCurrency,
             BigDecimal receiveFxRate,
             BigDecimal receiveMoney,
@@ -106,11 +115,12 @@ public class TradeHistory extends BaseEntity {
             String receiverAddress1,
             String receiverAddress2,
             String receiverIdentifyNumber) {
-        this.tradeStatus = REQUEST;
+        this.transferStatus = REQUEST;
         this.requestDateTime = ZonedDateTime.now();
         this.memberNumber = memberNumber;
         this.tradeNumber = UUID.randomUUID().toString();
 
+        this.sendCountry = sendCountry;
         this.sendCurrency = sendCurrency;
         this.sendFxRate = sendFxRate;
         this.sendMoney = sendMoney;
@@ -120,6 +130,8 @@ public class TradeHistory extends BaseEntity {
         this.senderAddress1 = senderAddress1;
         this.senderAddress2 = senderAddress2;
         this.senderIdentifyNumber = senderIdentifyNumber;
+
+        this.receiveCountry = receiveCountry;
         this.receiveCurrency = receiveCurrency;
         this.receiveFxRate = receiveFxRate;
         this.receiveMoney = receiveMoney;
@@ -133,29 +145,29 @@ public class TradeHistory extends BaseEntity {
 
     public void inProgress() {
         Assert.isTrue(
-                this.tradeStatus == REQUEST,
-                String.format("'송금요청' 상태여야 합니다(상태: %s).", this.tradeStatus.getDescription()));
+                this.transferStatus == REQUEST,
+                String.format("'송금요청' 상태여야 합니다(상태: %s).", this.transferStatus.getDescription()));
 
-        this.tradeStatus = IN_PROGRESS;
+        this.transferStatus = IN_PROGRESS;
         this.inProgressDateTime = ZonedDateTime.now();
     }
 
     public void cancel(String reason) {
         Assert.isTrue(
-                Arrays.asList(REQUEST, IN_PROGRESS).contains(this.tradeStatus),
-                String.format("취소가능한 상태가 아닙니다(상태: %s).", this.tradeStatus.getDescription()));
+                Arrays.asList(REQUEST, IN_PROGRESS).contains(this.transferStatus),
+                String.format("취소가능한 상태가 아닙니다(상태: %s).", this.transferStatus.getDescription()));
 
-        this.tradeStatus = CANCELED;
+        this.transferStatus = CANCELED;
         this.canceledDateTime = ZonedDateTime.now();
         this.cancelReason = reason;
     }
 
     public void complete() {
         Assert.isTrue(
-                this.tradeStatus == IN_PROGRESS,
-                String.format("송금진행중 상태여야 합니다(상태: %s).", this.tradeStatus.getDescription()));
+                this.transferStatus == IN_PROGRESS,
+                String.format("송금진행중 상태여야 합니다(상태: %s).", this.transferStatus.getDescription()));
 
-        this.tradeStatus = COMPLETED;
+        this.transferStatus = COMPLETED;
         this.completedDateTime = ZonedDateTime.now();
     }
 }

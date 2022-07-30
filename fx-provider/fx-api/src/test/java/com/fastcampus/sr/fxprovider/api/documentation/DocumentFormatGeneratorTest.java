@@ -1,6 +1,6 @@
 package com.fastcampus.sr.fxprovider.api.documentation;
 
-import com.fastcampus.sr.fxprovider.common.type.trade.TradeStatus;
+import com.fastcampus.sr.fxprovider.common.type.trade.TransferStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DocumentFormatGeneratorTest {
     @Test
     void testGeneratedEnums() {
-        var result = DocumentFormatGenerator.generatedEnums(TradeStatus.class);
+        var result = DocumentFormatGenerator.generatedEnums(TransferStatus.class);
 
         assertThat(result).isEqualTo("REQUEST\n" +
                 "IN_PROGRESS\n" +
@@ -18,7 +18,7 @@ public class DocumentFormatGeneratorTest {
 
     @Test
     void testGeneratedEnumAttrs() {
-        var result = DocumentFormatGenerator.generatedEnumAttrs(TradeStatus.class, TradeStatus::getDescription);
+        var result = DocumentFormatGenerator.generatedEnumAttrs(TransferStatus.class, TransferStatus::getDescription);
 
         assertThat(result.getValue()).isEqualTo("REQUEST(요청)\n" +
                 "IN_PROGRESS(진행중)\n" +

@@ -1,27 +1,22 @@
-package com.fastcampus.sr.fxprovider.worker.service;
+package com.fastcampus.sr.fxprovider.api.domain.fxtrade.service;
 
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundTradeHistoryException;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferTradeHistoryRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @Service
-public class FxTradeService {
+@Transactional(readOnly = true)
+public class FxTransferTradeHistoryQueryService {
     private final FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository;
 
-    public FxTradeService(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository) {
+    public FxTransferTradeHistoryQueryService(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository) {
         this.fxTransferTradeHistoryRepository = fxTransferTradeHistoryRepository;
     }
 
-    @Transactional
-    public void startFxTrade(String tradeNumber) {
-        FxTransferHistory fxTransferHistory = fxTransferTradeHistoryRepository.findByTradeNumber(tradeNumber)
+    public FxTransferHistory findByMemberNumberAndTradeNumber(String memberNumber, String tradeNumber) {
+        return fxTransferTradeHistoryRepository.findByMemberNumberAndTradeNumber(memberNumber, tradeNumber)
                 .orElseThrow(() -> new NotFoundTradeHistoryException(tradeNumber));
-
-        log.debug("TradeHistory(tradeNumber: {}) status change to IN_PROGRESS.", tradeNumber);
-        fxTransferHistory.inProgress();
     }
 }

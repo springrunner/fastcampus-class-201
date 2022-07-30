@@ -6,7 +6,9 @@ import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundFxCurrencyException;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
 import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRateRepository;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxRateCalculator;
+import com.fastcampus.sr.fxprovider.core.domain.margin.FxMargin;
+import com.fastcampus.sr.fxprovider.core.domain.margin.FxMarginRepository;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxMoneyCalculator;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxMoneyDto;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,11 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = false)
 public class FxRateQueryService {
     private final FxCurrencyRateRepository fxCurrencyRateRepository;
+    private final FxMarginRepository fxMarginRepository;
 
-    public FxRateQueryService(FxCurrencyRateRepository fxCurrencyRateRepository) {
+    public FxRateQueryService(FxCurrencyRateRepository fxCurrencyRateRepository, FxMarginRepository fxMarginRepository) {
         this.fxCurrencyRateRepository = fxCurrencyRateRepository;
+        this.fxMarginRepository = fxMarginRepository;
     }
 
     public List<FxCurrencyRateDto> getFxRate(@Nullable Currency targetCurrency) {
@@ -44,9 +48,11 @@ public class FxRateQueryService {
 
     public FxMoneyDto calculateFxMoney(FxMoneyCalculateRequest request) {
         List<FxCurrencyRate> fxCurrencies = fxCurrencyRateRepository.findAll();
+        List<FxMargin> fxMargins = fxMarginRepository.findAll();
 
-        FxMoneyDto result = FxRateCalculator.calculate(
+        FxMoneyDto result = FxMoneyCalculator.calculate(
                 fxCurrencies,
+                fxMargins,
                 request.getSendCurrency(),
                 request.getSendMoney(),
                 request.getReceiveCurrency());

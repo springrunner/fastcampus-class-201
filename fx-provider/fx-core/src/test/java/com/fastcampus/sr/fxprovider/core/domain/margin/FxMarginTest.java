@@ -1,5 +1,6 @@
 package com.fastcampus.sr.fxprovider.core.domain.margin;
 
+import com.fastcampus.sr.fxprovider.common.enums.MarginType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FxMarginTest {
 
-    FxMargin fxMargin = new FxMargin(BigDecimal.ONE, BigDecimal.valueOf(100), BigDecimal.valueOf(10));
+    FxMargin fxMargin = new FxMargin(BigDecimal.ONE, BigDecimal.valueOf(100), MarginType.FIX, BigDecimal.valueOf(10));
 
     @ParameterizedTest
     @MethodSource("caseIsTarget")
