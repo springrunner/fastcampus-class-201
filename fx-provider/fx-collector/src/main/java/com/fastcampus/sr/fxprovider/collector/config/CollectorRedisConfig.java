@@ -21,8 +21,7 @@ public class CollectorRedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        var clusterConfiguration = new RedisClusterConfiguration();
-        clusterConfiguration.clusterNode(redisProperties.getHost(), redisProperties.getPort());
+        var clusterConfiguration = new RedisClusterConfiguration(redisProperties.getCluster().getNodes());
         return new LettuceConnectionFactory(clusterConfiguration);
     }
 }

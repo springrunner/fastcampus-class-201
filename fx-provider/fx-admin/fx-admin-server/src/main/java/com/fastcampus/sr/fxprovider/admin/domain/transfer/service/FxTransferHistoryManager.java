@@ -1,7 +1,7 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.service;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.service;
 
-import com.fastcampus.sr.fxprovider.admin.domain.trade.repository.FxTransferTradeHistoryQueryRepository;
-import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.FxTransferHistorySearchOption;
+import com.fastcampus.sr.fxprovider.admin.domain.transfer.repository.FxTransferTradeHistoryQueryRepository;
+import com.fastcampus.sr.fxprovider.admin.domain.transfer.service.dto.FxTransferHistorySearchOption;
 import com.fastcampus.sr.fxprovider.common.exception.NotFoundTradeHistoryException;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferTradeHistoryRepository;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class TradeHistoryManager implements TradeHistoryFinder, TradeHistoryEditor {
+public class FxTransferHistoryManager implements FxTransferHistoryFinder, FxTransferHistoryEditor {
     private final FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository;
     private final FxTransferTradeHistoryQueryRepository fxTransferTradeHistoryQueryRepository;
 
-    public TradeHistoryManager(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository, FxTransferTradeHistoryQueryRepository fxTransferTradeHistoryQueryRepository) {
+    public FxTransferHistoryManager(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository, FxTransferTradeHistoryQueryRepository fxTransferTradeHistoryQueryRepository) {
         this.fxTransferTradeHistoryRepository = fxTransferTradeHistoryRepository;
         this.fxTransferTradeHistoryQueryRepository = fxTransferTradeHistoryQueryRepository;
     }

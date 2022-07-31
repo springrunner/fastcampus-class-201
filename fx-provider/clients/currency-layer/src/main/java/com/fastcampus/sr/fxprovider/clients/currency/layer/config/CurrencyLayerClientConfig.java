@@ -3,7 +3,7 @@ package com.fastcampus.sr.fxprovider.clients.currency.layer.config;
 import com.fastcampus.sr.fxprovider.clients.currency.layer.client.CurrencyLayerClient;
 import com.fastcampus.sr.fxprovider.clients.currency.layer.client.CurrencyLayerFeignClient;
 import com.fastcampus.sr.fxprovider.clients.currency.layer.client.CurrencyLayerStubClient;
-import com.fastcampus.sr.fxprovider.clients.currency.layer.client.DefaultCurrencyLayerClient;
+import com.fastcampus.sr.fxprovider.clients.currency.layer.client.CurrencyLayerRestClient;
 import com.fastcampus.sr.fxprovider.clients.feign.factory.FeignClientFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -33,7 +33,7 @@ public class CurrencyLayerClientConfig {
 
         @Bean
         public CurrencyLayerClient currencyLayerClient(CurrencyLayerFeignClient feignClient) {
-            return new DefaultCurrencyLayerClient(feignClient);
+            return new CurrencyLayerRestClient(feignClient);
         }
     }
 

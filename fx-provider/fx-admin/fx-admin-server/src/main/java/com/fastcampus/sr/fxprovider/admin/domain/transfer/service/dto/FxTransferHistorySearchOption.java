@@ -1,4 +1,4 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.service.dto;
 
 import com.fastcampus.sr.fxprovider.common.type.trade.TransferStatus;
 import lombok.AccessLevel;

@@ -1,0 +1,25 @@
+== 송금
+송금(Transfer) 요청은 헤더에 `Authorization` 와 발급된 인증키값을 제공해야 합니다.
+
+=== 송금요청
+[discrete]
+==== 요청
+include::{snippets}/post-v1-transfer-send/http-request.adoc[]
+include::{snippets}/post-v1-transfer-send/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/post-v1-transfer-send/http-response.adoc[]
+include::{snippets}/post-v1-transfer-send/http-response.adoc[]
+
+=== 송금내역 조회
+
+[discrete]
+==== 요청
+include::{snippets}/get-v1-transfer-history/http-request.adoc[]
+include::{snippets}/get-v1-transfer-history/curl-request.adoc[]
+
+[discrete]
+==== 응답
+include::{snippets}/get-v1-transfer-history/http-response.adoc[]
+include::{snippets}/get-v1-transfer-history/http-response.adoc[]

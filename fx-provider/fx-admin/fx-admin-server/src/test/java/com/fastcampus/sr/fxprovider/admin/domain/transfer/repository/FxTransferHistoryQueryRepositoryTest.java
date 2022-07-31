@@ -1,7 +1,7 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.repository;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.repository;
 
 import com.fastcampus.sr.fx.provider.core.annotation.IntegrationTest;
-import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.FxTransferHistorySearchOption;
+import com.fastcampus.sr.fxprovider.admin.domain.transfer.service.dto.FxTransferHistorySearchOption;
 import com.fastcampus.sr.fxprovider.common.enums.Country;
 import com.fastcampus.sr.fxprovider.common.enums.Currency;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;

@@ -1,6 +1,6 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.repository;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.repository;
 
-import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.FxTransferHistorySearchOption;
+import com.fastcampus.sr.fxprovider.admin.domain.transfer.service.dto.FxTransferHistorySearchOption;
 import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
 import com.querydsl.core.QueryResults;

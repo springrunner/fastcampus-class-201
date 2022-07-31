@@ -8,7 +8,7 @@ clients:
   currency-layer:
     mode: feign
     root-uri: "https://api.apilayer.com" # 노출되지 않도록 주의하세요.
-    authentication-key: "${auth-key: yzstZhaLqHYOw2Wv0vQHXch9crRnqjoy}"
+    authentication-key: "${auth-key: yzstZhaLqHYOw2Wv0vQHXch9crRnqjoy}" # 변경
     max-requests: 50
     max-requests-per-host: 5
     max-idle-connections: 15

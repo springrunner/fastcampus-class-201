@@ -5,6 +5,6 @@ import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxCurrencyRateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface FxCurrencyFinder {
+public interface FxCurrencyRateFinder {
     Page<FxCurrencyRateDto> search(FxCurrencySearchOption searchOption, Pageable pageable);
 }

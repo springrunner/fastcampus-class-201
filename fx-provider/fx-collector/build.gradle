@@ -17,8 +17,8 @@ dependencies {
     implementation("net.javacrumbs.shedlock:shedlock-spring:4.23.0")
     implementation("net.javacrumbs.shedlock:shedlock-provider-redis-spring:4.23.0")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(testFixtures(project(":fx-core")))
+	testImplementation("org.awaitility:awaitility:3.1.2")
 }
 
 tasks.named("bootJar") {

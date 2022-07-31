@@ -1,26 +1,30 @@
 package com.fastcampus.sr.fxprovider.api.controller;
 
-import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
-import com.epages.restdocs.apispec.ResourceSnippetParameters;
-import com.fastcampus.sr.fx.provider.core.annotation.RestDocsTest;
-import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.FxTradeSendCommand;
-import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
-import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
-import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.FxTransferRestController;
-import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.FxTransferFacade;
-import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.FxTransferTradeHistoryQueryService;
-import com.fastcampus.sr.fxprovider.common.Constant;
-import com.fastcampus.sr.fxprovider.common.enums.Country;
-import com.fastcampus.sr.fxprovider.common.enums.Currency;
-import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
-import com.fastcampus.sr.fxprovider.core.domain.currency.FxCurrencyRate;
-import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;
-import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
+import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
+import static com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator.customFormat;
+import static com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator.zonedDateTimeFormat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
+import static org.springframework.restdocs.payload.JsonFieldType.OBJECT;
+import static org.springframework.restdocs.payload.JsonFieldType.STRING;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
@@ -29,21 +33,20 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.UUID;
-
-import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator.customFormat;
-import static com.fastcampus.sr.fxprovider.api.documentation.DocumentFormatGenerator.zonedDateTimeFormat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.payload.JsonFieldType.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
+import com.epages.restdocs.apispec.ResourceSnippetParameters;
+import com.fastcampus.sr.fx.provider.core.annotation.RestDocsTest;
+import com.fastcampus.sr.fxprovider.api.documentation.MockMvcFactory;
+import com.fastcampus.sr.fxprovider.api.documentation.RestDocumentationUtils;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.FxTransferRestController;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.controller.dto.FxTradeSendCommand;
+import com.fastcampus.sr.fxprovider.api.domain.fxtrade.service.FxTransferFacade;
+import com.fastcampus.sr.fxprovider.common.Constant;
+import com.fastcampus.sr.fxprovider.common.enums.Country;
+import com.fastcampus.sr.fxprovider.common.enums.Currency;
+import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
+import com.fastcampus.sr.fxprovider.core.domain.trade.FxTransferHistory;
+import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
 
 @RestDocsTest
 class FxTransferRestControllerDocsTest {
@@ -160,7 +163,8 @@ class FxTransferRestControllerDocsTest {
         };
 
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxTransferRestController)
-                .perform(RestDocumentationRequestBuilders.post("/api/v1/trade/send")
+                .perform(RestDocumentationRequestBuilders.post("/api/v1/transfer/send")
+                        .header(HttpHeaders.AUTHORIZATION, UUID.randomUUID().toString())
                         .header(Constant.HEADER_MEMBER_NUMBER, memberNumber)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request))
@@ -170,6 +174,7 @@ class FxTransferRestControllerDocsTest {
                         RestDocumentationUtils.getDocumentRequest(),
                         RestDocumentationUtils.getDocumentResponse(),
                         requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증키"),
                                 headerWithName(Constant.HEADER_MEMBER_NUMBER).description("회원번호")
                         ),
                         requestFields(
@@ -178,12 +183,13 @@ class FxTransferRestControllerDocsTest {
                         responseFields(
                                 responseFields
                         )))
-                .andDo(MockMvcRestDocumentationWrapper.document("post-v1-trade-send",
+                .andDo(MockMvcRestDocumentationWrapper.document("post-v1-transfer-send",
                                 RestDocumentationUtils.getDocumentRequest(),
                                 RestDocumentationUtils.getDocumentResponse(),
                                 resource(
                                         ResourceSnippetParameters.builder()
                                                 .requestHeaders(
+                                                        headerWithName(HttpHeaders.AUTHORIZATION).description("인증키"),
                                                         headerWithName(Constant.HEADER_MEMBER_NUMBER).description("회원번호")
                                                 )
                                                 .requestFields(
@@ -266,15 +272,17 @@ class FxTransferRestControllerDocsTest {
                 fieldWithPath("data.receiverIdentifyNumber").type(STRING).description("수취자 식별번호(여권번호, 외국인번호 등)")};
 
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxTransferRestController)
-                .perform(RestDocumentationRequestBuilders.get("/api/v1/trade/{tradeNumber}", tradeNumber)
+                .perform(RestDocumentationRequestBuilders.get("/api/v1/transfer/{tradeNumber}", tradeNumber)
+                        .header(HttpHeaders.AUTHORIZATION, UUID.randomUUID().toString())
                         .header(Constant.HEADER_MEMBER_NUMBER, memberNumber)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcRestDocumentation.document("get-v1-trade-history",
+                .andDo(MockMvcRestDocumentation.document("get-v1-transfer-history",
                         RestDocumentationUtils.getDocumentRequest(),
                         RestDocumentationUtils.getDocumentResponse(),
                         requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("인증키"),
                                 headerWithName(Constant.HEADER_MEMBER_NUMBER).description("회원번호")
                         ),
                         pathParameters(
@@ -289,6 +297,7 @@ class FxTransferRestControllerDocsTest {
                                 resource(
                                         ResourceSnippetParameters.builder()
                                                 .requestHeaders(
+                                                        headerWithName(HttpHeaders.AUTHORIZATION).description("인증키"),
                                                         headerWithName(Constant.HEADER_MEMBER_NUMBER).description("회원번호")
                                                 )
                                                 .pathParameters(

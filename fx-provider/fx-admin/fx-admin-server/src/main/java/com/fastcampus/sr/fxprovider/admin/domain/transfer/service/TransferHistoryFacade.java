@@ -1,6 +1,6 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.service;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.service;
 
-import com.fastcampus.sr.fxprovider.admin.domain.trade.service.dto.FxTransferHistorySearchOption;
+import com.fastcampus.sr.fxprovider.admin.domain.transfer.service.dto.FxTransferHistorySearchOption;
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  * 파사드 패턴은 트랜잭션의 영향범위를 제한하고 외부시스템 클라이언트를 사용하는 용도로 만듭니다.
  */
 @Component
-public class TradeHistoryFacade {
-    private final TradeHistoryFinder finder;
-    private final TradeHistoryEditor editor;
+public class TransferHistoryFacade {
+    private final FxTransferHistoryFinder finder;
+    private final FxTransferHistoryEditor editor;
 
-    public TradeHistoryFacade(TradeHistoryFinder finder, TradeHistoryEditor editor) {
+    public TransferHistoryFacade(FxTransferHistoryFinder finder, FxTransferHistoryEditor editor) {
         this.finder = finder;
         this.editor = editor;
     }

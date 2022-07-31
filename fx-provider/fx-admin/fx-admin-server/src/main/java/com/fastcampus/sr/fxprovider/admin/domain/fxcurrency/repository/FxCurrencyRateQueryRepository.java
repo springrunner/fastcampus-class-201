@@ -16,9 +16,9 @@ import static com.fastcampus.sr.fxprovider.core.domain.currency.QFxCurrencyRate.
 
 
 @Repository
-public class FxCurrencyQueryRepository extends QuerydslRepositorySupport {
+public class FxCurrencyRateQueryRepository extends QuerydslRepositorySupport {
 
-    public FxCurrencyQueryRepository() {
+    public FxCurrencyRateQueryRepository() {
         super(FxCurrencyRate.class);
     }
 

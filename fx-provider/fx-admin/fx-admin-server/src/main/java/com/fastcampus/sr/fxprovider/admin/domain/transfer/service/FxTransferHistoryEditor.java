@@ -1,7 +1,7 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.service;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.service;
 
 import com.fastcampus.sr.fxprovider.core.domain.trade.dto.FxTransferHistoryDto;
 
-public interface TradeHistoryEditor {
+public interface FxTransferHistoryEditor {
     FxTransferHistoryDto cancel(String tradeNumber, String cancelReason);
 }

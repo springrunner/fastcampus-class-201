@@ -1,20 +1,20 @@
-plugins {
+plugins { // 프로젝트에서 사용하는 그레이들 플러그인 정의
     id 'org.springframework.boot' version '2.7.1' apply false
     id 'java'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id "org.asciidoctor.jvm.convert" version "3.3.2"
-    id "com.epages.restdocs-api-spec" version "0.16.2"
+    id "org.asciidoctor.jvm.convert" version "3.3.2" apply false
+    id "com.epages.restdocs-api-spec" version "0.16.2" apply false
     id 'jacoco'
 }
 
-allprojects {
+allprojects { // 모든 프로젝트에 반영되는 부분
     repositories {
         mavenCentral()
         maven { url 'https://jitpack.io'}
     }
 }
 
-def javaProjects = [
+def javaProjects = [ // Java 로 작성된 소스코드에 대한 공통작업 선언
 	project(":fx-common"), 
 	project(":fx-core"), 
 	project(":fx-admin:fx-admin-server"),
@@ -40,6 +40,10 @@ configure(javaProjects) {
     sourceCompatibility = 11
     targetCompatibility = 11
 
+    /**
+     * @see <a href="https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import">Importing Maven BOMs</a>
+     * @see <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies">Importing Dependencies</a>
+     */
     dependencyManagement {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
@@ -79,6 +83,9 @@ configure(javaProjects) {
         }
     }
 
+    /**
+     * @see <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">Build Script Basics</a>
+     */
     tasks.register("integrationTest", Test) {
         useJUnitPlatform {
             includeTags("integration")
@@ -114,6 +121,10 @@ configure(querydslProjects) {
     }
 }
 
+/**
+ * @see <a href="https://docs.spring.io/spring-restdocs/docs/current/reference/html5/#getting-started-build-configuration">Build configuration<a/>
+ * @see <a href="https://github.com/ePages-de/restdocs-api-spec">Spring REST Docs API specification Integration</a>
+ */
 def requiredRestDocsProject = [
         project(":fx-api")
 ]
@@ -143,6 +154,8 @@ configure(requiredRestDocsProject) {
             includeTags("docsTest")
         }
         finalizedBy "jacocoTestReport"
+        finalizedBy "asciidoctor"
+        finalizedBy "openapi3"
     }
 
     /**
@@ -155,7 +168,6 @@ configure(requiredRestDocsProject) {
     tasks.named("asciidoctor") {
         inputs.dir snippetsDir
         configurations "asciidoctorEx"
-        dependsOn docsTest
         baseDirFollowsSourceDir() // 원본파일 .adoc 디렉터리 기준
     }
 
@@ -175,7 +187,7 @@ configure(requiredRestDocsProject) {
         from("swagger-ui") {
             into "BOOT-INF/classes/static/swagger-ui"
         }
-        from("build/api-spec") {
+        from("${project.projectDir}/build/api-spec/openapi3.yaml") {
             into "BOOT-INF/classes/static/swagger-ui"
         }
     }

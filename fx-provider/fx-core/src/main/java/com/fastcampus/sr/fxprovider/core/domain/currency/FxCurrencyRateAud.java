@@ -5,19 +5,23 @@ import com.fastcampus.sr.fxprovider.core.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
-
-/**
- * 환율정보, Hibernate Enver 를 이용해서 이력 보관
- */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FxCurrencyRate extends BaseEntity {
+public class FxCurrencyRateAud extends BaseEntity {
+
+    @Column(name = "rev", columnDefinition = "NUMBER COMMENT 'envers revision'")
+    private Long rev;
+
+    @Column(name = "revtype", columnDefinition = "tinyint COMMENT '0: Insert, 1: Update, 2: Delete'")
+    private Integer revtype;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency", columnDefinition = "VARCHAR(5) COMMENT '통화'")
@@ -25,19 +29,4 @@ public class FxCurrencyRate extends BaseEntity {
 
     @Column(name = "fx_rate", columnDefinition = "NUMERIC(10,6) COMMENT '환율'")
     private BigDecimal rate;
-
-    public static FxCurrencyRate create(Currency currency, BigDecimal rate) {
-        FxCurrencyRate fxCurrencyRate = new FxCurrencyRate();
-        fxCurrencyRate.currency = currency;
-        fxCurrencyRate.rate = rate;
-        return fxCurrencyRate;
-    }
-
-    public void update(BigDecimal rate) {
-        this.rate = rate;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
 }

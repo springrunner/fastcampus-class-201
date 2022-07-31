@@ -26,7 +26,7 @@ public class FxTransferRestController {
      * @param command
      * @return 송금신청내역 FxTradeSendResponse
      */
-    @PostMapping("/api/v1/trade/send")
+    @PostMapping("/api/v1/transfer/send")
     public FxTransferHistoryDto sendMoney(@RequestHeader(HEADER_MEMBER_NUMBER) String memberNumber, @RequestBody @Valid FxTradeSendCommand command) {
         return fxTransferFacade.sendMoney(memberNumber, command);
     }
@@ -38,7 +38,7 @@ public class FxTransferRestController {
      * @param tradeNumber  거래번호
      * @return 송금내역 TradeHistoryDto
      */
-    @GetMapping("/api/v1/trade/{tradeNumber}") // TODO 로그인한 사용자의 거래만 조회할 수 있도록 조취해야합니다.
+    @GetMapping("/api/v1/transfer/{tradeNumber}") // TODO 로그인한 사용자의 거래만 조회할 수 있도록 조취해야합니다.
     public FxTransferHistoryDto getTradeHistory(@RequestHeader(HEADER_MEMBER_NUMBER) String memberNumber, @PathVariable("tradeNumber") String tradeNumber) {
         return fxTransferFacade.findByMemberNumberAndTradeNumber(memberNumber, tradeNumber);
     }

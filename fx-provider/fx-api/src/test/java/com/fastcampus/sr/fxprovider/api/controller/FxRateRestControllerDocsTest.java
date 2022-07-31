@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -54,6 +55,15 @@ class FxRateRestControllerDocsTest {
                         FxCurrencyRateDto.of(FxCurrencyRate.create(Currency.JPY, BigDecimal.valueOf(132.15d)))
                 ));
 
+        FieldDescriptor[] responseFields = {
+                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                fieldWithPath("data").type(OBJECT).description("응답데이터"),
+                fieldWithPath("data.fxCurrencies[]").type(ARRAY).description("환율"),
+                fieldWithPath("data.fxCurrencies[].currency").type(STRING).description("통화"),
+                fieldWithPath("data.fxCurrencies[].rate").type(NUMBER).description("환율")
+        };
+
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxRateRestController)
                 .perform(RestDocumentationRequestBuilders.get("/api/v1/fx-rates")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -66,15 +76,9 @@ class FxRateRestControllerDocsTest {
                                 RequestDocumentation.parameterWithName("targetCurrency").attributes(DocumentFormatGenerator.generatedEnumAttrs(Currency.class, Currency::getDescription)).description("대상통화").optional()
                         ),
                         responseFields(
-                                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
-                                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
-                                fieldWithPath("data").type(OBJECT).description("응답데이터"),
-                                fieldWithPath("data.fxCurrencies[]").type(JsonFieldType.ARRAY).description("환율"),
-                                fieldWithPath("data.fxCurrencies[].currency").type(STRING).description("통화"),
-                                fieldWithPath("data.fxCurrencies[].rate").type(NUMBER).description("환율")
-
+                                responseFields
                         )))
-                .andDo(MockMvcRestDocumentationWrapper.document("get-v1-fx-rates",
+                .andDo(MockMvcRestDocumentationWrapper.document("get-v1-fx-rates", // ePage API를 통해 openapi3.yml 생성
                                 RestDocumentationUtils.getDocumentRequest(),
                                 RestDocumentationUtils.getDocumentResponse(),
                                 resource(
@@ -83,12 +87,7 @@ class FxRateRestControllerDocsTest {
                                                         RequestDocumentation.parameterWithName("targetCurrency").attributes(DocumentFormatGenerator.generatedEnumAttrs(Currency.class, Currency::getDescription)).description("대상통화").optional()
                                                 )
                                                 .responseFields(
-                                                        fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
-                                                        fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
-                                                        fieldWithPath("data").type(OBJECT).description("응답데이터"),
-                                                        fieldWithPath("data.fxCurrencies[]").type(JsonFieldType.ARRAY).description("환율"),
-                                                        fieldWithPath("data.fxCurrencies[].currency").type(STRING).description("통화"),
-                                                        fieldWithPath("data.fxCurrencies[].rate").type(NUMBER).description("환율")
+                                                        responseFields
 
                                                 )
                                                 .build()
@@ -122,6 +121,21 @@ class FxRateRestControllerDocsTest {
                 .build();
         String request = ObjectMapperUtils.toPrettyJson(calculateRequest);
 
+        FieldDescriptor[] requestFields = {
+                fieldWithPath("sendCurrency").description("송금통화"),
+                fieldWithPath("sendMoney").description("송금액"),
+                fieldWithPath("receiveCurrency").description("수취통화")
+        };
+        FieldDescriptor[] responseFields = {
+                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
+                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
+                fieldWithPath("data").type(OBJECT).description("응답데이터"),
+                fieldWithPath("data.sendCurrency").type(STRING).description("송금통화"),
+                fieldWithPath("data.sendMoney").type(NUMBER).description("송금액"),
+                fieldWithPath("data.receiveCurrency").type(STRING).description("수취통화"),
+                fieldWithPath("data.expectReceiveMoney").type(NUMBER).description("예상수취금액")
+        };
+
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxRateRestController)
                 .perform(RestDocumentationRequestBuilders.post("/api/v1/fx-calculate")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,18 +146,10 @@ class FxRateRestControllerDocsTest {
                         RestDocumentationUtils.getDocumentRequest(),
                         RestDocumentationUtils.getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("sendCurrency").description("송금통화"),
-                                fieldWithPath("sendMoney").description("송금액"),
-                                fieldWithPath("receiveCurrency").description("수취통화")
+                                requestFields
                         ),
                         responseFields(
-                                fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
-                                fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
-                                fieldWithPath("data").type(OBJECT).description("응답데이터"),
-                                fieldWithPath("data.sendCurrency").type(STRING).description("송금통화"),
-                                fieldWithPath("data.sendMoney").type(NUMBER).description("송금액"),
-                                fieldWithPath("data.receiveCurrency").type(STRING).description("수취통화"),
-                                fieldWithPath("data.expectReceiveMoney").type(NUMBER).description("예상수취금액")
+                                responseFields
 
                         )))
                 .andDo(MockMvcRestDocumentationWrapper.document("post-v1-fx-calculate",
@@ -152,18 +158,10 @@ class FxRateRestControllerDocsTest {
                                 resource(
                                         ResourceSnippetParameters.builder()
                                                 .requestFields(
-                                                        fieldWithPath("sendCurrency").description("송금통화"),
-                                                        fieldWithPath("sendMoney").description("송금액"),
-                                                        fieldWithPath("receiveCurrency").description("수취통화")
+                                                        requestFields
                                                 )
                                                 .responseFields(
-                                                        fieldWithPath("code").type(STRING).description("응답코드(정상: 0000)"),
-                                                        fieldWithPath("message").type(STRING).description("응답메시지(정상: OK)"),
-                                                        fieldWithPath("data").type(OBJECT).description("응답데이터"),
-                                                        fieldWithPath("data.sendCurrency").type(STRING).description("송금통화"),
-                                                        fieldWithPath("data.sendMoney").type(NUMBER).description("송금액"),
-                                                        fieldWithPath("data.receiveCurrency").type(STRING).description("수취통화"),
-                                                        fieldWithPath("data.expectReceiveMoney").type(NUMBER).description("예상수취금액")
+                                                        responseFields
                                                 )
                                                 .build()
                                 )

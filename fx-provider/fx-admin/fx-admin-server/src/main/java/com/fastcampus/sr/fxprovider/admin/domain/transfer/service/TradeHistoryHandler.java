@@ -1,4 +1,4 @@
-package com.fastcampus.sr.fxprovider.admin.domain.trade.service;
+package com.fastcampus.sr.fxprovider.admin.domain.transfer.service;
 
 import org.springframework.stereotype.Service;
 
