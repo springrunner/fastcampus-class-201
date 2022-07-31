@@ -4,9 +4,10 @@ spring:
       - db
       - logging
       - static-resource
+      - server-port
     group:
       test: db-test,logging-test,static-resource-local
-      local: db-local,logging-local,static-resource-local
+      local: db-local,logging-local,static-resource-local,port-local
       dev: db-dev,logging-dev,static-resource-server
       beta: db-beta,logging-beta,static-resource-server
       stage: db-stage,logging-stage,static-resource-server

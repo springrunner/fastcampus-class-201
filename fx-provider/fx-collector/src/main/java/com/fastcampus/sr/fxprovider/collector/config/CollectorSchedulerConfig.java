@@ -11,11 +11,14 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
+/**
+ * @see <a href="https://github.com/lukas-krecan/ShedLock">Shed Lock</a>
+ */
 @Configuration
 @EnableScheduling
 @EnableSchedulerLock(defaultLockAtMostFor = "PT5M")
 public class CollectorSchedulerConfig implements SchedulingConfigurer {
-    public static final String SHED_LOCK_KEY = "fxProviderCollectorShedLock";
+    private static final String SHED_LOCK_KEY = "fxProviderCollectorShedLock";
     public static final String SHED_LOCK_DEFAULT_ZONE = "Asia/Seoul";
 
     @Override

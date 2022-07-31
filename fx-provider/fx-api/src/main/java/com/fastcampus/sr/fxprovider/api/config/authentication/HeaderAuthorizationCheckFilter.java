@@ -61,6 +61,4 @@ public class HeaderAuthorizationCheckFilter extends OncePerRequestFilter {
         return requireAuthenticationRequirePaths.stream()
                 .anyMatch(targetUriPattern -> pathMatcher.match(targetUriPattern, requestUri));
     }
-
-
 }

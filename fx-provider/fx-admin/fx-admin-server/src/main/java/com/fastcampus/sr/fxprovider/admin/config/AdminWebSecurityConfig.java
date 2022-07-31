@@ -16,7 +16,7 @@ public class AdminWebSecurityConfig {
         httpSecurity.antMatcher("/**").csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/health", "/actuator/helath").permitAll()
+                .antMatchers("/health", "/actuator/health").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
                 .and()

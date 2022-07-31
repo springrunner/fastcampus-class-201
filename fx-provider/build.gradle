@@ -47,6 +47,7 @@ configure(javaProjects) {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
+            mavenBom("io.awspring.cloud:spring-cloud-aws-dependencies:2.4.2")
             mavenBom("com.amazonaws:aws-java-sdk-bom:1.12.262")
             mavenBom("org.testcontainers:testcontainers-bom:1.17.3")
         }
@@ -171,6 +172,9 @@ configure(requiredRestDocsProject) {
         baseDirFollowsSourceDir() // 원본파일 .adoc 디렉터리 기준
     }
 
+    /**
+     * @see <a href="https://github.com/ePages-de/restdocs-api-spec">Spring REST Docs API specification Integration</a>
+     */
     openapi3 {
         servers = [
                 {url = "http://localhost:8080"}

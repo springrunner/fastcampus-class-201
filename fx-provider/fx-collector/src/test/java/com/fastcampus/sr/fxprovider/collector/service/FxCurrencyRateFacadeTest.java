@@ -13,16 +13,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("기능테스트 완료")
 @IntegrationTest
-class CurrencyLayerServiceTest {
+class FxCurrencyRateFacadeTest {
     @Autowired
     FxCurrencyRateRepository fxCurrencyRateRepository;
     @Autowired
-    CurrencyLayerService currencyLayerService;
+    FxCurrencyRateFacade fxCurrencyRateFacade;
 
     @Test
     void testUpdateFxCurrency() {
         //when
-        currencyLayerService.updateFxCurrencies();
+        fxCurrencyRateFacade.updateFxCurrencyRates();
 
         //expect
         List<FxCurrencyRate> fxCurrencies = fxCurrencyRateRepository.findAll();

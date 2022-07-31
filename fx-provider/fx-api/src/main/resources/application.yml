@@ -9,11 +9,15 @@ spring:
       - logging
       - queue-message
       - aws-resource
+      - server-port
     group:
-      local: db-local,logging-local,authentication-local,queue-message-local,aws-resource-local
-      test: db-test,logging-test,authentication-test,queue-message-test,aws-resource-test
+      local: db-local,logging-local,authentication-local,queue-message-local,aws-resource-localstack,port-local
+      test: db-test,logging-test,authentication-test,queue-message-test,aws-resource-localstack
       dev: db-dev,logging-dev,authentication-dev,queue-message-dev,aws-resource-dev
       beta: db-beta,logging-beta,authentication-beta,queue-message-beta,aws-resource-beta
       stage: db-stage,logging-stage,authentication-stage,queue-message-stage,aws-resource-stage
       prod: db-prod,logging-prod,authentication-prod,queue-message-prod,aws-resource-prod
     active: local
+
+  main:
+    allow-bean-definition-overriding: true

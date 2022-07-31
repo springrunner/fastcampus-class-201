@@ -1,0 +1,6 @@
+spring:
+  config:
+    activate:
+      on-profile: port-local
+server:
+  port: 8093

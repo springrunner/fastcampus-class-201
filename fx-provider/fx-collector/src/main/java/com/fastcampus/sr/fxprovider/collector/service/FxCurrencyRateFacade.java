@@ -17,20 +17,19 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class CurrencyLayerService {
+public class FxCurrencyRateFacade {
     private final CurrencyLayerClient currencyLayerClient;
-    private final FxCurrencyRateRepository fxCurrencyRateRepository;
+    private final FxCurrencyRateService fxCurrencyRateService;
 
-    public CurrencyLayerService(CurrencyLayerClient currencyLayerClient, FxCurrencyRateRepository fxCurrencyRateRepository) {
+    public FxCurrencyRateFacade(CurrencyLayerClient currencyLayerClient, FxCurrencyRateService fxCurrencyRateService) {
         this.currencyLayerClient = currencyLayerClient;
-        this.fxCurrencyRateRepository = fxCurrencyRateRepository;
+        this.fxCurrencyRateService = fxCurrencyRateService;
     }
 
     @PostConstruct
-    @Transactional
     public void setUp() {
         var currencyLayerResponse = currencyLayerClient.getLiveCurrency();
-        var fxCurrencies = fxCurrencyRateRepository.findAll();
+        var fxCurrencies = fxCurrencyRateService.findAll();
 
         Map<Currency, BigDecimal> fxCurrenciesMap = fxCurrencies.stream()
                 .collect(Collectors.toMap(FxCurrencyRate::getCurrency, FxCurrencyRate::getRate));
@@ -44,19 +43,12 @@ public class CurrencyLayerService {
 
         if (!newFxCurrencies.isEmpty()) {
             log.debug("Save new FxCurrencies: {}", newFxCurrencies.size());
-            fxCurrencyRateRepository.saveAll(newFxCurrencies);
+            fxCurrencyRateService.saveAll(newFxCurrencies);
         }
     }
 
-    @Transactional
-    public void updateFxCurrencies() {
-        var response = currencyLayerClient.getLiveCurrency();
-        var fxCurrencies = fxCurrencyRateRepository.findAll();
-
-        for (FxCurrencyRate el : fxCurrencies) {
-            if (response.getCurrencyQuotes().containsKey(el.getCurrency())) {
-                el.update(response.getCurrencyQuotes().get(el.getCurrency()));
-            }
-        }
+    public void updateFxCurrencyRates() {
+        var getFxCurrencies = currencyLayerClient.getLiveCurrency();
+        fxCurrencyRateService.updateFxCurrencyRates(getFxCurrencies);
     }
 }

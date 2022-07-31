@@ -7,7 +7,6 @@ dependencies {
     implementation(project(":clients:aws-resource"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

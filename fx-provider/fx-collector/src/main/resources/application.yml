@@ -6,8 +6,9 @@ spring:
       - db
       - currency-layer
       - redis
+      - server-port
     group:
-      local: db-local,currency-layer-dev,redis-local
+      local: db-local,currency-layer-dev,redis-local,port-local
       test: db-test,currency-layer-dev,redis-test
       dev: db-dev,currency-layer-dev,redis-dev
       beta: db-beta,currency-layer-dev,redis-beta

@@ -1,5 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+apply plugin: "java-library"
+
 jar {
     enabled = true
 }
@@ -12,6 +14,6 @@ dependencies {
     implementation(project(":fx-common"))
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("io.github.openfeign:feign-okhttp")
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api("io.github.openfeign:feign-okhttp")
 }

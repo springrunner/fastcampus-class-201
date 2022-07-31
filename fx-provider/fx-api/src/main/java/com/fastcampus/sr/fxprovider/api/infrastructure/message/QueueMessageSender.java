@@ -1,8 +1,8 @@
 package com.fastcampus.sr.fxprovider.api.infrastructure.message;
 
 import com.fastcampus.sr.fxprovider.api.exception.QueueMessageException;
+import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j

@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles({"aws-resource", "aws-resource-local", "test"})
+@ActiveProfiles({"aws-resource", "aws-resource-localstack", "test"})
 @IntegrationTest(classes = {AwsResourceConfig.class})
 class AwsSqsQueuePropertiesTest {
     @Autowired
@@ -15,6 +15,6 @@ class AwsSqsQueuePropertiesTest {
 
     @Test
     void test() {
-        assertThat(sqsQueueProperties.getFxSend()).isEqualTo("fx-send-local");
+        assertThat(sqsQueueProperties.getFxSend()).isEqualTo("fx-send-localstack");
     }
 }

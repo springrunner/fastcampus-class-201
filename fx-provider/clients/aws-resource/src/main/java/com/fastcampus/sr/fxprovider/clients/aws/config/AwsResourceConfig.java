@@ -15,10 +15,10 @@ import com.amazonaws.services.sqs.buffered.AmazonSQSBufferedAsyncClient;
 import com.amazonaws.services.sqs.buffered.QueueBufferConfig;
 import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.fastcampus.sr.fxprovider.common.util.ObjectMapperUtils;
+import io.awspring.cloud.core.env.ResourceIdResolver;
+import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.aws.core.env.ResourceIdResolver;
-import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -59,10 +59,9 @@ public class AwsResourceConfig {
     }
 
     @Configuration
-    @ConditionalOnProperty(value = "aws.sqs.mode", havingValue = "aws-resource-container-test")
     @EnableConfigurationProperties({AwsSqsQueueProperties.class, AwsSnsTopicProperties.class})
-    public class TestAwsConfig {
-
+    @ConditionalOnProperty(value = "aws.sqs.mode", havingValue = "aws-resource-localstack")
+    public class LocalAwsConfig {
         /**
          * LocalStackContainer 구동을 위해서는 docker 가 필요하네요. docker desktop 을 설치하세요.
          * @return
@@ -106,41 +105,6 @@ public class AwsResourceConfig {
             subscribeRequest.addAttributesEntry("RawMessageDelivery", "true");
             amazonSNS.subscribe(subscribeRequest);
             return amazonSNS;
-        }
-    }
-
-    @Configuration
-    @EnableConfigurationProperties({AwsSqsQueueProperties.class, AwsSnsTopicProperties.class})
-    @ConditionalOnProperty(value = "aws.sqs.mode", havingValue = "aws-resource-local")
-    public class LocalAwsConfig {
-        @Bean(destroyMethod = "shutdown")
-        public AmazonSQSBufferedAsyncClient amazonSQS() {
-            QueueBufferConfig queueBufferConfig = new QueueBufferConfig();
-            queueBufferConfig.setFlushOnShutdown(true);
-            return new AmazonSQSBufferedAsyncClient(
-                    AmazonSQSAsyncClientBuilder.standard()
-                            .withEndpointConfiguration(
-                                    new AwsClientBuilder.EndpointConfiguration(
-                                            "http://127.0.0.1:4566",
-                                            Regions.AP_NORTHEAST_2.getName()
-                                    )
-                            )
-                            .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("accesskey", "secretkey")))
-                            .build(), queueBufferConfig
-            );
-        }
-
-        @Bean(destroyMethod = "shutdown")
-        public AmazonSNS amazonSNS() {
-            return AmazonSNSClientBuilder.standard()
-                    .withEndpointConfiguration(
-                            new AwsClientBuilder.EndpointConfiguration(
-                                    "http://127.0.0.1:4566",
-                                    "ap-northeast-2"
-                            )
-                    )
-                    .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("accesskey", "secretkey")))
-                    .build();
         }
     }
 }

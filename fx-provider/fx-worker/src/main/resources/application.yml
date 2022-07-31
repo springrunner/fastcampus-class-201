@@ -7,9 +7,10 @@ spring:
       - actuator
       - aws-resource
       - cloud-aws
+      - server-port
     group:
-      local: db-local,aws-resource-local,cloud-aws-local
-      test: db-test,aws-resource-test,cloud-aws-test
+      local: db-local,aws-resource-localstack,cloud-aws-local,port-local
+      test: db-test,aws-resource-localstack,cloud-aws-test
       dev: db-dev,aws-resource-dev,cloud-aws-dev
       beta: db-beta,aws-resource-beta,cloud-aws-beta
       stage: db-stage,aws-resource-stage,cloud-aws-stage

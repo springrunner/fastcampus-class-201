@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-public class FxTradeService {
+public class FxTransferHistoryService {
     private final FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository;
 
-    public FxTradeService(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository) {
+    public FxTransferHistoryService(FxTransferTradeHistoryRepository fxTransferTradeHistoryRepository) {
         this.fxTransferTradeHistoryRepository = fxTransferTradeHistoryRepository;
     }
 

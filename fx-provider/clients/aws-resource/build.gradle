@@ -1,5 +1,7 @@
 description("clients:aws-resource module")
 
+apply plugin: "java-library"
+
 bootJar { enabled = false }
 jar { enabled = true }
 
@@ -9,7 +11,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
-    implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
+    api("io.awspring.cloud:spring-cloud-starter-aws-messaging")
     implementation("org.testcontainers:localstack:1.17.3")
-    implementation("com.github.jojoldu.spring-boot-aws-mock:mock-sqs-spring-boot-starter:0.3.6")
 }
