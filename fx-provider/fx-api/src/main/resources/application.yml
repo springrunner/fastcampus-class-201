@@ -11,7 +11,7 @@ spring:
       - aws-resource
       - server-port
     group:
-      local: db-local,logging-local,authentication-local,queue-message-local,aws-resource-localstack,port-local
+      local: db-local,logging-local,authentication-dev,queue-message-local,aws-resource-localstack,port-local
       test: db-test,logging-test,authentication-test,queue-message-test,aws-resource-localstack
       dev: db-dev,logging-dev,authentication-dev,queue-message-dev,aws-resource-dev
       beta: db-beta,logging-beta,authentication-beta,queue-message-beta,aws-resource-beta

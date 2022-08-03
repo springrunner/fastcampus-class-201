@@ -31,6 +31,7 @@ configure(javaProjects) {
     apply plugin: "java"
     apply plugin: "jacoco"
     apply plugin: "eclipse"
+    apply plugin: "idea"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
 
@@ -177,7 +178,7 @@ configure(requiredRestDocsProject) {
      */
     openapi3 {
         servers = [
-                {url = "http://localhost:8080"}
+                {url = "http://localhost:8092"}
         ]
         title = "fx-api OpenApi Specification"
         version = "${projectVersion}"

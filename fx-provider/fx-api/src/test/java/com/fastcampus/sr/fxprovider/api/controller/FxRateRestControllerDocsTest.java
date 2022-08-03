@@ -66,10 +66,12 @@ class FxRateRestControllerDocsTest {
 
         MockMvcFactory.getRestDocsMockMvc(contextProvider, fxRateRestController)
                 .perform(RestDocumentationRequestBuilders.get("/api/v1/fx-rates")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("targetCurrency", "KRW")
+                )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcRestDocumentation.document("get-v1-fx-rates",
+                .andDo(MockMvcRestDocumentation.document("get-v1-fx-rates", // Spring REST Docs
                         RestDocumentationUtils.getDocumentRequest(),
                         RestDocumentationUtils.getDocumentResponse(),
                         RequestDocumentation.requestParameters(
